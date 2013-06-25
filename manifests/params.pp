@@ -16,13 +16,19 @@ class bacula::params {
 
   ### Application related parameters
 
-  $is_client     = 'false',
+  $is_client         = 'false',
 
-  $is_storage    = 'false',
+  $is_storage        = 'false',
 
-  $is_director   = 'false',
+  $is_director       = 'false',
 
-  manage_console = 'false',
+  $manage_console    = 'false',
+
+ # $director_server   = '',
+
+ # $director_password = '',
+
+ # $storage_server    = '',
 
   $client_package = $::operatingsystem ? {
     /(?i:Debian|Ubuntu|Mint)/ => 'bacula-fd',
@@ -67,8 +73,16 @@ class bacula::params {
     default => '/etc/bacula',
   }
 
-  $config_file = $::operatingsystem ? {
-    default => '/etc/bacula/bacula.conf',
+  $client_config_file = $::operatingsystem ? {
+    default => '/etc/bacula/bacula-fd.conf',
+  }
+
+  $storage_config_file = $::operatingsystem ? {
+    default => '/etc/bacula/bacula-sd.conf',
+  }
+
+  $director_config_file = $::operatingsystem ? {
+    default => '/etc/bacula/bacula-dir.conf',
   }
 
   $config_file_mode = $::operatingsystem ? {

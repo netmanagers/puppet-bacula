@@ -200,47 +200,56 @@
 # See README for usage patterns.
 #
 class bacula (
-  $my_class            = params_lookup( 'my_class' ),
-  $source              = params_lookup( 'source' ),
-  $source_dir          = params_lookup( 'source_dir' ),
-  $source_dir_purge    = params_lookup( 'source_dir_purge' ),
-  $template            = params_lookup( 'template' ),
-  $service_autorestart = params_lookup( 'service_autorestart' , 'global' ),
-  $options             = params_lookup( 'options' ),
-  $version             = params_lookup( 'version' ),
-  $absent              = params_lookup( 'absent' ),
-  $disable             = params_lookup( 'disable' ),
-  $disableboot         = params_lookup( 'disableboot' ),
-  $monitor             = params_lookup( 'monitor' , 'global' ),
-  $monitor_tool        = params_lookup( 'monitor_tool' , 'global' ),
-  $monitor_target      = params_lookup( 'monitor_target' , 'global' ),
-  $puppi               = params_lookup( 'puppi' , 'global' ),
-  $puppi_helper        = params_lookup( 'puppi_helper' , 'global' ),
-  $firewall            = params_lookup( 'firewall' , 'global' ),
-  $firewall_tool       = params_lookup( 'firewall_tool' , 'global' ),
-  $firewall_src        = params_lookup( 'firewall_src' , 'global' ),
-  $firewall_dst        = params_lookup( 'firewall_dst' , 'global' ),
-  $debug               = params_lookup( 'debug' , 'global' ),
-  $audit_only          = params_lookup( 'audit_only' , 'global' ),
-  $noops               = params_lookup( 'noops' ),
-  $package             = params_lookup( 'package' ),
-  $service             = params_lookup( 'service' ),
-  $service_status      = params_lookup( 'service_status' ),
-  $process             = params_lookup( 'process' ),
-  $process_args        = params_lookup( 'process_args' ),
-  $process_user        = params_lookup( 'process_user' ),
-  $config_dir          = params_lookup( 'config_dir' ),
-  $config_file         = params_lookup( 'config_file' ),
-  $config_file_mode    = params_lookup( 'config_file_mode' ),
-  $config_file_owner   = params_lookup( 'config_file_owner' ),
-  $config_file_group   = params_lookup( 'config_file_group' ),
-  $config_file_init    = params_lookup( 'config_file_init' ),
-  $pid_file            = params_lookup( 'pid_file' ),
-  $data_dir            = params_lookup( 'data_dir' ),
-  $log_dir             = params_lookup( 'log_dir' ),
-  $log_file            = params_lookup( 'log_file' ),
-  $port                = params_lookup( 'port' ),
-  $protocol            = params_lookup( 'protocol' )
+  $my_class              = params_lookup( 'my_class' ),
+  $source                = params_lookup( 'source' ),
+  $source_dir            = params_lookup( 'source_dir' ),
+  $source_dir_purge      = params_lookup( 'source_dir_purge' ),
+  $template              = params_lookup( 'template' ),
+  $service_autorestart   = params_lookup( 'service_autorestart' , 'global' ),
+  $options               = params_lookup( 'options' ),
+  $version               = params_lookup( 'version' ),
+  $absent                = params_lookup( 'absent' ),
+  $disable               = params_lookup( 'disable' ),
+  $disableboot           = params_lookup( 'disableboot' ),
+  $monitor               = params_lookup( 'monitor' , 'global' ),
+  $monitor_tool          = params_lookup( 'monitor_tool' , 'global' ),
+  $monitor_target        = params_lookup( 'monitor_target' , 'global' ),
+  $puppi                 = params_lookup( 'puppi' , 'global' ),
+  $puppi_helper          = params_lookup( 'puppi_helper' , 'global' ),
+  $firewall              = params_lookup( 'firewall' , 'global' ),
+  $firewall_tool         = params_lookup( 'firewall_tool' , 'global' ),
+  $firewall_src          = params_lookup( 'firewall_src' , 'global' ),
+  $firewall_dst          = params_lookup( 'firewall_dst' , 'global' ),
+  $debug                 = params_lookup( 'debug' , 'global' ),
+  $audit_only            = params_lookup( 'audit_only' , 'global' ),
+  $noops                 = params_lookup( 'noops' ),
+  $client_package        = params_lookup( 'client_package' ),
+  $storage_package       = params_lookup( 'storage_package' ),
+  $director_package      = params_lookup( 'director_package' ),
+  $console_package       = params_lookup( 'console_package' ),
+  $service               = params_lookup( 'service' ),
+  $service_status        = params_lookup( 'service_status' ),
+  $process               = params_lookup( 'process' ),
+  $process_args          = params_lookup( 'process_args' ),
+  $process_user          = params_lookup( 'process_user' ),
+  $config_dir            = params_lookup( 'config_dir' ),
+  $client_config_file    = params_lookup( 'client_config_file' ),
+  $storage_config_file   = params_lookup( 'storage_config_file' ),
+  $director_config_file  = params_lookup( 'director_config_file' ),
+  $config_file_mode      = params_lookup( 'config_file_mode' ),
+  $config_file_owner     = params_lookup( 'config_file_owner' ),
+  $config_file_group     = params_lookup( 'config_file_group' ),
+  $config_file_init      = params_lookup( 'config_file_init' ),
+  $pid_file              = params_lookup( 'pid_file' ),
+  $data_dir              = params_lookup( 'data_dir' ),
+  $log_dir               = params_lookup( 'log_dir' ),
+  $log_file              = params_lookup( 'log_file' ),
+  $port                  = params_lookup( 'port' ),
+  $protocol              = params_lookup( 'protocol' ),
+  $is_client             = params_lookup( 'is_client' ),
+  $is_storage            = params_lookup( 'is_storage' ),
+  $is_director           = params_lookup( 'is_director' ),
+  $manage_console        = params_lookup( 'manage_console' )
   ) inherits bacula::params {
 
   $bool_source_dir_purge=any2bool($source_dir_purge)
@@ -326,53 +335,75 @@ class bacula (
   }
 
   ### Managed resources
-  package { $bacula::package:
-    ensure  => $bacula::manage_package,
-    noop    => $bacula::bool_noops,
-  }
+#  package { $bacula::package:
+#    ensure  => $bacula::manage_package,
+#    noop    => $bacula::bool_noops,
+#  }
 
-  service { 'bacula':
-    ensure     => $bacula::manage_service_ensure,
-    name       => $bacula::service,
-    enable     => $bacula::manage_service_enable,
-    hasstatus  => $bacula::service_status,
-    pattern    => $bacula::process,
-    require    => Package[$bacula::package],
-    noop       => $bacula::bool_noops,
-  }
+#  service { 'bacula':
+#    ensure     => $bacula::manage_service_ensure,
+#    name       => $bacula::service,
+#    enable     => $bacula::manage_service_enable,
+#    hasstatus  => $bacula::service_status,
+#    pattern    => $bacula::process,
+#    require    => Package[$bacula::package],
+#    noop       => $bacula::bool_noops,
+#  }
 
-  file { 'bacula.conf':
-    ensure  => $bacula::manage_file,
-    path    => $bacula::config_file,
-    mode    => $bacula::config_file_mode,
-    owner   => $bacula::config_file_owner,
-    group   => $bacula::config_file_group,
-    require => Package[$bacula::package],
-    notify  => $bacula::manage_service_autorestart,
-    source  => $bacula::manage_file_source,
-    content => $bacula::manage_file_content,
-    replace => $bacula::manage_file_replace,
-    audit   => $bacula::manage_audit,
-    noop    => $bacula::bool_noops,
-  }
+#  file { 'bacula.conf':
+#    ensure  => $bacula::manage_file,
+#    path    => $bacula::config_file,
+#    mode    => $bacula::config_file_mode,
+#    owner   => $bacula::config_file_owner,
+#    group   => $bacula::config_file_group,
+#    require => Package[$bacula::package],
+#    notify  => $bacula::manage_service_autorestart,
+#    source  => $bacula::manage_file_source,
+#    content => $bacula::manage_file_content,
+#    replace => $bacula::manage_file_replace,
+#    audit   => $bacula::manage_audit,
+#    noop    => $bacula::bool_noops,
+#  }
 
   # The whole bacula configuration directory can be recursively overriden
-  if $bacula::source_dir {
-    file { 'bacula.dir':
-      ensure  => directory,
-      path    => $bacula::config_dir,
-      require => Package[$bacula::package],
-      notify  => $bacula::manage_service_autorestart,
-      source  => $bacula::source_dir,
-      recurse => true,
-      purge   => $bacula::bool_source_dir_purge,
-      force   => $bacula::bool_source_dir_purge,
-      replace => $bacula::manage_file_replace,
-      audit   => $bacula::manage_audit,
-      noop    => $bacula::bool_noops,
-    }
+#  if $bacula::source_dir {
+#    file { 'bacula.dir':
+#      ensure  => directory,
+#      path    => $bacula::config_dir,
+#      require => Package[$bacula::package],
+#      notify  => $bacula::manage_service_autorestart,
+#      source  => $bacula::source_dir,
+#      recurse => true,
+#      purge   => $bacula::bool_source_dir_purge,
+#      force   => $bacula::bool_source_dir_purge,
+#      replace => $bacula::manage_file_replace,
+#      audit   => $bacula::manage_audit,
+#      noop    => $bacula::bool_noops,
+#    }
+#  }
+
+
+  #### Include related classes
+
+  ### Client configuration
+  if $bacula::is_client == 'true' {
+    include bacula::client
   }
 
+  ### Storage configuration
+  if $bacula::is_storage == 'true' {
+    include bacula::storage
+  }
+
+  ### Director configuration
+  if $bacula::is_director == 'true' {
+    include bacula::director
+  }
+
+  ### Console configuration
+  if $bacula::manage_console == 'true' {
+    include bacula::manage_console
+  }
 
   ### Include custom class if $my_class is set
   if $bacula::my_class {
