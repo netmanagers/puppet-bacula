@@ -16,11 +16,34 @@ class bacula::params {
 
   ### Application related parameters
 
-  $package = $::operatingsystem ? {
-    default => 'bacula',
+  $is_client     = 'false',
+
+  $is_storage    = 'false',
+
+  $is_director   = 'false',
+
+  manage_console = 'false',
+
+  $client_package = $::operatingsystem ? {
+    /(?i:Debian|Ubuntu|Mint)/ => 'bacula-fd',
+    default => 'bacula-client',
   }
 
-  $service = $::operatingsystem ? {
+  $storage_package = $::operatingsystem ? {
+    /(?i:Debian|Ubuntu|Mint)/ => 'bacula-sd-mysql',
+    default => 'bacula-storage-mysql',
+  }
+
+  $director_package = $::operatingsystem ? {
+    /(?i:Debian|Ubuntu|Mint)/ => 'bacula-director-mysql',
+    default => 'bacula-director-mysql',
+  }
+
+  $console_package = $::operatingsystem ? {
+    default => 'bacula-console',
+  }
+
+  $client_service = $::operatingsystem ? {
     default => 'bacula',
   }
 
