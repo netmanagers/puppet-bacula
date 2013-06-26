@@ -16,13 +16,13 @@ class bacula::params {
 
   ### Application related parameters
 
-  $is_client         = 'false',
+  $is_client         = 'false'
 
-  $is_storage        = 'false',
+  $is_storage        = 'false'
 
-  $is_director       = 'false',
+  $is_director       = 'false'
 
-  $manage_console    = 'false',
+  $manage_console    = 'false'
 
  # $director_server   = '',
 

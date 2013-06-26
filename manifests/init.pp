@@ -402,7 +402,7 @@ class bacula (
 
   ### Console configuration
   if $bacula::manage_console == 'true' {
-    include bacula::manage_console
+    include bacula::console
   }
 
   ### Include custom class if $my_class is set
