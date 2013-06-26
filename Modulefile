@@ -1,7 +1,7 @@
-name 'example42-bacula'
-version '2.0.10'
+name 'netmanagers-bacula'
+version '1.0.1'
 
-author 'Alessandro Franceschi'
+author 'Sebastian Quaino'
 license 'Apache2'
 project_page 'http://www.example42.com'
 source 'https://github.com/example42/puppet-bacula'
