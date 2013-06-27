@@ -31,4 +31,30 @@ class bacula::client {
     noop    => $bacula::bool_noops,
   }
 
+  service { $bacula::client_service:
+      ensure     => $bacula::manage_service_ensure,
+      name       => $bacula::client_service,
+      enable     => $bacula::manage_service_enable,
+      hasstatus  => $bacula::service_status,
+      pattern    => $bacula::client_process,
+      require    => Package[$bacula::client_package],
+      noop       => $bacula::bool_noops,
+    }
+
+  ### Service monitoring, if enabled ( monitor => true )
+  if $nut::bool_monitor == true {
+    if $bacula::client_service != '' {
+      monitor::process { 'bacula-fd-monitor':
+      process  => $bacula::client_process,
+      service  => $bacula::client_service,
+      pidfile  => $bacula::client_pid_file,
+      user     => $bacula::process_user,
+      argument => $bacula::process_args,
+      tool     => $bacula::monitor_tool,
+      enable   => $bacula::manage_monitor,
+      noop     => $bacula::bool_noops,
+      }
+    }
+  }
+
 }

@@ -31,5 +31,32 @@ class bacula::director {
     noop    => $bacula::bool_noops,
   }
 
+ service { $bacula::director_service:
+      ensure     => $bacula::manage_service_ensure,
+      name       => $bacula::director_service,
+      enable     => $bacula::manage_service_enable,
+      hasstatus  => $bacula::service_status,
+      pattern    => $bacula::director_process,
+      require    => Package[$bacula::director_package],
+      noop       => $bacula::bool_noops,
+    }
+
+  ### Service monitoring, if enabled ( monitor => true )
+  if $nut::bool_monitor == true {
+    if $bacula::director_service != '' {
+      monitor::process { 'bacula-dir-monitor':
+      process  => $bacula::director_process,
+      service  => $bacula::director_service,
+      pidfile  => $bacula::director_pid_file,
+      user     => $bacula::process_user,
+      argument => $bacula::process_args,
+      tool     => $bacula::monitor_tool,
+      enable   => $bacula::manage_monitor,
+      noop     => $bacula::bool_noops,
+      }
+    }
+  }
+
+
 }
 

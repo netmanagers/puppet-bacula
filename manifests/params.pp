@@ -50,7 +50,15 @@ class bacula::params {
   }
 
   $client_service = $::operatingsystem ? {
-    default => 'bacula',
+    default => 'bacula-fd',
+  }
+
+  $storage_service = $::operatingsystem ? {
+    default => 'bacula-sd',
+  }
+
+  $director_service = $::operatingsystem ? {
+    default => 'bacula-dir',
   }
 
   $service_status = $::operatingsystem ? {
