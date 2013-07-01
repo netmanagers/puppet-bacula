@@ -230,7 +230,7 @@ class bacula (
   $service               = params_lookup( 'service' ),
   $client_service        = params_lookup( 'client_service' ),
   $storage_service       = params_lookup( 'storage_service' ),
-  $director_service      = params_lookup( 'directorservice' ),
+  $director_service      = params_lookup( 'director_service' ),
   $service_status        = params_lookup( 'service_status' ),
   $process               = params_lookup( 'process' ),
   $client_process        = params_lookup( 'client_process' ),
