@@ -69,11 +69,35 @@ class bacula::params {
     default => 'bacula',
   }
 
+  $client_process = $::operatingsystem ? {
+    default => 'bacula-fd',
+  }
+
+  $storage_process = $::operatingsystem ? {
+    default => 'bacula-sd',
+  }
+
+  $director_process = $::operatingsystem ? {
+    default => 'bacula-dir',
+  }
+
   $process_args = $::operatingsystem ? {
     default => '',
   }
 
   $process_user = $::operatingsystem ? {
+    default => 'bacula',
+  }
+
+  $client_process_user = $::operatingsystem ? {
+    default => 'bacula',
+  }
+
+  $storage_process_user = $::operatingsystem ? {
+    default => 'bacula',
+  }
+
+  $director_process_user = $::operatingsystem ? {
     default => 'bacula',
   }
 
