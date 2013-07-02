@@ -24,12 +24,6 @@ class bacula::params {
 
   $manage_console    = 'false'
 
- # $director_server   = '',
-
- # $director_password = '',
-
- # $storage_server    = '',
-
   $client_package = $::operatingsystem ? {
     /(?i:Debian|Ubuntu|Mint)/ => 'bacula-fd',
     default => 'bacula-client',
@@ -180,4 +174,18 @@ class bacula::params {
   $audit_only = false
   $noops = false
 
+  ## Bacula-client variables
+  $fd_director_name           = '',
+  $fd_director_password       = '',
+  $fd_traymonitor_name        = '',
+  $fd_traymonitor_password    = '',
+  $fd_traymonitor             = '',
+  $fd_name                    = '',
+  $fd_port                    = '',
+  $fd_WorkingDirectory        = '',
+  $fd_PidDirectory            = '',
+  $fd_maximun_concurrent_jobs = '',
+  $fd_address                 = '',
+  $hearbeat_interval          = '',
+  $fd_messages_name           = '',
 }
