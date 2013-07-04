@@ -42,7 +42,7 @@ class bacula::storage {
     }
 
   ### Service monitoring, if enabled ( monitor => true )
-  if $nut::bool_monitor == true {
+  if $bacula::bool_monitor == true {
     if $bacula::storage_service != '' {
       monitor::process { 'bacula-sd-monitor':
       process  => $bacula::storage_process,

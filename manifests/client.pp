@@ -42,7 +42,7 @@ class bacula::client {
     }
 
   ### Service monitoring, if enabled ( monitor => true )
-  if $nut::bool_monitor == true {
+  if $bacula::bool_monitor == true {
     if $bacula::client_service != '' {
       monitor::process { 'bacula-fd-monitor':
       process  => $bacula::client_process,

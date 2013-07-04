@@ -42,7 +42,7 @@ class bacula::director {
     }
 
   ### Service monitoring, if enabled ( monitor => true )
-  if $nut::bool_monitor == true {
+  if $bacula::bool_monitor == true {
     if $bacula::director_service != '' {
       monitor::process { 'bacula-dir-monitor':
       process  => $bacula::director_process,
