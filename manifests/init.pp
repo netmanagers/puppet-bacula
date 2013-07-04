@@ -268,7 +268,11 @@ class bacula (
   $fd_maximun_concurrent_jobs = params_lookup( 'fd_maximun_concurrent_jobs' ),
   $fd_address                 = params_lookup( 'fd_address' ),
   $fd_hearbeat_interval       = params_lookup( 'fd_hearbeat_interval'),
-  $fd_messages_name           = params_lookup( 'fd_messages_name' )
+  $fd_messages_name           = params_lookup( 'fd_messages_name' ),
+  $console_director_name      = params_lookup( 'console_director_name'),
+  $console_director_password  = params_lookup( 'console_director_password'),
+  $console_director_port      = params_lookup( 'console_director_port'),
+  $console_address            = params_lookup( 'console_address')
   ) inherits bacula::params {
 
   $bool_source_dir_purge=any2bool($source_dir_purge)

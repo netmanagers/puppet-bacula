@@ -111,6 +111,10 @@ class bacula::params {
     default => '/etc/bacula/bacula-dir.conf',
   }
 
+  $console_config_file = $::operatingsystem ? {
+    default => '/etc/bacula/bconsole.conf',
+  }
+
   $config_file_mode = $::operatingsystem ? {
     default => '0644',
   }
@@ -174,7 +178,7 @@ class bacula::params {
   $audit_only = false
   $noops = false
 
-  ## Bacula-client variables
+  ## Bacula client variables
   $fd_director_name           = '',
   $fd_director_password       = '',
   $fd_traymonitor_name        = '',
@@ -188,4 +192,11 @@ class bacula::params {
   $fd_address                 = '',
   $hearbeat_interval          = '',
   $fd_messages_name           = '',
+
+  ## Bacula console variables
+  $console_director_name      = '',
+  $console_director_password  = '',
+  $console_director_port      = '',
+  $console_address            = '',
+
 }

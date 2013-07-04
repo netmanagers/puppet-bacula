@@ -1,0 +1,9 @@
+# File managed by Puppet
+#
+# Bacula User Agent "Console" (bconsole).
+Director {
+  Name = <%= scope.lookupvar('bacula::console_director_name') %>
+  DIRport = <%= scope.lookupvar('bacula::console_director_port') %> 
+  address = <%= scope.lookupvar('bacula::console_address') %> 
+  Password = "<%= scope.lookupvar('bacula::console_director_password') %> "
+}
