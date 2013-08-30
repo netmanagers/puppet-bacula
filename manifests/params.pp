@@ -179,24 +179,24 @@ class bacula::params {
   $noops = false
 
   ## Bacula client variables
-  $fd_director_name           = '',
-  $fd_director_password       = '',
-  $fd_traymonitor_name        = '',
-  $fd_traymonitor_password    = '',
-  $fd_traymonitor             = '',
-  $fd_name                    = '',
-  $fd_port                    = '',
-  $fd_WorkingDirectory        = '',
-  $fd_PidDirectory            = '',
-  $fd_maximun_concurrent_jobs = '',
-  $fd_address                 = '',
-  $hearbeat_interval          = '',
-  $fd_messages_name           = '',
+  $fd_director_name           = ''
+  $fd_director_password       = ''
+  $fd_traymonitor_name        = ''
+  $fd_traymonitor_password    = ''
+  $fd_traymonitor             = ''
+  $fd_name                    = ''
+  $fd_port                    = ''
+  $fd_WorkingDirectory        = ''
+  $fd_PidDirectory            = ''
+  $fd_maximun_concurrent_jobs = ''
+  $fd_address                 = ''
+  $hearbeat_interval          = ''
+  $fd_messages_name           = ''
 
   ## Bacula console variables
-  $console_director_name      = '',
-  $console_director_password  = '',
-  $console_director_port      = '',
-  $console_address            = '',
+  $console_director_name      = ''
+  $console_director_password  = ''
+  $console_director_port      = ''
+  $console_address            = ''
 
 }

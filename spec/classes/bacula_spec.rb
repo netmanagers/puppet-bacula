@@ -147,20 +147,20 @@ describe 'bacula' do
 #    end
 #  end
 
-#  describe 'Test Puppi Integration' do
-#    let(:params) { {:puppi => true, :puppi_helper => "myhelper"} }
-#    it { should contain_puppi__ze('bacula').with_helper('myhelper') }
-#  end
+  describe 'Test Puppi Integration' do
+    let(:params) { {:puppi => true, :puppi_helper => "myhelper"} }
+    it { should contain_puppi__ze('bacula').with_helper('myhelper') }
+  end
 
 #  describe 'Test Monitoring Tools Integration' do
 #    let(:params) { {:monitor => true, :monitor_tool => "puppi" } }
 #    it { should contain_monitor__process('bacula_process').with_tool('puppi') }
 #  end
 
-#  describe 'Test Firewall Tools Integration' do
-#    let(:params) { {:firewall => true, :firewall_tool => "iptables" , :protocol => "tcp" , :port => "42" } }
-#    it { should contain_firewall('bacula_tcp_42').with_tool('iptables') }
-#  end
+  describe 'Test Firewall Tools Integration' do
+    let(:params) { {:firewall => true, :firewall_tool => "iptables" , :protocol => "tcp" , :port => "42" } }
+    it { should contain_firewall('bacula_tcp_42').with_tool('iptables') }
+  end
 
 #  describe 'Test OldGen Module Set Integration' do
 #    let(:params) { {:monitor => "yes" , :monitor_tool => "puppi" , :firewall => "yes" , :firewall_tool => "iptables" , :puppi => "yes" , :port => "42" , :protocol => 'tcp' } }
