@@ -13,7 +13,7 @@ class bacula::client {
   ### Managed resources
   package { $bacula::client_package:
     ensure  => $bacula::manage_package,
-    noop    => $bacula::bool_noops,
+    noop    => $bacula::noops,
   }
 
   file { 'bacula-fd.conf':
@@ -28,7 +28,7 @@ class bacula::client {
     content => $bacula::manage_client_file_content,
     replace => $bacula::manage_file_replace,
     audit   => $bacula::manage_audit,
-    noop    => $bacula::bool_noops,
+    noop    => $bacula::noops,
   }
 
   service { $bacula::client_service:
@@ -38,7 +38,7 @@ class bacula::client {
       hasstatus  => $bacula::service_status,
       pattern    => $bacula::client_process,
       require    => Package[$bacula::client_package],
-      noop       => $bacula::bool_noops,
+      noop       => $bacula::noops,
     }
 
   ### Service monitoring, if enabled ( monitor => true )
@@ -52,7 +52,7 @@ class bacula::client {
       argument => $bacula::process_args,
       tool     => $bacula::monitor_tool,
       enable   => $bacula::manage_monitor,
-      noop     => $bacula::bool_noops,
+      noop     => $bacula::noops,
       }
     }
   }

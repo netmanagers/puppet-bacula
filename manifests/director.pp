@@ -13,7 +13,7 @@ class bacula::director {
   ### Managed resources
   package { $bacula::director_package:
     ensure  => $bacula::manage_package,
-    noop    => $bacula::bool_noops,
+    noop    => $bacula::noops,
   }
 
   file { 'bacula-dir.conf':
@@ -28,7 +28,7 @@ class bacula::director {
     content => $bacula::manage_director_file_content,
     replace => $bacula::manage_file_replace,
     audit   => $bacula::manage_audit,
-    noop    => $bacula::bool_noops,
+    noop    => $bacula::noops,
   }
 
  service { $bacula::director_service:
@@ -38,7 +38,7 @@ class bacula::director {
       hasstatus  => $bacula::service_status,
       pattern    => $bacula::director_process,
       require    => Package[$bacula::director_package],
-      noop       => $bacula::bool_noops,
+      noop       => $bacula::noops,
     }
 
   ### Service monitoring, if enabled ( monitor => true )
@@ -52,7 +52,7 @@ class bacula::director {
       argument => $bacula::process_args,
       tool     => $bacula::monitor_tool,
       enable   => $bacula::manage_monitor,
-      noop     => $bacula::bool_noops,
+      noop     => $bacula::noops,
       }
     }
   }
