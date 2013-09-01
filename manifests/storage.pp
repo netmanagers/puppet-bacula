@@ -13,7 +13,7 @@ class bacula::storage {
   ### Managed resources
   package { $bacula::storage_package:
     ensure  => $bacula::manage_package,
-    noop    => $bacula::bool_noops,
+    noop    => $bacula::noops,
   }
 
   file { 'bacula-sd.conf':
@@ -28,7 +28,7 @@ class bacula::storage {
     content => $bacula::manage_storage_file_content,
     replace => $bacula::manage_file_replace,
     audit   => $bacula::manage_audit,
-    noop    => $bacula::bool_noops,
+    noop    => $bacula::noops,
   }
 
  service { $bacula::storage_service:
@@ -38,7 +38,7 @@ class bacula::storage {
       hasstatus  => $bacula::service_status,
       pattern    => $bacula::storage_process,
       require    => Package[$bacula::storage_package],
-      noop       => $bacula::bool_noops,
+      noop       => $bacula::noops,
     }
 
   ### Service monitoring, if enabled ( monitor => true )
@@ -52,7 +52,7 @@ class bacula::storage {
       argument => $bacula::process_args,
       tool     => $bacula::monitor_tool,
       enable   => $bacula::manage_monitor,
-      noop     => $bacula::bool_noops,
+      noop     => $bacula::noops,
       }
     }
   }
