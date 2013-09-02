@@ -176,7 +176,7 @@ class bacula::params {
   $puppi_helper = 'standard'
   $debug = false
   $audit_only = false
-  $noops = false
+  $noops = undef
 
   ## Bacula client variables
   $fd_director_name           = ''

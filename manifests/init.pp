@@ -128,7 +128,7 @@
 # [*noops*]
 #   Set noop metaparameter to true for all the resources managed by the module.
 #   Basically you can run a dryrun for this specific module if you set
-#   this to true. Default: false
+#   this to true. Default: undef
 #
 # Default class params - As defined in bacula::params.
 # Note that these variables are mostly defined and used in the module itself,
@@ -285,7 +285,6 @@ class bacula (
   $bool_firewall=any2bool($firewall)
   $bool_debug=any2bool($debug)
   $bool_audit_only=any2bool($audit_only)
-  $bool_noops=any2bool($noops)
 
   ### Definition of some variables used in the module
   $manage_package = $bacula::bool_absent ? {
@@ -360,7 +359,7 @@ class bacula (
   ### Managed resources
 #  package { $bacula::package:
 #    ensure  => $bacula::manage_package,
-#    noop    => $bacula::bool_noops,
+#    noop    => $bacula::noops,
 #  }
 
 #  service { 'bacula':
@@ -370,7 +369,7 @@ class bacula (
 #    hasstatus  => $bacula::service_status,
 #    pattern    => $bacula::process,
 #    require    => Package[$bacula::package],
-#    noop       => $bacula::bool_noops,
+#    noop       => $bacula::noops,
 #  }
 
 #  file { 'bacula.conf':
@@ -385,7 +384,7 @@ class bacula (
 #    content => $bacula::manage_file_content,
 #    replace => $bacula::manage_file_replace,
 #    audit   => $bacula::manage_audit,
-#    noop    => $bacula::bool_noops,
+#    noop    => $bacula::noops,
 #  }
 
   # The whole bacula configuration directory can be recursively overriden
@@ -401,7 +400,7 @@ class bacula (
 #      force   => $bacula::bool_source_dir_purge,
 #      replace => $bacula::manage_file_replace,
 #      audit   => $bacula::manage_audit,
-#      noop    => $bacula::bool_noops,
+#      noop    => $bacula::noops,
 #    }
 #  }
 
@@ -441,7 +440,7 @@ class bacula (
       ensure    => $bacula::manage_file,
       variables => $classvars,
       helper    => $bacula::puppi_helper,
-      noop      => $bacula::bool_noops,
+      noop      => $bacula::noops,
     }
   }
 
@@ -455,7 +454,7 @@ class bacula (
         target   => $bacula::monitor_target,
         tool     => $bacula::monitor_tool,
         enable   => $bacula::manage_monitor,
-        noop     => $bacula::bool_noops,
+        noop     => $bacula::noops,
       }
     }
     if $bacula::service != '' {
@@ -467,7 +466,7 @@ class bacula (
         argument => $bacula::process_args,
         tool     => $bacula::monitor_tool,
         enable   => $bacula::manage_monitor,
-        noop     => $bacula::bool_noops,
+        noop     => $bacula::noops,
       }
     }
   }
@@ -484,7 +483,7 @@ class bacula (
       direction   => 'input',
       tool        => $bacula::firewall_tool,
       enable      => $bacula::manage_firewall,
-      noop        => $bacula::bool_noops,
+      noop        => $bacula::noops,
     }
   }
 
@@ -498,7 +497,7 @@ class bacula (
       owner   => 'root',
       group   => 'root',
       content => inline_template('<%= scope.to_hash.reject { |k,v| k.to_s =~ /(uptime.*|path|timestamp|free|.*password.*|.*psk.*|.*key)/ }.to_yaml %>'),
-      noop    => $bacula::bool_noops,
+      noop    => $bacula::noops,
     }
   }
 
