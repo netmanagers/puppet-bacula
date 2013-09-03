@@ -357,54 +357,6 @@ class bacula (
   }
 
   ### Managed resources
-#  package { $bacula::package:
-#    ensure  => $bacula::manage_package,
-#    noop    => $bacula::noops,
-#  }
-
-#  service { 'bacula':
-#    ensure     => $bacula::manage_service_ensure,
-#    name       => $bacula::service,
-#    enable     => $bacula::manage_service_enable,
-#    hasstatus  => $bacula::service_status,
-#    pattern    => $bacula::process,
-#    require    => Package[$bacula::package],
-#    noop       => $bacula::noops,
-#  }
-
-#  file { 'bacula.conf':
-#    ensure  => $bacula::manage_file,
-#    path    => $bacula::config_file,
-#    mode    => $bacula::config_file_mode,
-#    owner   => $bacula::config_file_owner,
-#    group   => $bacula::config_file_group,
-#    require => Package[$bacula::package],
-#    notify  => $bacula::manage_service_autorestart,
-#    source  => $bacula::manage_file_source,
-#    content => $bacula::manage_file_content,
-#    replace => $bacula::manage_file_replace,
-#    audit   => $bacula::manage_audit,
-#    noop    => $bacula::noops,
-#  }
-
-  # The whole bacula configuration directory can be recursively overriden
-#  if $bacula::source_dir {
-#    file { 'bacula.dir':
-#      ensure  => directory,
-#      path    => $bacula::config_dir,
-#      require => Package[$bacula::package],
-#      notify  => $bacula::manage_service_autorestart,
-#      source  => $bacula::source_dir,
-#      recurse => true,
-#      purge   => $bacula::bool_source_dir_purge,
-#      force   => $bacula::bool_source_dir_purge,
-#      replace => $bacula::manage_file_replace,
-#      audit   => $bacula::manage_audit,
-#      noop    => $bacula::noops,
-#    }
-#  }
-
-
   #### Include related classes
 
   ### Client configuration

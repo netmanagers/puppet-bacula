@@ -13,7 +13,7 @@ class bacula::console {
   ### Managed resources
   package { $bacula::manage_console_package:
     ensure  => $bacula::manage_package,
-    noop    => $bacula::bool_noops,
+    noop    => $bacula::noops,
   }
 
 
