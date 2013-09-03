@@ -1,0 +1,37 @@
+# File managed by Puppet
+#
+# Note: use external director address for clients to connect.
+Storage {
+  Name = <%= scope.lookupvar('bacula::sd_name') %>
+  SDAddress = <%= scope.lookupvar('bacula::sd_address') %>
+  SDPort = <%= scope.lookupvar('bacula::sd_port') %>
+  WorkingDirectory = <%= scope.lookupvar('bacula::sd_working_directory') %>
+  Pid Directory = <%= scope.lookupvar('bacula::sd_pid_directory') %>
+  Maximum Concurrent Jobs = <%= scope.lookupvar('bacula::sd_max_concurrent_jobs') %>
+  Heartbeat Interval = <%= scope.lookupvar('bacula::sd_heartbeat_interval') %> Minute            # Prevents timeouts
+}
+
+# Director who is permitted to contact this Storage daemon.
+Director {
+  Name = <%= scope.lookupvar('bacula::sd_director_name') %>
+  Password = "<%= scope.lookupvar('bacula::sd_director_password') %>"
+}
+
+# Storage devices.
+# Read client directory for config files. Remember to bconsole "reload" after adding a client.
+@|"sh -c 'cat /<%= scope.lookupvar('bacula::sd_config_directory') %>/*.conf'"
+
+
+# Restricted Director, used by tray-monitor for Storage daemon status.
+Director {
+  Name = <%= scope.lookupvar('sd_traymonitor_name') %>                                    # Match the Director Monitor.
+  Password = "<%= scope.lookupvar('sd_traymonitor_password') %>"
+  Monitor = <%= scope.lookupvar('bacula::sd_traymonitor') %>
+}
+
+# Send all messages to the Director,
+Messages {
+  Name = <%= scope.lookupvar('bacula::sd_messages_name') %>
+  director = <%= scope.lookupvar('bacula::sd_director_name') %> = all, !skipped, !restored
+}
+
