@@ -286,7 +286,22 @@ class bacula (
   $sd_traymonitor_password    = params_lookup( 'sd_traymonitor_password' ),
   $sd_traymonitor             = params_lookup( 'sd_traymonitor' ),
   $sd_messages_name           = params_lookup( 'sd_messages_name' ),
-  $sd_config_directory        = params_lookup( 'sd_config_directory' )
+  $sd_config_directory        = params_lookup( 'sd_config_directory' ),
+  $dir_name                   = params_lookup( 'dir_name' ),
+  $dir_address                = params_lookup( 'dir_address' ),
+  $dir_port                   = params_lookup( 'dir_port' ),
+  $dir_query_file             = params_lookup( 'dir_query_file' ),
+  $dir_working_directory      = params_lookup( 'dir_working_directory' ),
+  $dir_pid_directory          = params_lookup( 'dir_pid_directory' ),
+  $dir_max_concurrent_jobs    = params_lookup( 'dir_max_concurrent_jobs' ),
+  $sd_heartbeat_interval      = params_lookup( 'sd_heartbeat_interval' ),
+  $dir_password               = params_lookup( 'dir_password' ),
+  $dir_traymonitor_name       = params_lookup( 'dir_traymonitor_name' ),
+  $dir_traymonitor_password   = params_lookup( 'dir_traymonitor_password' ),
+  $dir_traymonitor_command    = params_lookup( 'dir_traymonitor_command' ),
+  $dir_messages               = params_lookup( 'dir_messages' ),
+  $dir_config_directory       = params_lookup( 'dir_config_directory' ),
+  $dir_client_directory       = params_lookup( 'dir_client_directory' )
 
   ) inherits bacula::params {
 

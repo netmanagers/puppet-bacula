@@ -215,4 +215,21 @@ class bacula::params {
   $sd_messages_name           = ''
   $sd_config_directory        = ''
 
+  ## Bacula director variable
+  $dir_name                   = ''
+  $dir_address                = ''
+  $dir_port                   = ''
+  $dir_query_file             = ''
+  $dir_working_directory      = ''
+  $dir_pid_directory          = ''
+  $dir_max_concurrent_jobs    = ''
+  $sd_heartbeat_interval      = ''
+  $dir_password               = ''
+  $dir_traymonitor_name       = ''
+  $dir_traymonitor_password   = ''
+  $dir_traymonitor_command    = ''
+  $dir_messages               = ''
+  $dir_config_directory       = ''
+  $dir_client_directory       = ''
+
 }

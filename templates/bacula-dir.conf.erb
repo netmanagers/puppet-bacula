@@ -1,0 +1,27 @@
+# Define the Director name, password used for authenticating the Console program.
+Director {
+  Name = <%= scope.lookupvar('bacula::dir_name') %>
+  DIRport = <%= scope.lookupvar('bacula::dir_port') %>
+  QueryFile = <%= scope.lookupvar('bacula::dir_query_file') %>
+  WorkingDirectory = <%= scope.lookupvar('bacula::dir_working_directory') %>
+  PidDirectory = <%= scope.lookupvar('bacula::dir_pid_directory') %>
+  Maximum Concurrent Jobs = <%= scope.lookupvar('bacula::dir_max_concurrent_jobs') %>
+  Password = "<%= scope.lookupvar('bacula::dir_password') %>"
+  Messages = <%= scope.lookupvar('bacula::dir_messages') %>
+  DirAddress = <%= scope.lookupvar('bacula::dir_address') %>
+  Heartbeat Interval = <%= scope.lookupvar('bacula::sd_heartbeat_interval') %> Minute            # Prevents timeouts
+}
+
+# Restricted Console, used by tray-monitor for Director status.
+Console {
+  Name = <%= scope.lookupvar('bacula::dir_traymonitor_name') %>
+  Password = "<%= scope.lookupvar('bacula::dir_traymonitor_password') %>"
+  CommandACL = <%= scope.lookupvar('bacula::dir_traymonitor_command') %>
+}
+
+# Include split config files.
+@|"sh -c 'cat /<%= scope.lookupvar('bacula::dir_config_directory') %>/*.conf'"
+
+# Read client directory for config files. Remember to bconsole "reload" after adding a client.
+@|"sh -c 'cat /<%= scope.lookupvar('bacula::dir_client_directory') %>/*.conf'"
+
