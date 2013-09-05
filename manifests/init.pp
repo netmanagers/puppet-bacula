@@ -272,7 +272,37 @@ class bacula (
   $console_director_name      = params_lookup( 'console_director_name'),
   $console_director_password  = params_lookup( 'console_director_password'),
   $console_director_port      = params_lookup( 'console_director_port'),
-  $console_address            = params_lookup( 'console_address')
+  $console_address            = params_lookup( 'console_address'),
+  $sd_name                    = params_lookup( 'sd_name' ),
+  $sd_address                 = params_lookup( 'sd_address' ),
+  $sd_port                    = params_lookup( 'sd_port' ),
+  $sd_working_directory       = params_lookup( 'sd_working_directory' ),
+  $sd_pid_directory           = params_lookup( 'sd_pid_directory' ),
+  $sd_max_concurrent_jobs     = params_lookup( 'sd_max_concurrent_jobs' ),
+  $sd_heartbeat_interval      = params_lookup( 'sd_heartbeat_interval' ),
+  $sd_director_name           = params_lookup( 'sd_director_name' ),
+  $sd_director_password       = params_lookup( 'sd_director_password' ),
+  $sd_traymonitor_name        = params_lookup( 'sd_traymonitor_name' ),
+  $sd_traymonitor_password    = params_lookup( 'sd_traymonitor_password' ),
+  $sd_traymonitor             = params_lookup( 'sd_traymonitor' ),
+  $sd_messages_name           = params_lookup( 'sd_messages_name' ),
+  $sd_config_directory        = params_lookup( 'sd_config_directory' ),
+  $dir_name                   = params_lookup( 'dir_name' ),
+  $dir_address                = params_lookup( 'dir_address' ),
+  $dir_port                   = params_lookup( 'dir_port' ),
+  $dir_query_file             = params_lookup( 'dir_query_file' ),
+  $dir_working_directory      = params_lookup( 'dir_working_directory' ),
+  $dir_pid_directory          = params_lookup( 'dir_pid_directory' ),
+  $dir_max_concurrent_jobs    = params_lookup( 'dir_max_concurrent_jobs' ),
+  $sd_heartbeat_interval      = params_lookup( 'sd_heartbeat_interval' ),
+  $dir_password               = params_lookup( 'dir_password' ),
+  $dir_traymonitor_name       = params_lookup( 'dir_traymonitor_name' ),
+  $dir_traymonitor_password   = params_lookup( 'dir_traymonitor_password' ),
+  $dir_traymonitor_command    = params_lookup( 'dir_traymonitor_command' ),
+  $dir_messages               = params_lookup( 'dir_messages' ),
+  $dir_config_directory       = params_lookup( 'dir_config_directory' ),
+  $dir_client_directory       = params_lookup( 'dir_client_directory' )
+
   ) inherits bacula::params {
 
   $bool_source_dir_purge=any2bool($source_dir_purge)

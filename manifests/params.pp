@@ -199,4 +199,37 @@ class bacula::params {
   $console_director_port      = ''
   $console_address            = ''
 
+  ## Bacula storage variable
+  $sd_name                    = ''
+  $sd_address                 = ''
+  $sd_port                    = ''
+  $sd_working_directory       = ''
+  $sd_pid_directory           = ''
+  $sd_max_concurrent_jobs     = ''
+  $sd_heartbeat_interval      = ''
+  $sd_director_name           = ''
+  $sd_director_password       = ''
+  $sd_traymonitor_name        = ''
+  $sd_traymonitor_password    = ''
+  $sd_traymonitor             = ''
+  $sd_messages_name           = ''
+  $sd_config_directory        = ''
+
+  ## Bacula director variable
+  $dir_name                   = ''
+  $dir_address                = ''
+  $dir_port                   = ''
+  $dir_query_file             = ''
+  $dir_working_directory      = ''
+  $dir_pid_directory          = ''
+  $dir_max_concurrent_jobs    = ''
+  $sd_heartbeat_interval      = ''
+  $dir_password               = ''
+  $dir_traymonitor_name       = ''
+  $dir_traymonitor_password   = ''
+  $dir_traymonitor_command    = ''
+  $dir_messages               = ''
+  $dir_config_directory       = ''
+  $dir_client_directory       = ''
+
 }
