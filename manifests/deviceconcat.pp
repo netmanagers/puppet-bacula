@@ -1,11 +1,14 @@
 # This define APPENDS a line entry to a device file
 #
 define bacula::deviceconcat (
+  $device_name = '',
   $mediaType = '',
   $archive_device = '',
   $label_media = '',
   $ramdon_access = '',
-  $automatic_mount = '' ) {
+  $automatic_mount = '',
+  $removable_media = '' ,
+  $always_open = '' {
 
   include concat::setup
   include bacula
@@ -20,13 +23,5 @@ define bacula::deviceconcat (
       group   => $bacula::config_file_group,
       require => Package['bacula'],
     }
-  }
-
-  concat::fragment { "dnsmasq_addn_hosts_${name}":
-    target  => $concat_host_file,
-    content => inline_template("<%= real_ip %> <%= names * ' ' %>\n"),
-    order   => $order,
-    ensure  => $ensure,
-    notify  => Service['dnsmasq'],
   }
 }
