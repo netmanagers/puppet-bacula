@@ -1,12 +1,14 @@
+# This file is managed by Puppet. DO NOT EDIT.
+
 Pool {
   Name = <%= @pool_name %>
-  Pool Type = <%= @pool_type %>
-  Maximum Volume Jobs = <%= @maximum_volume_jobs %>       # If you specify zero (the default), there is no limit.
-  Maximum Volume Bytes = <%= @maximum_volume_bytes %>G     # Maximum Volume size, keep small for search performance.
-  Use Volume Once = <%= @use_volume_once %>         # Mark a volume as Used and thus no longer appendable.
-  Recycle = <%= @recycle %>                 # Don't recycle Volumes but prune all the Jobs on the volume, mark "Purged".
-  Action On Purge = <%= @action_on_purge %>    # Truncate the volume when it is purged.
-  Auto Prune = <%= @auto_prune %>              # Yes (default), applies Volume Retention period when new Volume is needed and no appendable Volumes exist in the Pool.
-  Volume Retention = <%= @volume_retention %> weeks    # Retention time of records associated with the Volume in the Catalog database.
-  Label Format = "<%= @label_format %>"
+  PoolType = <%= @pool_type %>
+  MaximumVolumeJobs = <%= @maximum_volume_jobs %>
+  MaximumVolumeBytes = <%= @maximum_volume_bytes %>
+  UseVolumeOnce = <%= @use_volume_once %>
+  Recycle = <%= @recycle %>
+  ActionOnPurge = <%= @action_on_purge %>
+  AutoPrune = <%= @auto_prune %>
+  VolumeRetention = <%= @volume_retention %>
+  LabelFormat = "<%= @label_format %>"
 }

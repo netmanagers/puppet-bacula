@@ -1,7 +1,9 @@
+# This file is managed by Puppet. DO NOT EDIT.
+
 Catalog {
   Name = <%= @catalog_name %>
-  dbdriver = "<%= @db_driver %>"
+  DBDriver = "<%= @db_driver %>"
   DBAddress = <%= @db_address %>
   DBPort = <%= @db_port %>
-  dbname = "<%= @db_name %>"; dbuser = "<%= @db_user %>"; dbpassword = "<%= @db_password %>";
+  DBName = "<%= @db_name %>"; dbuser = "<%= @db_user %>"; dbpassword = "<%= @db_password %>";
 }

@@ -186,7 +186,7 @@ class bacula::params {
   $fd_traymonitor             = ''
   $fd_name                    = ''
   $fd_port                    = ''
-  $fd_WorkingDirectory        = ''
+  $fd_working_directory        = ''
   $fd_PidDirectory            = ''
   $fd_maximun_concurrent_jobs = ''
   $fd_address                 = ''
@@ -199,7 +199,7 @@ class bacula::params {
   $console_director_port      = ''
   $console_address            = ''
 
-  ## Bacula storage variable
+  ## Bacula storage variables
   $sd_name                    = ''
   $sd_address                 = ''
   $sd_port                    = ''
@@ -215,7 +215,7 @@ class bacula::params {
   $sd_messages_name           = ''
   $sd_config_directory        = ''
 
-  ## Bacula director variable
+  ## Bacula director variables
   $dir_name                   = ''
   $dir_address                = ''
   $dir_port                   = ''
@@ -223,7 +223,7 @@ class bacula::params {
   $dir_working_directory      = ''
   $dir_pid_directory          = ''
   $dir_max_concurrent_jobs    = ''
-  $sd_heartbeat_interval      = ''
+  $dir_heartbeat_interval     = ''
   $dir_password               = ''
   $dir_traymonitor_name       = ''
   $dir_traymonitor_password   = ''

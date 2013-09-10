@@ -1,15 +1,17 @@
+# This file is managed by Puppet. DO NOT EDIT.
+
 # Define the Director name, password used for authenticating the Console program.
 Director {
   Name = <%= scope.lookupvar('bacula::dir_name') %>
-  DIRport = <%= scope.lookupvar('bacula::dir_port') %>
+  DirPort = <%= scope.lookupvar('bacula::dir_port') %>
   QueryFile = <%= scope.lookupvar('bacula::dir_query_file') %>
   WorkingDirectory = <%= scope.lookupvar('bacula::dir_working_directory') %>
   PidDirectory = <%= scope.lookupvar('bacula::dir_pid_directory') %>
-  Maximum Concurrent Jobs = <%= scope.lookupvar('bacula::dir_max_concurrent_jobs') %>
+  MaximumConcurrentJobs = <%= scope.lookupvar('bacula::dir_max_concurrent_jobs') %>
   Password = "<%= scope.lookupvar('bacula::dir_password') %>"
   Messages = <%= scope.lookupvar('bacula::dir_messages') %>
   DirAddress = <%= scope.lookupvar('bacula::dir_address') %>
-  Heartbeat Interval = <%= scope.lookupvar('bacula::sd_heartbeat_interval') %> Minute            # Prevents timeouts
+  HeartbeatInterval = <%= scope.lookupvar('bacula::sd_heartbeat_interval') %> # Prevents timeouts
 }
 
 # Restricted Console, used by tray-monitor for Director status.
@@ -19,7 +21,7 @@ Console {
   CommandACL = <%= scope.lookupvar('bacula::dir_traymonitor_command') %>
 }
 
-# Include split config files.
+# Include split config files. Remember to bconsole "reload" after modifying a config file.
 @|"sh -c 'cat /<%= scope.lookupvar('bacula::dir_config_directory') %>/*.conf'"
 
 # Read client directory for config files. Remember to bconsole "reload" after adding a client.

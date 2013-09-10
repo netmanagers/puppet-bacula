@@ -263,7 +263,7 @@ class bacula (
   $fd_traymonitor             = params_lookup( 'fd_traymonitor' ),
   $fd_name                    = params_lookup( 'fd_name' ),
   $fd_port                    = params_lookup( 'fd_port' ),
-  $fd_WorkingDirectory        = params_lookup( 'fd_WorkingDirectory' ),
+  $fd_working_directory        = params_lookup( 'fd_working_directory' ),
   $fd_PidDirectory            = params_lookup( 'fd_PidDirectory' ),
   $fd_maximun_concurrent_jobs = params_lookup( 'fd_maximun_concurrent_jobs' ),
   $fd_address                 = params_lookup( 'fd_address' ),

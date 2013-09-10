@@ -1,5 +1,5 @@
-# File managed by Puppet
-#
+# This file is managed by Puppet. DO NOT EDIT.
+
 # Note: use external director address for clients to connect.
 Storage {
   Name = <%= scope.lookupvar('bacula::sd_name') %>
@@ -8,7 +8,7 @@ Storage {
   WorkingDirectory = <%= scope.lookupvar('bacula::sd_working_directory') %>
   Pid Directory = <%= scope.lookupvar('bacula::sd_pid_directory') %>
   Maximum Concurrent Jobs = <%= scope.lookupvar('bacula::sd_max_concurrent_jobs') %>
-  Heartbeat Interval = <%= scope.lookupvar('bacula::sd_heartbeat_interval') %> Minute            # Prevents timeouts
+  Heartbeat Interval = <%= scope.lookupvar('bacula::sd_heartbeat_interval') %>
 }
 
 # Director who is permitted to contact this Storage daemon.
@@ -24,7 +24,7 @@ Director {
 
 # Restricted Director, used by tray-monitor for Storage daemon status.
 Director {
-  Name = <%= scope.lookupvar('sd_traymonitor_name') %>                                    # Match the Director Monitor.
+  Name = <%= scope.lookupvar('sd_traymonitor_name') %>
   Password = "<%= scope.lookupvar('sd_traymonitor_password') %>"
   Monitor = <%= scope.lookupvar('bacula::sd_traymonitor') %>
 }

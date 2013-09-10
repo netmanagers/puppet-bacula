@@ -1,32 +1,31 @@
-# File managed by Puppet
-#
+# This file is managed by Puppet. DO NOT EDIT.
+
 # Directors who are permitted to contact this File daemon.
 Director {
-  Name = <%= scope.lookupvar('bacula::fd_director_name') %>                               # Match the Director.
+  Name = <%= scope.lookupvar('bacula::fd_director_name') %>
   Password = "<%= scope.lookupvar('bacula::fd_director_password') %>"
 }
 
 # Restricted Director, used by tray-monitor for File daemon status.
 Director {
-  Name = <%= scope.lookupvar('fd_traymonitor_name') %>                                    # Match the Director Monitor.
+  Name = <%= scope.lookupvar('fd_traymonitor_name') %>
   Password = "<%= scope.lookupvar('fd_traymonitor_password') %>"
   Monitor = <%= scope.lookupvar('bacula::fd_traymonitor') %>
 }
 
 # "Global" File daemon configuration specifications.
 FileDaemon {
-  Name = <%= scope.lookupvar('bacula::fd_name') %>                                        # This is the client name, if it isn't then change it!
+  Name = <%= scope.lookupvar('bacula::fd_name') %>
   FDport = <%= scope.lookupvar('bacula::fd_port') %>
-  WorkingDirectory = <%= scope.lookupvar('bacula::fd_WorkingDirectory') %>                # CentOS: WorkingDirectory = /var/lib/bacula
-  Pid Directory = <%= scope.lookupvar('bacula::fd_PidDirectory') %>                       # CentOS: PidDirectory = /var/run
+  WorkingDirectory = <%= scope.lookupvar('bacula::fd_working_directory') %>
+  Pid Directory = <%= scope.lookupvar('bacula::fd_pid_directory') %>
   Maximum Concurrent Jobs = <%= scope.lookupvar('bacula::fd_maximun_concurrent_jobs') %>
   FDAddress = <%= scope.lookupvar('bacula::fd_address') %>
-  Heartbeat Interval = <%= scope.lookupvar('bacula::hearbeat_interval') %> Minute         # Prevents timeouts
- }
+  Heartbeat Interval = <%= scope.lookupvar('bacula::hearbeat_interval') %>
+}
 
 # Send all messages except skipped files back to Director.
 Messages {
   Name = <%= scope.lookupvar('bacula::fd_messages_name') %>
-  director = <%= scope.lookupvar('bacula::fd_director_name') %> = all, !skipped, !restored
+  Director = <%= scope.lookupvar('bacula::fd_director_name') %> = all, !skipped, !restored
 }
-
