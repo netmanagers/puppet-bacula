@@ -1,16 +1,12 @@
-# This define APPENDS a line entry to a device file
-#
-define bacula::deviceconcat (
-  $device_name = '',
-  $mediaType = '',
-  $archive_device = '',
-  $label_media = '',
-  $ramdon_access = '',
-  $automatic_mount = '',
-  $removable_media = '' ,
-  $always_open = '' {
+define bacula::catalog (
+  $catalog_name = '',
+  $db_driver = '',
+  $db_address = '',
+  $db_port = '',
+  $db_name = '',
+  $db_user = '',
+  $db_password = '' {
 
-  include concat::setup
   include bacula
 
   $concat_host_file = "${dnsmasq::addn_hosts_dir}/${order}-${file}"
@@ -25,3 +21,4 @@ define bacula::deviceconcat (
     }
   }
 }
+
