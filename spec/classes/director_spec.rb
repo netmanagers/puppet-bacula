@@ -7,14 +7,14 @@ describe 'bacula::director' do
   let(:facts) { { :ipaddress => '10.42.42.42' } }
 
   describe 'Test standard Centos installation' do
-    let(:facts) { {  :is_director => 'true' , :concat_basedir => '/var/lib/puppet/concat'} }
+    let(:facts) { {  :install_director => 'true' , :concat_basedir => '/var/lib/puppet/concat'} }
     it { should contain_package('bacula-director-mysql').with_ensure('present') }
     it { should contain_service('bacula-dir').with_ensure('running') }
     it { should contain_service('bacula-dir').with_enable('true') }
   end
                                                                                                                                                                                                 
-  describe 'The absent in is_director => false mode ' do                                                                                                                                          
-    let(:facts) { {  :is_director => 'false' , :concat_basedir => '/var/lib/puppet/concat'} }
+  describe 'The absent in install_director => false mode ' do                                                                                                                                          
+    let(:facts) { {  :install_director => 'false' , :concat_basedir => '/var/lib/puppet/concat'} }
     it { should_not contain_package('bacula-director-mysql').with_ensure('absent') }
   end
 

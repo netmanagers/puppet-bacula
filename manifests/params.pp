@@ -16,63 +16,112 @@ class bacula::params {
 
   ### Application related parameters
 
-  $is_client         = 'false'
+  $install_client   = true
+  $install_storage  = false
+  $install_director = false
+  $install_console  = false
 
-  $is_storage        = 'false'
+  ## Bacula client variables
+  $fd_name                    = $::fqdn
+  $client_port                = '9102'
+  $fd_PidDirectory            = ''
+  $client_pid_file = $::operatingsystem ? {
+    default => '/var/run/bacula-fd.9102.pid',
+  }
 
-  $is_director       = 'false'
-
-  $manage_console    = 'false'
+  $fd_maximum_concurrent_jobs = ''
+  $fd_address                 = ''
+  $hearbeat_interval          = ''
+  $fd_messages_name           = ''
 
   $client_package = $::operatingsystem ? {
     /(?i:Debian|Ubuntu|Mint)/ => 'bacula-fd',
-    default => 'bacula-client',
-  }
-
-  $storage_package = $::operatingsystem ? {
-    /(?i:Debian|Ubuntu|Mint)/ => 'bacula-sd-mysql',
-    default => 'bacula-storage-mysql',
-  }
-
-  $director_package = $::operatingsystem ? {
-    /(?i:Debian|Ubuntu|Mint)/ => 'bacula-director-mysql',
-    default => 'bacula-director-mysql',
-  }
-
-  $console_package = $::operatingsystem ? {
-    default => 'bacula-console',
+    default                   => 'bacula-client',
   }
 
   $client_service = $::operatingsystem ? {
     default => 'bacula-fd',
   }
 
-  $storage_service = $::operatingsystem ? {
-    default => 'bacula-sd',
-  }
-
-  $director_service = $::operatingsystem ? {
-    default => 'bacula-dir',
-  }
-
-  $service_status = $::operatingsystem ? {
-    default => true,
-  }
-
-  $process = $::operatingsystem ? {
-    default => 'bacula',
-  }
-
   $client_process = $::operatingsystem ? {
     default => 'bacula-fd',
+  }
+
+  ## Bacula storage variables
+  $sd_name                    = ''
+  $sd_address                 = ''
+  $sd_port                    = ''
+  $sd_working_directory       = ''
+  $sd_pid_directory           = ''
+  $sd_max_concurrent_jobs     = ''
+  $sd_heartbeat_interval      = ''
+  $sd_director_name           = ''
+  $sd_director_password       = ''
+  $sd_traymonitor_name        = ''
+  $sd_traymonitor_password    = ''
+  $sd_traymonitor             = ''
+  $sd_messages_name           = ''
+  $sd_config_directory        = ''
+
+  $storage_package = $::operatingsystem ? {
+    /(?i:Debian|Ubuntu|Mint)/ => 'bacula-sd-mysql',
+    default                   => 'bacula-storage-mysql',
+  }
+
+  $storage_service = $::operatingsystem ? {
+    default => 'bacula-sd',
   }
 
   $storage_process = $::operatingsystem ? {
     default => 'bacula-sd',
   }
 
+  $storage_process_user = $::operatingsystem ? {
+    default => 'bacula',
+  }
+
+  ## Bacula director variables
+  $dir_name                   = ''
+  $dir_address                = ''
+  $dir_port                   = ''
+  $dir_query_file             = ''
+  $dir_working_directory      = ''
+  $dir_pid_directory          = ''
+  $dir_max_concurrent_jobs    = ''
+  $dir_heartbeat_interval     = ''
+  $dir_password               = ''
+  $dir_traymonitor_name       = ''
+  $dir_traymonitor_password   = ''
+  $dir_traymonitor_command    = ''
+  $dir_messages               = ''
+  $dir_config_directory       = ''
+  $dir_client_directory       = ''
+
+  $director_package = $::operatingsystem ? {
+    /(?i:Debian|Ubuntu|Mint)/ => 'bacula-director-mysql',
+    default                   => 'bacula-director-mysql',
+  }
+
+  $director_service = $::operatingsystem ? {
+    default => 'bacula-dir',
+  }
+
   $director_process = $::operatingsystem ? {
     default => 'bacula-dir',
+  }
+
+  ## Bacula console variables
+  $console_director_name      = ''
+  $console_director_password  = ''
+  $console_director_port      = ''
+  $console_address            = ''
+
+  $console_package = $::operatingsystem ? {
+    default => 'bacula-console',
+  }
+
+  $service_status = $::operatingsystem ? {
+    default => true,
   }
 
   $process_args = $::operatingsystem ? {
@@ -80,14 +129,6 @@ class bacula::params {
   }
 
   $process_user = $::operatingsystem ? {
-    default => 'bacula',
-  }
-
-  $client_process_user = $::operatingsystem ? {
-    default => 'bacula',
-  }
-
-  $storage_process_user = $::operatingsystem ? {
     default => 'bacula',
   }
 
@@ -132,10 +173,6 @@ class bacula::params {
     default                   => '/etc/sysconfig/bacula',
   }
 
-  $pid_file = $::operatingsystem ? {
-    default => '/var/run/bacula.pid',
-  }
-
   $data_dir = $::operatingsystem ? {
     default => '/etc/bacula',
   }
@@ -148,7 +185,6 @@ class bacula::params {
     default => '/var/log/bacula/bacula.log',
   }
 
-  $port = '42'
   $protocol = 'tcp'
 
   # General Settings
@@ -177,59 +213,4 @@ class bacula::params {
   $debug = false
   $audit_only = false
   $noops = undef
-
-  ## Bacula client variables
-  $fd_director_name           = ''
-  $fd_director_password       = ''
-  $fd_traymonitor_name        = ''
-  $fd_traymonitor_password    = ''
-  $fd_traymonitor             = ''
-  $fd_name                    = ''
-  $fd_port                    = ''
-  $fd_working_directory        = ''
-  $fd_PidDirectory            = ''
-  $fd_maximun_concurrent_jobs = ''
-  $fd_address                 = ''
-  $hearbeat_interval          = ''
-  $fd_messages_name           = ''
-
-  ## Bacula console variables
-  $console_director_name      = ''
-  $console_director_password  = ''
-  $console_director_port      = ''
-  $console_address            = ''
-
-  ## Bacula storage variables
-  $sd_name                    = ''
-  $sd_address                 = ''
-  $sd_port                    = ''
-  $sd_working_directory       = ''
-  $sd_pid_directory           = ''
-  $sd_max_concurrent_jobs     = ''
-  $sd_heartbeat_interval      = ''
-  $sd_director_name           = ''
-  $sd_director_password       = ''
-  $sd_traymonitor_name        = ''
-  $sd_traymonitor_password    = ''
-  $sd_traymonitor             = ''
-  $sd_messages_name           = ''
-  $sd_config_directory        = ''
-
-  ## Bacula director variables
-  $dir_name                   = ''
-  $dir_address                = ''
-  $dir_port                   = ''
-  $dir_query_file             = ''
-  $dir_working_directory      = ''
-  $dir_pid_directory          = ''
-  $dir_max_concurrent_jobs    = ''
-  $dir_heartbeat_interval     = ''
-  $dir_password               = ''
-  $dir_traymonitor_name       = ''
-  $dir_traymonitor_password   = ''
-  $dir_traymonitor_command    = ''
-  $dir_messages               = ''
-  $dir_config_directory       = ''
-  $dir_client_directory       = ''
-
 }

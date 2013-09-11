@@ -7,21 +7,21 @@ describe 'bacula::storage' do
   let(:facts) { { :ipaddress => '10.42.42.42' } }
 
   describe 'Test standard Centos installation' do
-    let(:facts) { {  :operatingsystem => 'Centos', :is_storage => 'true' , :concat_basedir => '/var/lib/puppet/concat'} }
+    let(:facts) { {  :operatingsystem => 'Centos', :install_storage => 'true' , :concat_basedir => '/var/lib/puppet/concat'} }
     it { should contain_package('bacula-storage-mysql').with_ensure('present') }
     it { should contain_service('bacula-sd').with_ensure('running') }
     it { should contain_service('bacula-sd').with_enable('true') }
   end
 
   describe 'Test standard Debian installation' do
-    let(:facts) { {  :operatingsystem => 'Debian', :is_storage => 'true' , :concat_basedir => '/var/lib/puppet/concat'} }                                                                        
+    let(:facts) { {  :operatingsystem => 'Debian', :install_storage => 'true' , :concat_basedir => '/var/lib/puppet/concat'} }                                                                        
     it { should contain_package('bacula-sd-mysql').with_ensure('present') }                                                                                                                           
     it { should contain_service('bacula-sd').with_ensure('running') }                                                                                                                           
     it { should contain_service('bacula-sd').with_enable('true') }                                                                                                                              
   end                                                                                                                                                                                           
                                                                                                                                                                                                 
-  describe 'The absent in is_storage => false mode ' do                                                                                                                                          
-    let(:facts) { {  :operatingsystem => 'Centos', :is_storage => 'false' , :concat_basedir => '/var/lib/puppet/concat'} }
+  describe 'The absent in install_storage => false mode ' do                                                                                                                                          
+    let(:facts) { {  :operatingsystem => 'Centos', :install_storage => 'false' , :concat_basedir => '/var/lib/puppet/concat'} }
     it { should_not contain_package('bacula-storage-mysql').with_ensure('absent') }
   end
 
