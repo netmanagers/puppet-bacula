@@ -24,17 +24,11 @@
 #   (source => $source_dir , recurse => true)
 #   Can be defined also by the (top scope) variable $bacula_source_dir
 #
-# [*source_dir_purge*]
+# [*source_director_purge*]
 #   If set to true (default false) the existing configuration directory is
 #   mirrored with the content retrieved from source_dir
 #   (source => $source_dir , recurse => true , purge => true)
-#   Can be defined also by the (top scope) variable $bacula_source_dir_purge
-#
-# [*template*]
-#   Sets the path to the template to use as content for main configuration file
-#   If defined, bacula main config file has: content => content("$template")
-#   Note source and template parameters are mutually exclusive: don't use both
-#   Can be defined also by the (top scope) variable $bacula_template
+#   Can be defined also by the (top scope) variable $bacula_source_director_purge
 #
 # [*options*]
 #   An hash of custom options to be used in templates for arbitrary settings.
@@ -203,8 +197,7 @@ class bacula (
   $my_class                   = params_lookup( 'my_class' ),
   $source                     = params_lookup( 'source' ),
   $source_dir                 = params_lookup( 'source_dir' ),
-  $source_dir_purge           = params_lookup( 'source_dir_purge' ),
-  $template                   = params_lookup( 'template' ),
+  $source_director_purge           = params_lookup( 'source_director_purge' ),
   $service_autorestart        = params_lookup( 'service_autorestart' , 'global' ),
   $options                    = params_lookup( 'options' ),
   $version                    = params_lookup( 'version' ),
@@ -254,50 +247,42 @@ class bacula (
   $install_storage            = params_lookup( 'install_storage' ),
   $install_director           = params_lookup( 'install_director' ),
   $install_console            = params_lookup( 'install_console' ),
-  $fd_name                    = params_lookup( 'fd_name' ),
+  $client_name                    = params_lookup( 'client_name' ),
   $client_port                = params_lookup( 'client_port' ),
-  $fd_PidDirectory            = params_lookup( 'fd_PidDirectory' ),
-  $fd_maximum_concurrent_jobs = params_lookup( 'fd_maximum_concurrent_jobs' ),
-  $fd_address                 = params_lookup( 'fd_address' ),
-  $fd_hearbeat_interval       = params_lookup( 'fd_hearbeat_interval'),
-  $fd_messages_name           = params_lookup( 'fd_messages_name' ),
+  $pid_directory            = params_lookup( 'pid_directory' ),
+  $client_maximum_concurrent_jobs = params_lookup( 'client_maximum_concurrent_jobs' ),
+  $client_address                 = params_lookup( 'client_address' ),
+  $heartbeat_interval       = params_lookup( 'client_heartbeat_interval'),
+  $client_messages_name           = params_lookup( 'client_messages_name' ),
   $console_director_name      = params_lookup( 'console_director_name'),
   $console_director_password  = params_lookup( 'console_director_password'),
   $console_director_port      = params_lookup( 'console_director_port'),
   $console_address            = params_lookup( 'console_address'),
-  $sd_name                    = params_lookup( 'sd_name' ),
-  $sd_address                 = params_lookup( 'sd_address' ),
-  $sd_port                    = params_lookup( 'sd_port' ),
-  $sd_working_directory       = params_lookup( 'sd_working_directory' ),
-  $sd_pid_directory           = params_lookup( 'sd_pid_directory' ),
-  $sd_max_concurrent_jobs     = params_lookup( 'sd_max_concurrent_jobs' ),
-  $sd_heartbeat_interval      = params_lookup( 'sd_heartbeat_interval' ),
-  $sd_director_name           = params_lookup( 'sd_director_name' ),
-  $sd_director_password       = params_lookup( 'sd_director_password' ),
-  $sd_traymonitor_name        = params_lookup( 'sd_traymonitor_name' ),
-  $sd_traymonitor_password    = params_lookup( 'sd_traymonitor_password' ),
-  $sd_traymonitor             = params_lookup( 'sd_traymonitor' ),
-  $sd_messages_name           = params_lookup( 'sd_messages_name' ),
-  $sd_config_directory        = params_lookup( 'sd_config_directory' ),
-  $dir_name                   = params_lookup( 'dir_name' ),
-  $dir_address                = params_lookup( 'dir_address' ),
-  $dir_port                   = params_lookup( 'dir_port' ),
-  $dir_query_file             = params_lookup( 'dir_query_file' ),
-  $dir_working_directory      = params_lookup( 'dir_working_directory' ),
-  $dir_pid_directory          = params_lookup( 'dir_pid_directory' ),
-  $dir_max_concurrent_jobs    = params_lookup( 'dir_max_concurrent_jobs' ),
-  $sd_heartbeat_interval      = params_lookup( 'sd_heartbeat_interval' ),
-  $dir_password               = params_lookup( 'dir_password' ),
-  $dir_traymonitor_name       = params_lookup( 'dir_traymonitor_name' ),
-  $dir_traymonitor_password   = params_lookup( 'dir_traymonitor_password' ),
-  $dir_traymonitor_command    = params_lookup( 'dir_traymonitor_command' ),
-  $dir_messages               = params_lookup( 'dir_messages' ),
-  $dir_config_directory       = params_lookup( 'dir_config_directory' ),
-  $dir_client_directory       = params_lookup( 'dir_client_directory' )
+  $storage_name                    = params_lookup( 'storage_name' ),
+  $storage_address                 = params_lookup( 'storage_address' ),
+  $storage_port                    = params_lookup( 'storage_port' ),
+  $storage_working_directory       = params_lookup( 'storage_working_directory' ),
+  $storage_pid_directory           = params_lookup( 'storage_pid_directory' ),
+  $storage_max_concurrent_jobs     = params_lookup( 'storage_max_concurrent_jobs' ),
+  $storage_director_name           = params_lookup( 'storage_director_name' ),
+  $storage_director_password       = params_lookup( 'storage_director_password' ),
+  $storage_messages_name           = params_lookup( 'storage_messages_name' ),
+  $storage_config_directory        = params_lookup( 'storage_config_directory' ),
+  $director_name                   = params_lookup( 'director_name' ),
+  $director_address                = params_lookup( 'director_address' ),
+  $director_port                   = params_lookup( 'director_port' ),
+  $director_query_file             = params_lookup( 'director_query_file' ),
+  $director_working_directory      = params_lookup( 'director_working_directory' ),
+  $director_pid_directory          = params_lookup( 'director_pid_directory' ),
+  $director_max_concurrent_jobs    = params_lookup( 'director_max_concurrent_jobs' ),
+  $director_password               = params_lookup( 'director_password' ),
+  $director_messages               = params_lookup( 'director_messages' ),
+  $director_config_directory       = params_lookup( 'director_config_directory' ),
+  $director_client_directory       = params_lookup( 'director_client_directory' )
 
   ) inherits bacula::params {
 
-  $bool_source_dir_purge=any2bool($source_dir_purge)
+  $bool_source_director_purge=any2bool($source_director_purge)
   $bool_service_autorestart=any2bool($service_autorestart)
   $bool_absent=any2bool($absent)
   $bool_disable=any2bool($disable)

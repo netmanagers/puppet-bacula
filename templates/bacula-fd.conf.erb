@@ -15,17 +15,17 @@ Director {
 
 # "Global" File daemon configuration specifications.
 FileDaemon {
-  Name = <%= scope.lookupvar('bacula::fd_name') %>
+  Name = <%= scope.lookupvar('bacula::client_name') %>
   FDport = <%= scope.lookupvar('bacula::client_port') %>
   WorkingDirectory = <%= scope.lookupvar('bacula::working_directory') %>
   PidDirectory = <%= scope.lookupvar('bacula::pid_directory') %>
-  MaximumConcurrentJobs = <%= scope.lookupvar('bacula::fd_maximum_concurrent_jobs') %>
-  FDAddress = <%= scope.lookupvar('bacula::fd_address') %>
-  Heartbeat Interval = <%= scope.lookupvar('bacula::hearbeat_interval') %>
+  MaximumConcurrentJobs = <%= scope.lookupvar('bacula::client_maximum_concurrent_jobs') %>
+  FDAddress = <%= scope.lookupvar('bacula::client_address') %>
+  Heartbeat Interval = <%= scope.lookupvar('bacula::heartbeat_interval') %>
 }
 
 # Send all messages except skipped files back to Director.
 Messages {
-  Name = <%= scope.lookupvar('bacula::fd_messages_name') %>
-  Director = <%= scope.lookupvar('bacula::fd_director_name') %> = all, !skipped, !restored
+  Name = Standard
+  Director = <%= scope.lookupvar('bacula::client_director_name') %> = all, !skipped, !restored
 }

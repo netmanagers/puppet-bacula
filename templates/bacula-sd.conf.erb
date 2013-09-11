@@ -2,36 +2,36 @@
 
 # Note: use external director address for clients to connect.
 Storage {
-  Name = <%= scope.lookupvar('bacula::sd_name') %>
-  SDAddress = <%= scope.lookupvar('bacula::sd_address') %>
-  SDPort = <%= scope.lookupvar('bacula::sd_port') %>
-  WorkingDirectory = <%= scope.lookupvar('bacula::sd_working_directory') %>
-  Pid Directory = <%= scope.lookupvar('bacula::sd_pid_directory') %>
-  Maximum Concurrent Jobs = <%= scope.lookupvar('bacula::sd_max_concurrent_jobs') %>
-  Heartbeat Interval = <%= scope.lookupvar('bacula::sd_heartbeat_interval') %>
+  Name = <%= scope.lookupvar('bacula::storage_name') %>
+  SDAddress = <%= scope.lookupvar('bacula::storage_address') %>
+  SDPort = <%= scope.lookupvar('bacula::storage_port') %>
+  WorkingDirectory = <%= scope.lookupvar('bacula::storage_working_directory') %>
+  Pid Directory = <%= scope.lookupvar('bacula::storage_pid_directory') %>
+  Maximum Concurrent Jobs = <%= scope.lookupvar('bacula::storage_max_concurrent_jobs') %>
+  Heartbeat Interval = <%= scope.lookupvar('bacula::heartbeat_interval') %>
 }
 
 # Director who is permitted to contact this Storage daemon.
 Director {
-  Name = <%= scope.lookupvar('bacula::sd_director_name') %>
-  Password = "<%= scope.lookupvar('bacula::sd_director_password') %>"
+  Name = <%= scope.lookupvar('bacula::storage_director_name') %>
+  Password = "<%= scope.lookupvar('bacula::storage_director_password') %>"
 }
 
 # Storage devices.
 # Read client directory for config files. Remember to bconsole "reload" after adding a client.
-@|"sh -c 'cat /<%= scope.lookupvar('bacula::sd_config_directory') %>/*.conf'"
+@|"sh -c 'cat /<%= scope.lookupvar('bacula::storage_config_directory') %>/*.conf'"
 
 
 # Restricted Director, used by tray-monitor for Storage daemon status.
 Director {
-  Name = <%= scope.lookupvar('sd_traymonitor_name') %>
-  Password = "<%= scope.lookupvar('sd_traymonitor_password') %>"
-  Monitor = <%= scope.lookupvar('bacula::sd_traymonitor') %>
+  Name = <%= scope.lookupvar('storage_traymonitor_name') %>
+  Password = "<%= scope.lookupvar('storage_traymonitor_password') %>"
+  Monitor = <%= scope.lookupvar('bacula::storage_traymonitor') %>
 }
 
 # Send all messages to the Director,
 Messages {
-  Name = <%= scope.lookupvar('bacula::sd_messages_name') %>
-  director = <%= scope.lookupvar('bacula::sd_director_name') %> = all, !skipped, !restored
+  Name = <%= scope.lookupvar('bacula::storage_messages_name') %>
+  director = <%= scope.lookupvar('bacula::storage_director_name') %> = all, !skipped, !restored
 }
 

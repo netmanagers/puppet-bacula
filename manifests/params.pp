@@ -21,18 +21,25 @@ class bacula::params {
   $install_director = false
   $install_console  = false
 
+  ## Common variables
+  $pid_directory = $::operatingsystem ? {
+    default => '/var/run',
+  }
+  $heartbeat_interval = '1 minute'
+
   ## Bacula client variables
-  $fd_name                    = $::fqdn
-  $client_port                = '9102'
-  $fd_PidDirectory            = ''
-  $client_pid_file = $::operatingsystem ? {
-    default => '/var/run/bacula-fd.9102.pid',
+  $client_name     = $::fqdn
+  $client_port     = '9102'
+  $client_address  = $::ipaddress
+  $client_maximum_concurrent_jobs = '10'
+
+  $client_config_file = $::operatingsystem ? {
+    default => '/etc/bacula/bacula-fd.conf',
   }
 
-  $fd_maximum_concurrent_jobs = ''
-  $fd_address                 = ''
-  $hearbeat_interval          = ''
-  $fd_messages_name           = ''
+  $client_pid_file = $::operatingsystem ? {
+    default => "${bacula::params::pid_directory}/bacula-fd.${bacula::params::client_port}.pid",
+  }
 
   $client_package = $::operatingsystem ? {
     /(?i:Debian|Ubuntu|Mint)/ => 'bacula-fd',
@@ -48,20 +55,19 @@ class bacula::params {
   }
 
   ## Bacula storage variables
-  $sd_name                    = ''
-  $sd_address                 = ''
-  $sd_port                    = ''
-  $sd_working_directory       = ''
-  $sd_pid_directory           = ''
-  $sd_max_concurrent_jobs     = ''
-  $sd_heartbeat_interval      = ''
-  $sd_director_name           = ''
-  $sd_director_password       = ''
-  $sd_traymonitor_name        = ''
-  $sd_traymonitor_password    = ''
-  $sd_traymonitor             = ''
-  $sd_messages_name           = ''
-  $sd_config_directory        = ''
+  $storage_name                    = $::fqdn
+  $storage_address                 = $::ipaddress
+  $storage_port                    = '9103'
+  $storage_working_directory       = ''
+  $storage_max_concurrent_jobs     = ''
+  $storage_director_name           = ''
+  $storage_director_password       = ''
+  $storage_messages_name           = ''
+  $storage_config_directory        = ''
+
+  $storage_config_file = $::operatingsystem ? {
+    default => '/etc/bacula/bacula-sd.conf',
+  }
 
   $storage_package = $::operatingsystem ? {
     /(?i:Debian|Ubuntu|Mint)/ => 'bacula-sd-mysql',
@@ -81,25 +87,27 @@ class bacula::params {
   }
 
   ## Bacula director variables
-  $dir_name                   = ''
-  $dir_address                = ''
-  $dir_port                   = ''
-  $dir_query_file             = ''
-  $dir_working_directory      = ''
-  $dir_pid_directory          = ''
-  $dir_max_concurrent_jobs    = ''
-  $dir_heartbeat_interval     = ''
-  $dir_password               = ''
-  $dir_traymonitor_name       = ''
-  $dir_traymonitor_password   = ''
-  $dir_traymonitor_command    = ''
-  $dir_messages               = ''
-  $dir_config_directory       = ''
-  $dir_client_directory       = ''
+  $director_name                   = $::fqdn
+  $director_address                = $ipaddress
+  $director_port                   = '9101'
+  $director_query_file             = ''
+  $director_working_directory      = ''
+  $director_max_concurrent_jobs    = ''
+  $director_password               = ''
+  $director_traymonitor_name       = ''
+  $director_traymonitor_password   = ''
+  $director_traymonitor_command    = ''
+  $director_messages               = ''
+  $director_config_directory       = ''
+  $director_client_directory       = ''
 
   $director_package = $::operatingsystem ? {
     /(?i:Debian|Ubuntu|Mint)/ => 'bacula-director-mysql',
     default                   => 'bacula-director-mysql',
+  }
+
+  $director_config_file = $::operatingsystem ? {
+    default => '/etc/bacula/bacula-dir.conf',
   }
 
   $director_service = $::operatingsystem ? {
@@ -138,18 +146,6 @@ class bacula::params {
 
   $config_dir = $::operatingsystem ? {
     default => '/etc/bacula',
-  }
-
-  $client_config_file = $::operatingsystem ? {
-    default => '/etc/bacula/bacula-fd.conf',
-  }
-
-  $storage_config_file = $::operatingsystem ? {
-    default => '/etc/bacula/bacula-sd.conf',
-  }
-
-  $director_config_file = $::operatingsystem ? {
-    default => '/etc/bacula/bacula-dir.conf',
   }
 
   $console_config_file = $::operatingsystem ? {
@@ -191,8 +187,7 @@ class bacula::params {
   $my_class = ''
   $source = ''
   $source_dir = ''
-  $source_dir_purge = false
-  $template = ''
+  $source_director_purge = false
   $options = ''
   $service_autorestart = true
   $version = 'present'
