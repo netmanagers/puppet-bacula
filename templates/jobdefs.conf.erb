@@ -1,0 +1,19 @@
+<%= @jobdefs_mode %> {
+   Name = <%= @ %>
+   Type = <%= @ %>
+   Client = <%= @ %>
+   FileSet = <%= @ %>
+   <% if scope.lookupvar('bacula::array_jobdefs_storage') != [] -%>
+   <% scope.lookupvar('bacula::array_jobdefs_storage').each do |jobdefs_storage| -%>
+     Storage = <%=jobdefs_storage  %> 
+   <% end -%> 
+   Pool = <%= @ %>
+   Prefer Mounted Volumes = <%= @ %>
+   Write Bootstrap = "<%= @ %>"
+   Schedule = <%= @ %>
+   Priority = <%= @ %>
+   Messages = <%= @ %>
+   Where = <%= @ %>
+
+}
+
