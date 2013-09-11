@@ -24,17 +24,11 @@
 #   (source => $source_dir , recurse => true)
 #   Can be defined also by the (top scope) variable $bacula_source_dir
 #
-# [*source_dir_purge*]
+# [*source_director_purge*]
 #   If set to true (default false) the existing configuration directory is
 #   mirrored with the content retrieved from source_dir
 #   (source => $source_dir , recurse => true , purge => true)
-#   Can be defined also by the (top scope) variable $bacula_source_dir_purge
-#
-# [*template*]
-#   Sets the path to the template to use as content for main configuration file
-#   If defined, bacula main config file has: content => content("$template")
-#   Note source and template parameters are mutually exclusive: don't use both
-#   Can be defined also by the (top scope) variable $bacula_template
+#   Can be defined also by the (top scope) variable $bacula_source_director_purge
 #
 # [*options*]
 #   An hash of custom options to be used in templates for arbitrary settings.
@@ -52,20 +46,20 @@
 #   package is removed, whatever the value of version parameter.
 #
 # [*absent*]
-#   Set to 'true' to remove package(s) installed by module
+#   Set to true to remove package(s) installed by module
 #   Can be defined also by the (top scope) variable $bacula_absent
 #
 # [*disable*]
-#   Set to 'true' to disable service(s) managed by module
+#   Set to true to disable service(s) managed by module
 #   Can be defined also by the (top scope) variable $bacula_disable
 #
 # [*disableboot*]
-#   Set to 'true' to disable service(s) at boot, without checks if it's running
+#   Set to true to disable service(s) at boot, without checks if it's running
 #   Use this when the service is managed by a tool like a cluster software
 #   Can be defined also by the (top scope) variable $bacula_disableboot
 #
 # [*monitor*]
-#   Set to 'true' to enable monitoring of the services provided by the module
+#   Set to true to enable monitoring of the services provided by the module
 #   Can be defined also by the (top scope) variables $bacula_monitor
 #   and $monitor
 #
@@ -82,7 +76,7 @@
 #   and $monitor_target
 #
 # [*puppi*]
-#   Set to 'true' to enable creation of module data files that are used by puppi
+#   Set to true to enable creation of module data files that are used by puppi
 #   Can be defined also by the (top scope) variables $bacula_puppi and $puppi
 #
 # [*puppi_helper*]
@@ -94,7 +88,7 @@
 #   and $puppi_helper
 #
 # [*firewall*]
-#   Set to 'true' to enable firewalling of the services provided by the module
+#   Set to true to enable firewalling of the services provided by the module
 #   Can be defined also by the (top scope) variables $bacula_firewall
 #   and $firewall
 #
@@ -115,11 +109,11 @@
 #   and $firewall_dst
 #
 # [*debug*]
-#   Set to 'true' to enable modules debugging
+#   Set to true to enable modules debugging
 #   Can be defined also by the (top scope) variables $bacula_debug and $debug
 #
 # [*audit_only*]
-#   Set to 'true' if you don't intend to override existing configuration files
+#   Set to true if you don't intend to override existing configuration files
 #   and want to audit the difference between existing files and the ones
 #   managed by Puppet.
 #   Can be defined also by the (top scope) variables $bacula_audit_only
@@ -203,8 +197,7 @@ class bacula (
   $my_class                   = params_lookup( 'my_class' ),
   $source                     = params_lookup( 'source' ),
   $source_dir                 = params_lookup( 'source_dir' ),
-  $source_dir_purge           = params_lookup( 'source_dir_purge' ),
-  $template                   = params_lookup( 'template' ),
+  $source_director_purge           = params_lookup( 'source_director_purge' ),
   $service_autorestart        = params_lookup( 'service_autorestart' , 'global' ),
   $options                    = params_lookup( 'options' ),
   $version                    = params_lookup( 'version' ),
@@ -232,7 +225,6 @@ class bacula (
   $storage_service            = params_lookup( 'storage_service' ),
   $director_service           = params_lookup( 'director_service' ),
   $service_status             = params_lookup( 'service_status' ),
-  $process                    = params_lookup( 'process' ),
   $client_process             = params_lookup( 'client_process' ),
   $storage_process            = params_lookup( 'storage_process' ),
   $director_process           = params_lookup( 'director_process' ),
@@ -246,66 +238,51 @@ class bacula (
   $config_file_owner          = params_lookup( 'config_file_owner' ),
   $config_file_group          = params_lookup( 'config_file_group' ),
   $config_file_init           = params_lookup( 'config_file_init' ),
-  $pid_file                   = params_lookup( 'pid_file' ),
+  $client_pid_file            = params_lookup( 'client_pid_file' ),
   $data_dir                   = params_lookup( 'data_dir' ),
   $log_dir                    = params_lookup( 'log_dir' ),
   $log_file                   = params_lookup( 'log_file' ),
-  $port                       = params_lookup( 'port' ),
   $protocol                   = params_lookup( 'protocol' ),
-  $is_client                  = params_lookup( 'is_client' ),
-  $is_storage                 = params_lookup( 'is_storage' ),
-  $is_director                = params_lookup( 'is_director' ),
-  $manage_console             = params_lookup( 'manage_console' ),
-  $fd_director_name           = params_lookup( 'fd_director_name' ),
-  $fd_director_password       = params_lookup( 'fd_director_password' ),
-  $fd_traymonitor_name        = params_lookup( 'fd_traymonitor_name' ),
-  $fd_traymonitor_password    = params_lookup( 'fd_traymonitor_password' ),
-  $fd_traymonitor             = params_lookup( 'fd_traymonitor' ),
-  $fd_name                    = params_lookup( 'fd_name' ),
-  $fd_port                    = params_lookup( 'fd_port' ),
-  $fd_working_directory        = params_lookup( 'fd_working_directory' ),
-  $fd_PidDirectory            = params_lookup( 'fd_PidDirectory' ),
-  $fd_maximun_concurrent_jobs = params_lookup( 'fd_maximun_concurrent_jobs' ),
-  $fd_address                 = params_lookup( 'fd_address' ),
-  $fd_hearbeat_interval       = params_lookup( 'fd_hearbeat_interval'),
-  $fd_messages_name           = params_lookup( 'fd_messages_name' ),
+  $install_client             = params_lookup( 'install_client' ),
+  $install_storage            = params_lookup( 'install_storage' ),
+  $install_director           = params_lookup( 'install_director' ),
+  $install_console            = params_lookup( 'install_console' ),
+  $client_name                    = params_lookup( 'client_name' ),
+  $client_port                = params_lookup( 'client_port' ),
+  $pid_directory            = params_lookup( 'pid_directory' ),
+  $client_maximum_concurrent_jobs = params_lookup( 'client_maximum_concurrent_jobs' ),
+  $client_address                 = params_lookup( 'client_address' ),
+  $heartbeat_interval       = params_lookup( 'client_heartbeat_interval'),
+  $client_messages_name           = params_lookup( 'client_messages_name' ),
   $console_director_name      = params_lookup( 'console_director_name'),
   $console_director_password  = params_lookup( 'console_director_password'),
   $console_director_port      = params_lookup( 'console_director_port'),
   $console_address            = params_lookup( 'console_address'),
-  $sd_name                    = params_lookup( 'sd_name' ),
-  $sd_address                 = params_lookup( 'sd_address' ),
-  $sd_port                    = params_lookup( 'sd_port' ),
-  $sd_working_directory       = params_lookup( 'sd_working_directory' ),
-  $sd_pid_directory           = params_lookup( 'sd_pid_directory' ),
-  $sd_max_concurrent_jobs     = params_lookup( 'sd_max_concurrent_jobs' ),
-  $sd_heartbeat_interval      = params_lookup( 'sd_heartbeat_interval' ),
-  $sd_director_name           = params_lookup( 'sd_director_name' ),
-  $sd_director_password       = params_lookup( 'sd_director_password' ),
-  $sd_traymonitor_name        = params_lookup( 'sd_traymonitor_name' ),
-  $sd_traymonitor_password    = params_lookup( 'sd_traymonitor_password' ),
-  $sd_traymonitor             = params_lookup( 'sd_traymonitor' ),
-  $sd_messages_name           = params_lookup( 'sd_messages_name' ),
-  $sd_config_directory        = params_lookup( 'sd_config_directory' ),
-  $dir_name                   = params_lookup( 'dir_name' ),
-  $dir_address                = params_lookup( 'dir_address' ),
-  $dir_port                   = params_lookup( 'dir_port' ),
-  $dir_query_file             = params_lookup( 'dir_query_file' ),
-  $dir_working_directory      = params_lookup( 'dir_working_directory' ),
-  $dir_pid_directory          = params_lookup( 'dir_pid_directory' ),
-  $dir_max_concurrent_jobs    = params_lookup( 'dir_max_concurrent_jobs' ),
-  $sd_heartbeat_interval      = params_lookup( 'sd_heartbeat_interval' ),
-  $dir_password               = params_lookup( 'dir_password' ),
-  $dir_traymonitor_name       = params_lookup( 'dir_traymonitor_name' ),
-  $dir_traymonitor_password   = params_lookup( 'dir_traymonitor_password' ),
-  $dir_traymonitor_command    = params_lookup( 'dir_traymonitor_command' ),
-  $dir_messages               = params_lookup( 'dir_messages' ),
-  $dir_config_directory       = params_lookup( 'dir_config_directory' ),
-  $dir_client_directory       = params_lookup( 'dir_client_directory' )
+  $storage_name                    = params_lookup( 'storage_name' ),
+  $storage_address                 = params_lookup( 'storage_address' ),
+  $storage_port                    = params_lookup( 'storage_port' ),
+  $storage_working_directory       = params_lookup( 'storage_working_directory' ),
+  $storage_pid_directory           = params_lookup( 'storage_pid_directory' ),
+  $storage_max_concurrent_jobs     = params_lookup( 'storage_max_concurrent_jobs' ),
+  $storage_director_name           = params_lookup( 'storage_director_name' ),
+  $storage_director_password       = params_lookup( 'storage_director_password' ),
+  $storage_messages_name           = params_lookup( 'storage_messages_name' ),
+  $storage_config_directory        = params_lookup( 'storage_config_directory' ),
+  $director_name                   = params_lookup( 'director_name' ),
+  $director_address                = params_lookup( 'director_address' ),
+  $director_port                   = params_lookup( 'director_port' ),
+  $director_query_file             = params_lookup( 'director_query_file' ),
+  $director_working_directory      = params_lookup( 'director_working_directory' ),
+  $director_pid_directory          = params_lookup( 'director_pid_directory' ),
+  $director_max_concurrent_jobs    = params_lookup( 'director_max_concurrent_jobs' ),
+  $director_password               = params_lookup( 'director_password' ),
+  $director_messages               = params_lookup( 'director_messages' ),
+  $director_config_directory       = params_lookup( 'director_config_directory' ),
+  $director_client_directory       = params_lookup( 'director_client_directory' )
 
   ) inherits bacula::params {
 
-  $bool_source_dir_purge=any2bool($source_dir_purge)
+  $bool_source_director_purge=any2bool($source_director_purge)
   $bool_service_autorestart=any2bool($service_autorestart)
   $bool_absent=any2bool($absent)
   $bool_disable=any2bool($disable)
@@ -315,6 +292,11 @@ class bacula (
   $bool_firewall=any2bool($firewall)
   $bool_debug=any2bool($debug)
   $bool_audit_only=any2bool($audit_only)
+
+  $bool_install_client=any2bool($install_client)
+  $bool_install_storage=any2bool($install_storage)
+  $bool_install_director=any2bool($install_director)
+  $bool_install_console=any2bool($install_console)
 
   ### Definition of some variables used in the module
   $manage_package = $bacula::bool_absent ? {
@@ -390,22 +372,22 @@ class bacula (
   #### Include related classes
 
   ### Client configuration
-  if $bacula::is_client == 'true' {
+  if $bacula::bool_install_client == true {
     include bacula::client
   }
 
   ### Storage configuration
-  if $bacula::is_storage == 'true' {
+  if $bacula::bool_install_storage == true {
     include bacula::storage
   }
 
   ### Director configuration
-  if $bacula::is_director == 'true' {
+  if $bacula::bool_install_director == true {
     include bacula::director
   }
 
   ### Console configuration
-  if $bacula::manage_console == 'true' {
+  if $bacula::bool_install_console == true {
     include bacula::console
   }
 
@@ -413,74 +395,4 @@ class bacula (
   if $bacula::my_class {
     include $bacula::my_class
   }
-
-
-  ### Provide puppi data, if enabled ( puppi => true )
-  if $bacula::bool_puppi == true {
-    $classvars=get_class_args()
-    puppi::ze { 'bacula':
-      ensure    => $bacula::manage_file,
-      variables => $classvars,
-      helper    => $bacula::puppi_helper,
-      noop      => $bacula::noops,
-    }
-  }
-
-
-  ### Service monitoring, if enabled ( monitor => true )
-  if $bacula::bool_monitor == true {
-    if $bacula::port != '' {
-      monitor::port { "bacula_${bacula::protocol}_${bacula::port}":
-        protocol => $bacula::protocol,
-        port     => $bacula::port,
-        target   => $bacula::monitor_target,
-        tool     => $bacula::monitor_tool,
-        enable   => $bacula::manage_monitor,
-        noop     => $bacula::noops,
-      }
-    }
-    if $bacula::service != '' {
-      monitor::process { 'bacula_process':
-        process  => $bacula::process,
-        service  => $bacula::service,
-        pidfile  => $bacula::pid_file,
-        user     => $bacula::process_user,
-        argument => $bacula::process_args,
-        tool     => $bacula::monitor_tool,
-        enable   => $bacula::manage_monitor,
-        noop     => $bacula::noops,
-      }
-    }
-  }
-
-
-  ### Firewall management, if enabled ( firewall => true )
-  if $bacula::bool_firewall == true and $bacula::port != '' {
-    firewall { "bacula_${bacula::protocol}_${bacula::port}":
-      source      => $bacula::firewall_src,
-      destination => $bacula::firewall_dst,
-      protocol    => $bacula::protocol,
-      port        => $bacula::port,
-      action      => 'allow',
-      direction   => 'input',
-      tool        => $bacula::firewall_tool,
-      enable      => $bacula::manage_firewall,
-      noop        => $bacula::noops,
-    }
-  }
-
-
-  ### Debugging, if enabled ( debug => true )
-  if $bacula::bool_debug == true {
-    file { 'debug_bacula':
-      ensure  => $bacula::manage_file,
-      path    => "${settings::vardir}/debug-bacula",
-      mode    => '0640',
-      owner   => 'root',
-      group   => 'root',
-      content => inline_template('<%= scope.to_hash.reject { |k,v| k.to_s =~ /(uptime.*|path|timestamp|free|.*password.*|.*psk.*|.*key)/ }.to_yaml %>'),
-      noop    => $bacula::noops,
-    }
-  }
-
 }

@@ -41,22 +41,74 @@ class bacula::storage {
       noop       => $bacula::noops,
     }
 
+
+  ### Provide puppi data, if enabled ( puppi => true )
+  if $bacula::bool_puppi == true {
+    $classvars=get_class_args()
+    puppi::ze { 'bacula':
+      ensure    => $bacula::manage_file,
+      variables => $classvars,
+      helper    => $bacula::puppi_helper,
+      noop      => $bacula::noops,
+    }
+  }
+
+
   ### Service monitoring, if enabled ( monitor => true )
   if $bacula::bool_monitor == true {
-    if $bacula::storage_service != '' {
-      monitor::process { 'bacula-sd-monitor':
-      process  => $bacula::storage_process,
-      service  => $bacula::storage_service,
-      pidfile  => $bacula::storage_pid_file,
-      user     => $bacula::process_user,
-      argument => $bacula::process_args,
-      tool     => $bacula::monitor_tool,
-      enable   => $bacula::manage_monitor,
-      noop     => $bacula::noops,
+    if $bacula::storage_port != '' {
+      monitor::port { "bacula_${bacula::protocol}_${bacula::storage_port}":
+        protocol => $bacula::protocol,
+        port     => $bacula::storage_port,
+        target   => $bacula::monitor_target,
+        tool     => $bacula::monitor_tool,
+        enable   => $bacula::manage_monitor,
+        noop     => $bacula::noops,
+      }
+    }
+    if $bacula::service != '' {
+      monitor::process { 'bacula_process':
+        process  => $bacula::process,
+        service  => $bacula::service,
+        pidfile  => $bacula::pid_file,
+        user     => $bacula::process_user,
+        argument => $bacula::process_args,
+        tool     => $bacula::monitor_tool,
+        enable   => $bacula::manage_monitor,
+        noop     => $bacula::noops,
       }
     }
   }
 
+
+  ### Firewall management, if enabled ( firewall => true )
+  if $bacula::bool_firewall == true and $bacula::storage_port != '' {
+    firewall { "bacula_${bacula::protocol}_${bacula::storage_port}":
+      source      => $bacula::firewall_src,
+      destination => $bacula::firewall_dst,
+      protocol    => $bacula::protocol,
+      port        => $bacula::storage_port,
+      action      => 'allow',
+      direction   => 'input',
+      tool        => $bacula::firewall_tool,
+      enable      => $bacula::manage_firewall,
+      noop        => $bacula::noops,
+    }
+  }
+
+
+  ### Debugging, if enabled ( debug => true )
+  if $bacula::bool_debug == true {
+    file { 'debug_bacula':
+      ensure  => $bacula::manage_file,
+      path    => "${settings::vardir}/debug-bacula",
+      mode    => '0640',
+      owner   => 'root',
+      group   => 'root',
+      content => inline_template('<%= scope.to_hash.reject { |k,v| k.to_s =~ /(uptime.*|path|timestamp|free|.*password.*|.*psk.*|.*key)/ }.to_yaml %>'),
+      noop    => $bacula::noops,
+    }
+  }
 
 }
 

@@ -64,7 +64,7 @@ For detailed info about the logic and usage patterns of Example42 modules check 
 
         class { 'bacula':
           source_dir       => 'puppet:///modules/example42/bacula/conf/',
-          source_dir_purge => false, # Set to true to purge any existing file not present in $source_dir
+          source_director_purge => false, # Set to true to purge any existing file not present in $source_dir
         }
 
 * Use custom template for main config file. Note that template and source arguments are alternative. 
