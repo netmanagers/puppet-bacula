@@ -1,19 +1,16 @@
-define bacula::pool (
-  $pool_name = '',
-  $pool_type = '',
-  $maximum_volume_jobs = '',
-  $maximum_volume_bytes = '',
-  $use_volume_once  = '',
-  $recycle = '',
-  $action_on_purge = '' ,
-  $auto_prune = '',
-  $volume_retention = '',
-  $label_format = '' ,
+define bacula::director_storages (
+  $director_storages_name = '',
+  $director_storages_device = '' ,
+  $director_storages_media_type = '',
+  $director_storages_address = '',
+  $director_storages_sd_port = '' ,
+  $director_storages_password = '',
+  $maximum_concurrent_jobs = '',
   $manage_file_content = '' {
 
   include bacula
 
-  file { 'pool.conf':
+  file { 'storages.conf':
     ensure  => $bacula::manage_file,
     path    => $bacula::config_file,
     mode    => $bacula::config_file_mode,

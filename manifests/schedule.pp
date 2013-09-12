@@ -1,6 +1,7 @@
 define bacula::schedule (
   $schedule_name = '',
-  $backup_level = '' {
+  $backup_level = '',
+  $manage_file_content = '' {
 
   include bacula
 

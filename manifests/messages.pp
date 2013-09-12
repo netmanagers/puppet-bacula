@@ -1,19 +1,14 @@
-define bacula::pool (
-  $pool_name = '',
-  $pool_type = '',
-  $maximum_volume_jobs = '',
-  $maximum_volume_bytes = '',
-  $use_volume_once  = '',
-  $recycle = '',
-  $action_on_purge = '' ,
-  $auto_prune = '',
-  $volume_retention = '',
-  $label_format = '' ,
+define bacula::messages (
+  $messages_name = '',
+  $mail_command = '' ,
+  $mail_host = '',
+  $mail_from= '',
+  $mail_to = '',
   $manage_file_content = '' {
 
   include bacula
 
-  file { 'pool.conf':
+  file { 'messages.conf':
     ensure  => $bacula::manage_file,
     path    => $bacula::config_file,
     mode    => $bacula::config_file_mode,
