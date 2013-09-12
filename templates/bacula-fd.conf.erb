@@ -8,9 +8,9 @@ Director {
 
 # Restricted Director, used by tray-monitor for File daemon status.
 Director {
-  Name = <%= scope.lookupvar('traymonitor_name') %>
-  Password = "<%= scope.lookupvar('traymonitor_password') %>"
-  Monitor = <%= scope.lookupvar('bacula::traymonitor') %>
+  Name = <%= scope.lookupvar('bacula::traymonitor_name') %>
+  Password = "<%= scope.lookupvar('bacula::traymonitor_password') %>"
+  Monitor = Yes
 }
 
 # "Global" File daemon configuration specifications.
@@ -27,5 +27,5 @@ FileDaemon {
 # Send all messages except skipped files back to Director.
 Messages {
   Name = Standard
-  Director = <%= scope.lookupvar('bacula::client_director_name') %> = all, !skipped, !restored
+  Director = <%= scope.lookupvar('bacula::director_name') %> = all, !skipped, !restored
 }

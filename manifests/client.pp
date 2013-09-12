@@ -10,13 +10,24 @@ class bacula::client {
 
   include bacula
 
+  ### Client specific checks
+  $manage_client_file_content = $bacula::client_template ? {
+    ''      => undef,
+    default => template($bacula::client_template),
+  }
+
+  $manage_client_file_source = $bacula::client_source ? {
+    ''        => undef,
+    default   => $bacula::client_source,
+  }
+
   ### Managed resources
   package { $bacula::client_package:
     ensure  => $bacula::manage_package,
     noop    => $bacula::noops,
   }
 
-  file { 'bacula-fd.conf':
+  file { 'bacula_fd.conf':
     ensure  => $bacula::manage_file,
     path    => $bacula::client_config_file,
     mode    => $bacula::config_file_mode,
@@ -24,8 +35,8 @@ class bacula::client {
     group   => $bacula::config_file_group,
     require => Package[$bacula::client_package],
     notify  => $bacula::manage_service_autorestart,
-    source  => $bacula::manage_client_file_source,
-    content => $bacula::manage_client_file_content,
+    source  => $manage_client_file_source,
+    content => $manage_client_file_content,
     replace => $bacula::manage_file_replace,
     audit   => $bacula::manage_audit,
     noop    => $bacula::noops,
