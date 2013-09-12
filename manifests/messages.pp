@@ -1,19 +1,13 @@
-define bacula::schedule (
-  $schedule_name = '',
-  $backup_level = '',
-  $manage_file_content = '' {
+define bacula::messages (
+  $messages_name = '',
+  $mail_command = '' ,
+  $mail_host = '',
+  $mail_from= '',
+  $mail_to = '' {
 
   include bacula
 
-  $array_backup_level = is_array($backup_level) ? {
-    false     => $backup_level ? {
-      ''      => [],
-      default => [$backup_level],
-    },
-    default   => $backup_level,
-  }
-
-  file { 'schedule.conf':
+  file { 'messages.conf':
     ensure  => $bacula::manage_file,
     path    => $bacula::config_file,
     mode    => $bacula::config_file_mode,
@@ -26,7 +20,6 @@ define bacula::schedule (
     replace => $bacula::manage_file_replace,
     audit   => $bacula::manage_audit,
   }
-
 
 }
 
