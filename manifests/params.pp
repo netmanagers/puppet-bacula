@@ -26,16 +26,23 @@ class bacula::params {
     default => '/var/run',
   }
   $heartbeat_interval = '1 minute'
+  $working_directory  = $::operatingsystem ? {
+    default => '/var/spool/bacula'
+  }
 
   ## Bacula client variables
   $client_name     = $::fqdn
   $client_port     = '9102'
+  #$client_address  = $::ipaddress
   $client_address  = $::ipaddress
   $client_maximum_concurrent_jobs = '10'
 
   $client_config_file = $::operatingsystem ? {
     default => '/etc/bacula/bacula-fd.conf',
   }
+
+  $client_template = ''
+  $client_source = ''
 
   $client_pid_file = $::operatingsystem ? {
     default => "${bacula::params::pid_directory}/bacula-fd.${bacula::params::client_port}.pid",
@@ -58,7 +65,6 @@ class bacula::params {
   $storage_name                    = $::fqdn
   $storage_address                 = $::ipaddress
   $storage_port                    = '9103'
-  $storage_working_directory       = ''
   $storage_max_concurrent_jobs     = ''
   $storage_director_name           = ''
   $storage_director_password       = ''
@@ -91,12 +97,8 @@ class bacula::params {
   $director_address                = $ipaddress
   $director_port                   = '9101'
   $director_query_file             = ''
-  $director_working_directory      = ''
   $director_max_concurrent_jobs    = ''
   $director_password               = ''
-  $director_traymonitor_name       = ''
-  $director_traymonitor_password   = ''
-  $director_traymonitor_command    = ''
   $director_messages               = ''
   $director_config_directory       = ''
   $director_client_directory       = ''
@@ -117,6 +119,10 @@ class bacula::params {
   $director_process = $::operatingsystem ? {
     default => 'bacula-dir',
   }
+
+  ## Tray Monitor
+  $traymonitor_name     = $::fqdn
+  $traymonitor_password = ''
 
   ## Bacula console variables
   $console_director_name      = ''
