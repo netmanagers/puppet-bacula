@@ -8,7 +8,8 @@ define bacula::pool (
   $action_on_purge = '' ,
   $auto_prune = '',
   $volume_retention = '',
-  $label_format = '' {
+  $label_format = '' ,
+  $manage_file_content = '' {
 
   include bacula
 

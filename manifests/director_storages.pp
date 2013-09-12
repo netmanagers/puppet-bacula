@@ -1,14 +1,16 @@
-define bacula::messages (
-  $messages_name = '',
-  $mail_command = '' ,
-  $mail_host = '',
-  $mail_from= '',
-  $mail_to = '',
+define bacula::director_storages (
+  $director_storages_name = '',
+  $director_storages_device = '' ,
+  $director_storages_media_type = '',
+  $director_storages_address = '',
+  $director_storages_sd_port = '' ,
+  $director_storages_password = '',
+  $maximum_concurrent_jobs = '',
   $manage_file_content = '' {
 
   include bacula
 
-  file { 'messages.conf':
+  file { 'storages.conf':
     ensure  => $bacula::manage_file,
     path    => $bacula::config_file,
     mode    => $bacula::config_file_mode,
