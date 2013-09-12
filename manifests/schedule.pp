@@ -1,18 +1,18 @@
-define bacula::pool (
-  $pool_name = '',
-  $pool_type = '',
-  $maximum_volume_jobs = '',
-  $maximum_volume_bytes = '',
-  $use_volume_once  = '',
-  $recycle = '',
-  $action_on_purge = '' ,
-  $auto_prune = '',
-  $volume_retention = '',
-  $label_format = '' {
+define bacula::schedule (
+  $schedule_name = '',
+  $backup_level = '' {
 
   include bacula
 
-  file { 'pool.conf':
+  $array_backup_level = is_array($backup_level) ? {
+    false     => $backup_level ? {
+      ''      => [],
+      default => [$backup_level],
+    },
+    default   => $backup_level,
+  }
+
+  file { 'schedule.conf':
     ensure  => $bacula::manage_file,
     path    => $bacula::config_file,
     mode    => $bacula::config_file_mode,
@@ -25,6 +25,7 @@ define bacula::pool (
     replace => $bacula::manage_file_replace,
     audit   => $bacula::manage_audit,
   }
+
 
 }
 

@@ -1,18 +1,18 @@
-define bacula::pool (
-  $pool_name = '',
-  $pool_type = '',
-  $maximum_volume_jobs = '',
-  $maximum_volume_bytes = '',
-  $use_volume_once  = '',
-  $recycle = '',
-  $action_on_purge = '' ,
-  $auto_prune = '',
-  $volume_retention = '',
-  $label_format = '' {
+# This define APPENDS a line entry to a device file
+#
+define bacula::device (
+  $device_name = '',
+  $mediaType = '',
+  $archive_device = '',
+  $label_media = '',
+  $ramdon_access = '',
+  $automatic_mount = '',
+  $removable_media = '' ,
+  $always_open = '' {
 
   include bacula
 
-  file { 'pool.conf':
+file { 'device.conf':
     ensure  => $bacula::manage_file,
     path    => $bacula::config_file,
     mode    => $bacula::config_file_mode,
@@ -27,4 +27,3 @@ define bacula::pool (
   }
 
 }
-
