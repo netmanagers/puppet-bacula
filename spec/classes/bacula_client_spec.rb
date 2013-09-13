@@ -9,7 +9,7 @@ describe 'bacula::client' do
   describe 'Test standard Centos installation' do
     let(:facts) { { :operatingsystem => 'Centos' } }
     it { should contain_package('bacula-client').with_ensure('present') }
-    it { should contain_file('bacula_fd.conf').with_ensure('present') }
+    it { should contain_file('bacula-fd.conf').with_ensure('present') }
     it { should contain_service('bacula-fd').with_ensure('running') }
     it { should contain_service('bacula-fd').with_enable('true') }
   end
@@ -17,10 +17,10 @@ describe 'bacula::client' do
   describe 'Test standard Debian installation' do
     let(:facts) { { :operatingsystem => 'Debian' } }
     it { should contain_package('bacula-fd').with_ensure('present') }
-    it { should contain_file('bacula_fd.conf').with_ensure('present') }
-    it { should contain_file('bacula_fd.conf').with_path('/etc/bacula/bacula-fd.conf') }
-    it { should contain_file('bacula_fd.conf').without_content }
-    it { should contain_file('bacula_fd.conf').without_source }
+    it { should contain_file('bacula-fd.conf').with_ensure('present') }
+    it { should contain_file('bacula-fd.conf').with_path('/etc/bacula/bacula-fd.conf') }
+    it { should contain_file('bacula-fd.conf').without_content }
+    it { should contain_file('bacula-fd.conf').without_source }
     it { should contain_service('bacula-fd').with_ensure('running') }
     it { should contain_service('bacula-fd').with_enable('true') }
   end
@@ -31,8 +31,8 @@ describe 'bacula::client' do
         :bacula_client_source  => 'puppet:///modules/bacula/bacula.source'
       }
     end
-    it { should contain_file('bacula_fd.conf').with_path('/etc/bacula/bacula-fd.conf') }
-    it { should contain_file('bacula_fd.conf').with_source('puppet:///modules/bacula/bacula.source') }
+    it { should contain_file('bacula-fd.conf').with_path('/etc/bacula/bacula-fd.conf') }
+    it { should contain_file('bacula-fd.conf').with_source('puppet:///modules/bacula/bacula.source') }
   end
 
   describe 'Test customizations - provided template' do
@@ -83,7 +83,7 @@ Messages {
 '
     end
     it 'should create a valid config file' do
-      should contain_file('bacula_fd.conf').with_content(expected)
+      should contain_file('bacula-fd.conf').with_content(expected)
     end
   end
 
@@ -94,16 +94,16 @@ Messages {
         :options => { 'opt_a' => 'value_a' }
       }
     end
-    it { should contain_file('bacula_fd.conf').with_content(/fqdn: rspec.example42.com/) }
-    it { should contain_file('bacula_fd.conf').without_source }
-    it { should contain_file('bacula_fd.conf').with_content(/value_a/) }
+    it { should contain_file('bacula-fd.conf').with_content(/fqdn: rspec.example42.com/) }
+    it { should contain_file('bacula-fd.conf').without_source }
+    it { should contain_file('bacula-fd.conf').with_content(/value_a/) }
 
     it 'should generate a valid template' do
-      content = catalogue.resource('file', 'bacula_fd.conf').send(:parameters)[:content]
+      content = catalogue.resource('file', 'bacula-fd.conf').send(:parameters)[:content]
       content.should match "fqdn: rspec.example42.com"
     end
     it 'should generate a template that uses custom options' do
-      content = catalogue.resource('file', 'bacula_fd.conf').send(:parameters)[:content]
+      content = catalogue.resource('file', 'bacula-fd.conf').send(:parameters)[:content]
       content.should match "value_a"
     end
   end
@@ -122,7 +122,7 @@ Messages {
     it { should contain_package('bacula-client').with_ensure('present') }
     it { should contain_service('bacula-fd').with_ensure('running') }
     it { should contain_service('bacula-fd').with_enable(true) }
-    it { should contain_file('bacula_fd.conf').with_ensure('present') }
+    it { should contain_file('bacula-fd.conf').with_ensure('present') }
     it { should contain_monitor__process('bacula_client_process').with_enable(true) }
     it { should contain_monitor__port('monitor_bacula_client_tcp_9102').with_enable(true) }
     it { should contain_firewall('firewall_bacula_client_tcp_9102').with_enable(true) }
@@ -132,7 +132,7 @@ Messages {
     let(:facts) { {:bacula_absent => true, :operatingsystem => 'Centos', :monitor => true} }
     it 'should remove Package[bacula-client]' do
       should contain_package('bacula-client').with_ensure('absent')
-      should contain_file('bacula_fd.conf').with_ensure('absent')
+      should contain_file('bacula-fd.conf').with_ensure('absent')
     end
     it 'should stop Service[bacula-fd]' do
       should contain_service('bacula-fd').with_ensure('stopped')
@@ -179,7 +179,7 @@ Messages {
   describe 'Test noops mode' do
     let(:facts) { {:bacula_noops => true, :monitor => true} }
     it { should contain_package('bacula-client').with_noop('true') }
-    it { should contain_file('bacula_fd.conf').with_noop('true') }
+    it { should contain_file('bacula-fd.conf').with_noop('true') }
     it { should contain_service('bacula-fd').with_noop('true') }
   end
 end 

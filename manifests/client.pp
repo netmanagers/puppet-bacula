@@ -27,7 +27,7 @@ class bacula::client {
     noop    => $bacula::noops,
   }
 
-  file { 'bacula_fd.conf':
+  file { 'bacula-fd.conf':
     ensure  => $bacula::manage_file,
     path    => $bacula::client_config_file,
     mode    => $bacula::config_file_mode,
