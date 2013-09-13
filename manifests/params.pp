@@ -33,7 +33,6 @@ class bacula::params {
   ## Bacula client variables
   $client_name     = $::fqdn
   $client_port     = '9102'
-  #$client_address  = $::ipaddress
   $client_address  = $::ipaddress
   $client_maximum_concurrent_jobs = '10'
 
@@ -100,8 +99,8 @@ class bacula::params {
   $director_max_concurrent_jobs    = ''
   $director_password               = ''
   $director_messages               = ''
-  $director_config_directory       = ''
-  $director_client_directory       = ''
+  $director_configs_directory       = ''
+  $director_clients_directory       = ''
 
   $director_package = $::operatingsystem ? {
     /(?i:Debian|Ubuntu|Mint)/ => 'bacula-director-mysql',
