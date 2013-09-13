@@ -59,7 +59,7 @@ Director {
 
 # Restricted Director, used by tray-monitor for File daemon status.
 Director {
-  Name = rspec.example42.com
+  Name = rspec.example42.com-mon
   Password = ""
   Monitor = Yes
 }

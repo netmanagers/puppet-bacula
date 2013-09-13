@@ -5,7 +5,7 @@ define bacula::director_storages (
   $director_storages_address = '',
   $director_storages_sd_port = '' ,
   $director_storages_password = '',
-  $maximum_concurrent_jobs = '',
+  $max_concurrent = '',
   $manage_file_content = '' {
 
   include bacula
