@@ -7,7 +7,7 @@ Storage {
   SDPort = <%= scope.lookupvar('bacula::storage_port') %>
   WorkingDirectory = <%= scope.lookupvar('bacula::storage_working_directory') %>
   Pid Directory = <%= scope.lookupvar('bacula::storage_pid_directory') %>
-  Maximum Concurrent Jobs = <%= scope.lookupvar('bacula::storage_max_concurrent_jobs') %>
+  Maximum Concurrent Jobs = <%= scope.lookupvar('bacula::storage_max_concurrent') %>
   Heartbeat Interval = <%= scope.lookupvar('bacula::heartbeat_interval') %>
 }
 
@@ -24,8 +24,8 @@ Director {
 
 # Restricted Director, used by tray-monitor for Storage daemon status.
 Director {
-  Name = <%= scope.lookupvar('storage_traymonitor_name') %>
-  Password = "<%= scope.lookupvar('storage_traymonitor_password') %>"
+  Name = <%= scope.lookupvar('storage_traymon_name') %>
+  Password = "<%= scope.lookupvar('storage_traymon_password') %>"
   Monitor = <%= scope.lookupvar('bacula::storage_traymonitor') %>
 }
 

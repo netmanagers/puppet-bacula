@@ -4,26 +4,25 @@
 Director {
   Name = <%= scope.lookupvar('bacula::director_name') %>
   DirPort = <%= scope.lookupvar('bacula::director_port') %>
-  QueryFile = <%= scope.lookupvar('bacula::director_query_file') %>
-  WorkingDirectory = <%= scope.lookupvar('bacula::director_working_directory') %>
-  PidDirectory = <%= scope.lookupvar('bacula::director_pid_directory') %>
-  MaximumConcurrentJobs = <%= scope.lookupvar('bacula::director_max_concurrent_jobs') %>
+  WorkingDirectory = <%= scope.lookupvar('bacula::working_directory') %>
+  PidDirectory = <%= scope.lookupvar('bacula::pid_directory') %>
+  MaximumConcurrentJobs = <%= scope.lookupvar('bacula::director_max_concurrent') %>
   Password = "<%= scope.lookupvar('bacula::director_password') %>"
-  Messages = <%= scope.lookupvar('bacula::director_messages') %>
+  Messages = Daemon
   DirAddress = <%= scope.lookupvar('bacula::director_address') %>
-  HeartbeatInterval = <%= scope.lookupvar('bacula::heartbeat_interval') %> # Prevents timeouts
+  HeartbeatInterval = <%= scope.lookupvar('bacula::heartbeat_interval') %>
 }
 
 # Restricted Console, used by tray-monitor for Director status.
 Console {
-  Name = <%= scope.lookupvar('bacula::director_traymonitor_name') %>
-  Password = "<%= scope.lookupvar('bacula::director_traymonitor_password') %>"
-  CommandACL = <%= scope.lookupvar('bacula::director_traymonitor_command') %>
+  Name = <%= scope.lookupvar('bacula::traymon_name') %>
+  Password = "<%= scope.lookupvar('bacula::traymon_password') %>"
+  CommandACL = <%= scope.lookupvar('bacula::traymon_command') %>
 }
 
 # Include split config files. Remember to bconsole "reload" after modifying a config file.
-@|"sh -c 'cat /<%= scope.lookupvar('bacula::director_config_directory') %>/*.conf'"
+@|"sh -c 'cat /<%= scope.lookupvar('bacula::director_configs_dir') %>/*.conf'"
 
 # Read client directory for config files. Remember to bconsole "reload" after adding a client.
-@|"sh -c 'cat /<%= scope.lookupvar('bacula::director_client_directory') %>/*.conf'"
+@|"sh -c 'cat /<%= scope.lookupvar('bacula::director_clients_dir') %>/*.conf'"
 
