@@ -110,21 +110,44 @@ Messages {
 
 
   describe 'Test Centos decommissioning - absent' do
-    let(:facts) { {:bacula_absent => true, :operatingsystem => 'Centos', :monitor => true} }
+    let(:facts) do
+      { 
+        :bacula_absent => true,
+        :bacula_monitor_target => '10.42.42.42',
+        :bacula_storage_pid_file =>  'some.pid.file',
+        :operatingsystem => 'Centos',
+        :monitor => true
+      }
+    end
     it 'should remove Package[bacula-storage-mysql]' do should contain_package('bacula-storage-mysql').with_ensure('absent') end
     it 'should stop Service[bacula-sd]' do should contain_service('bacula-sd').with_ensure('stopped') end
     it 'should not enable at boot Service[bacula-sd]' do should contain_service('bacula-sd').with_enable('false') end
   end
 
   describe 'Test Debian decommissioning - absent' do
-    let(:facts) { {:bacula_absent => true, :operatingsystem => 'Debian', :monitor => true} }
+    let(:facts) do
+      {
+        :bacula_absent => true,
+        :bacula_monitor_target => '10.42.42.42',
+        :bacula_storage_pid_file =>  'some.pid.file',
+        :operatingsystem => 'Debian',
+        :monitor => true
+      }
+    end
     it 'should remove Package[bacula-sd-mysql]' do should contain_package('bacula-sd-mysql').with_ensure('absent') end
     it 'should stop Service[bacula-sd]' do should contain_service('bacula-sd').with_ensure('stopped') end
     it 'should not enable at boot Service[bacula-sd]' do should contain_service('bacula-sd').with_enable('false') end
   end
 
   describe 'Test decommissioning - disable' do
-    let(:facts) { {:bacula_disable => true, :monitor => true} }
+    let(:facts) do
+      {
+        :bacula_disable => true,
+        :bacula_monitor_target => '10.42.42.42',
+        :bacula_storage_pid_file =>  'some.pid.file',
+        :monitor => true
+      }
+    end
     it { should contain_package('bacula-storage-mysql').with_ensure('present') }
     it 'should stop Service[bacula-sd]' do should contain_service('bacula-sd').with_ensure('stopped') end
     it 'should not enable at boot Service[bacula-sd]' do should contain_service('bacula-sd').with_enable('false') end
@@ -135,6 +158,7 @@ Messages {
       { 
         :bacula_disableboot => true,
         :bacula_monitor_target => '10.42.42.42',
+        :bacula_storage_pid_file =>  'some.pid.file',
         :monitor => true 
       }
     end
@@ -150,6 +174,7 @@ Messages {
       { 
         :bacula_noops => true,
         :bacula_monitor_target => '10.42.42.42',
+        :bacula_storage_pid_file =>  'some.pid.file',
         :monitor => true 
       }
     end
