@@ -109,9 +109,9 @@ class bacula::director {
 
   ### Debugging, if enabled ( debug => true )
   if $bacula::bool_debug == true {
-    file { 'debug_bacula':
+    file { 'debug_director_bacula':
       ensure  => $bacula::manage_file,
-      path    => "${settings::vardir}/debug-bacula",
+      path    => "${settings::vardir}/debug-director-bacula",
       mode    => '0640',
       owner   => 'root',
       group   => 'root',

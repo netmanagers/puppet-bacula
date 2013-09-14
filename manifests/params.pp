@@ -70,7 +70,7 @@ class bacula::params {
   $director_address           = $::ipaddress
   $director_max_concurrent    = '30'
   $director_password          = ''
-  $director_configs_dir = "${bacula::params::config_dir}/conf.d"
+  $director_configs_dir = "${bacula::params::config_dir}/director.d"
   $director_clients_dir = "${bacula::params::config_dir}/clients.d"
 
   $director_package = $::operatingsystem ? {
@@ -96,10 +96,10 @@ class bacula::params {
   $storage_name                    = "${::fqdn}-sd"
   $storage_address                 = $::ipaddress
   $storage_port                    = '9103'
-  $storage_max_concurrent     = ''
-  $storage_password       = ''
+  $storage_max_concurrent          = '30'
+  $storage_password                = ''
   $storage_messages_name           = ''
-  $storage_config_directory        = ''
+  $storage_configs_dir = "${bacula::params::config_dir}/storage.d"
 
   $storage_config_file = $::operatingsystem ? {
     default => '/etc/bacula/bacula-sd.conf',
