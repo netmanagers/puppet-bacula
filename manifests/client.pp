@@ -109,9 +109,9 @@ class bacula::client {
 
   ### Debugging, if enabled ( debug => true )
   if $bacula::bool_debug == true {
-    file { 'debug_bacula':
+    file { 'debug_client_bacula':
       ensure  => $bacula::manage_file,
-      path    => "${settings::vardir}/debug-bacula",
+      path    => "${settings::vardir}/debug-client-bacula",
       mode    => '0640',
       owner   => 'root',
       group   => 'root',

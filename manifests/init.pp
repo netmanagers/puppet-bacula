@@ -222,8 +222,6 @@ class bacula (
   $storage_port                   = params_lookup( 'storage_port' ),
   $storage_pid_directory          = params_lookup( 'storage_pid_directory' ),
   $storage_max_concurrent         = params_lookup( 'storage_max_concurrent' ),
-  $storage_director_name          = params_lookup( 'storage_director_name' ),
-  $storage_messages_name          = params_lookup( 'storage_messages_name' ),
   $storage_config_directory       = params_lookup( 'storage_config_directory' ),
   $director_package               = params_lookup( 'director_package' ),
   $director_config_file           = params_lookup( 'director_config_file' ),
@@ -331,17 +329,6 @@ class bacula (
   $manage_file = $bacula::bool_absent ? {
     true    => 'absent',
     default => 'present',
-  }
-
-  ### Storage specific checks
-  $manage_storage_file_content = $bacula::storage_template ? {
-    ''      => undef,
-    default => template($bacula::storage_template),
-  }
-
-  $manage_storage_file_source = $bacula::storage_source ? {
-    ''        => undef,
-    default   => $bacula::storage_source,
   }
 
   ### Bconsole specific checks
