@@ -108,12 +108,12 @@ Messages {
   describe 'Test standard installation with monitoring and firewalling' do
     let(:facts) do
       {
-        :monitor        => 'true',
-        :firewall       => 'true',
-        :client_service => 'bacula-fd',
-        :protocol       => 'tcp',
-        :client_port    => '9102',
-        :concat_basedir => '/var/lib/puppet/concat',
+        :monitor               => 'true',
+        :firewall              => 'true',
+        :bacula_protocol       => 'tcp',
+        :bacula_client_service => 'bacula-fd',
+        :bacula_client_port    => '9102',
+        :concat_basedir        => '/var/lib/puppet/concat',
       }
     end
     it { should contain_package('bacula-client').with_ensure('present') }
@@ -126,7 +126,7 @@ Messages {
   end
 
   describe 'Test Centos decommissioning - absent' do
-    let(:facts) { {:bacula_absent => true, :operatingsystem => 'Centos', :monitor => true} }
+    let(:facts) { {:bacula_absent => true, :operatingsystem => 'Centos'} }
     it 'should remove Package[bacula-client]' do
       should contain_package('bacula-client').with_ensure('absent')
       should contain_file('bacula-fd.conf').with_ensure('absent')
@@ -140,7 +140,7 @@ Messages {
   end
 
   describe 'Test Debian decommissioning - absent' do
-    let(:facts) { {:bacula_absent => true, :operatingsystem => 'Debian', :monitor => true} }
+    let(:facts) { {:bacula_absent => true, :operatingsystem => 'Debian'} }
     it 'should remove Package[bacula-fd]' do
       should contain_package('bacula-fd').with_ensure('absent')
     end
@@ -153,7 +153,7 @@ Messages {
   end
 
   describe 'Test decommissioning - disable' do
-    let(:facts) { {:bacula_disable => true, :monitor => true} }
+    let(:facts) { {:bacula_disable => true} }
     it { should contain_package('bacula-client').with_ensure('present') }
     it 'should stop Service[bacula-fd]' do
       should contain_service('bacula-fd').with_ensure('stopped')
@@ -164,7 +164,7 @@ Messages {
   end
 
   describe 'Test decommissioning - disableboot' do
-    let(:facts) { {:bacula_disableboot => true, :monitor => true } }
+    let(:facts) { {:bacula_disableboot => true} }
     it { should contain_package('bacula-client').with_ensure('present') }
     it { should_not contain_service('bacula-fd').with_ensure('present') }
     it { should_not contain_service('bacula-fd').with_ensure('absent') }
@@ -174,7 +174,7 @@ Messages {
   end
 
   describe 'Test noops mode' do
-    let(:facts) { {:bacula_noops => true, :monitor => true} }
+    let(:facts) { {:bacula_noops => true} }
     it { should contain_package('bacula-client').with_noop('true') }
     it { should contain_file('bacula-fd.conf').with_noop('true') }
     it { should contain_service('bacula-fd').with_noop('true') }

@@ -96,7 +96,7 @@ Console {
   end
 
   describe 'Test Centos decommissioning - absent' do
-    let(:facts) { {:bacula_absent => true, :operatingsystem => 'Centos', :monitor => true} }
+    let(:facts) { {:bacula_absent => true, :operatingsystem => 'Centos'} }
     it 'should remove Package[bacula-director-mysql] and related' do
       should contain_package('bacula-director-mysql').with_ensure('absent')
       should contain_file('bacula-dir.conf').with_ensure('absent')
@@ -110,7 +110,7 @@ Console {
   end
 
   describe 'Test decommissioning - disable' do
-    let(:facts) { {:bacula_disable => true, :monitor => true} }
+    let(:facts) { {:bacula_disable => true} }
     it { should contain_package('bacula-director-mysql').with_ensure('present') }
     it 'should stop Service[bacula-dir]' do
       should contain_service('bacula-dir').with_ensure('stopped')
@@ -121,7 +121,7 @@ Console {
   end
 
   describe 'Test decommissioning - disableboot' do
-    let(:facts) { {:bacula_disableboot => true, :monitor => true } }
+    let(:facts) { {:bacula_disableboot => true} }
     it { should contain_package('bacula-director-mysql').with_ensure('present') }
     it { should_not contain_service('bacula-dir').with_ensure('present') }
     it { should_not contain_service('bacula-dir').with_ensure('absent') }
