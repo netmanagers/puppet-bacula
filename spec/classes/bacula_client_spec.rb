@@ -94,10 +94,7 @@ Messages {
         :options => { 'opt_a' => 'value_a' }
       }
     end
-    it { should contain_file('bacula-fd.conf').with_content(/fqdn: rspec.example42.com/) }
     it { should contain_file('bacula-fd.conf').without_source }
-    it { should contain_file('bacula-fd.conf').with_content(/value_a/) }
-
     it 'should generate a valid template' do
       content = catalogue.resource('file', 'bacula-fd.conf').send(:parameters)[:content]
       content.should match "fqdn: rspec.example42.com"
@@ -109,8 +106,8 @@ Messages {
   end
 
   describe 'Test standard installation with monitoring and firewalling' do
-    let(:facts) do 
-      { 
+    let(:facts) do
+      {
         :monitor        => 'true',
         :firewall       => 'true',
         :client_service => 'bacula-fd',
@@ -182,4 +179,4 @@ Messages {
     it { should contain_file('bacula-fd.conf').with_noop('true') }
     it { should contain_service('bacula-fd').with_noop('true') }
   end
-end 
+end

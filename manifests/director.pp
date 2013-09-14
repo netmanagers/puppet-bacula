@@ -10,6 +10,17 @@ class bacula::director {
 
   include bacula
 
+  ### Director specific checks
+  $manage_director_file_content = $bacula::director_template ? {
+    ''      => undef,
+    default => template($bacula::director_template),
+  }
+
+  $manage_director_file_source = $bacula::director_source ? {
+    ''        => undef,
+    default   => $bacula::director_source,
+  }
+
   ### Managed resources
   package { $bacula::director_package:
     ensure  => $bacula::manage_package,
@@ -24,8 +35,8 @@ class bacula::director {
     group   => $bacula::config_file_group,
     require => Package[$bacula::director_package],
     notify  => $bacula::manage_service_autorestart,
-    source  => $bacula::manage_director_file_source,
-    content => $bacula::manage_director_file_content,
+    source  => $manage_director_file_source,
+    content => $manage_director_file_content,
     replace => $bacula::manage_file_replace,
     audit   => $bacula::manage_audit,
     noop    => $bacula::noops,
@@ -45,7 +56,7 @@ class bacula::director {
   ### Provide puppi data, if enabled ( puppi => true )
   if $bacula::bool_puppi == true {
     $classvars=get_class_args()
-    puppi::ze { 'bacula':
+    puppi::ze { 'bacula-director':
       ensure    => $bacula::manage_file,
       variables => $classvars,
       helper    => $bacula::puppi_helper,
@@ -53,11 +64,10 @@ class bacula::director {
     }
   }
 
-
   ### Service monitoring, if enabled ( monitor => true )
   if $bacula::bool_monitor == true {
     if $bacula::director_port != '' {
-      monitor::port { "bacula_${bacula::protocol}_${bacula::director_port}":
+      monitor::port { "monitor_bacula_director_${bacula::protocol}_${bacula::director_port}":
         protocol => $bacula::protocol,
         port     => $bacula::director_port,
         target   => $bacula::monitor_target,
@@ -66,11 +76,11 @@ class bacula::director {
         noop     => $bacula::noops,
       }
     }
-    if $bacula::service != '' {
+    if $bacula::director_service != '' {
       monitor::process { 'bacula_process':
-        process  => $bacula::process,
-        service  => $bacula::service,
-        pidfile  => $bacula::pid_file,
+        process  => $bacula::director_process,
+        service  => $bacula::director_service,
+        pidfile  => $bacula::director_pid_file,
         user     => $bacula::process_user,
         argument => $bacula::process_args,
         tool     => $bacula::monitor_tool,
@@ -83,7 +93,7 @@ class bacula::director {
 
   ### Firewall management, if enabled ( firewall => true )
   if $bacula::bool_firewall == true and $bacula::director_port != '' {
-    firewall { "bacula_${bacula::protocol}_${bacula::director_port}":
+    firewall { "firewall_bacula_client_${bacula::protocol}_${bacula::director_port}":
       source      => $bacula::firewall_src,
       destination => $bacula::firewall_dst,
       protocol    => $bacula::protocol,
