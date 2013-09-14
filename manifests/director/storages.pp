@@ -1,14 +1,21 @@
-define bacula::director_storages (
-  $director_storages_name = '',
-  $director_storages_device = '' ,
-  $director_storages_media_type = '',
-  $director_storages_address = '',
-  $director_storages_sd_port = '' ,
-  $director_storages_password = '',
+define bacula::director::storages (
+  $name = '',
+  $device = '' ,
+  $media_type = '',
+  $address = '',
+  $sd_port = '' ,
+  $password = '',
   $max_concurrent = '',
-  $manage_file_content = '' {
+  $source = '',
+  $template = ''
+) {
 
   include bacula
+
+  $manage_file_content = $template ? {
+    '' => undef,
+    default => template($template),
+  }
 
   file { 'storages.conf':
     ensure  => $bacula::manage_file,
@@ -18,8 +25,8 @@ define bacula::director_storages (
     group   => $bacula::config_file_group,
     require => Package['bacula'],
     notify  => $bacula::manage_service_autorestart,
-    source  => $bacula::manage_file_source,
-    content => $bacula::manage_file_content,
+    source  => $manage_file_source,
+    content => $manage_file_content,
     replace => $bacula::manage_file_replace,
     audit   => $bacula::manage_audit,
   }

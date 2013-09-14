@@ -81,6 +81,9 @@ class bacula::params {
     default => '/etc/bacula/bacula-dir.conf',
   }
 
+  $director_template = ''
+  $director_source = ''
+
   $director_service = $::operatingsystem ? {
     default => 'bacula-dir',
   }
@@ -107,6 +110,9 @@ class bacula::params {
     default                   => 'bacula-storage-mysql',
   }
 
+  $storage_template = ''
+  $storage_source = ''
+
   $storage_service = $::operatingsystem ? {
     default => 'bacula-sd',
   }
@@ -122,6 +128,7 @@ class bacula::params {
   ## Tray Monitor
   $traymon_name     = "${::fqdn}-mon"
   $traymon_password = ''
+  $traymon_command = 'status, .status'
 
   ## Bacula console variables
   $console_address            = ''
@@ -129,6 +136,9 @@ class bacula::params {
   $console_package = $::operatingsystem ? {
     default => 'bacula-console',
   }
+
+  $console_template = ''
+  $console_source = ''
 
   $service_status = $::operatingsystem ? {
     default => true,
