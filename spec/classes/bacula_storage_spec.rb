@@ -114,7 +114,7 @@ Messages {
       { 
         :bacula_absent => true,
         :bacula_monitor_target => '10.42.42.42',
-        :bacula_storage_pid_file =>  'some.pid.file',
+        :storage_pid_file =>  'some.pid.file',
         :operatingsystem => 'Centos',
         :monitor => true
       }
@@ -129,7 +129,7 @@ Messages {
       {
         :bacula_absent => true,
         :bacula_monitor_target => '10.42.42.42',
-        :bacula_storage_pid_file =>  'some.pid.file',
+        :storage_pid_file =>  'some.pid.file',
         :operatingsystem => 'Debian',
         :monitor => true
       }
@@ -144,7 +144,7 @@ Messages {
       {
         :bacula_disable => true,
         :bacula_monitor_target => '10.42.42.42',
-        :bacula_storage_pid_file =>  'some.pid.file',
+        :storage_pid_file =>  'some.pid.file',
         :monitor => true
       }
     end
@@ -158,7 +158,7 @@ Messages {
       { 
         :bacula_disableboot => true,
         :bacula_monitor_target => '10.42.42.42',
-        :bacula_storage_pid_file =>  'some.pid.file',
+        :storage_pid_file =>  'some.pid.file',
         :monitor => true 
       }
     end
@@ -174,7 +174,7 @@ Messages {
       { 
         :bacula_noops => true,
         :bacula_monitor_target => '10.42.42.42',
-        :bacula_storage_pid_file =>  'some.pid.file',
+        :storage_pid_file =>  'some.pid.file',
         :monitor => true 
       }
     end

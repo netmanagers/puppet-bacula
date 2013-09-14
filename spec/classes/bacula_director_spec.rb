@@ -125,6 +125,7 @@ Console {
       {
         :bacula_disableboot => true,
         :bacula_monitor_target => '10.42.42.42',
+        :bacula_director_pid_file =>  'some.pid.file',
         :monitor => true
       }
     end
