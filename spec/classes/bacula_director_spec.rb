@@ -128,14 +128,14 @@ Console {
     it 'should not enable at boot Service[bacula-dir]' do
       should contain_service('bacula-dir').with_enable('false')
     end
-#    it { should contain_monitor__process('nut_process').with_enable('false') }
+    it { should contain_monitor__process('bacula_director_process').with_enable('false') }
   end
 
   describe 'Test noops mode' do
     let(:facts) { {:bacula_noops => true, :monitor => true} }
     it { should contain_package('bacula-director-mysql').with_noop('true') }
     it { should contain_service('bacula-dir').with_noop('true') }
-#    it { should contain_monitor__process('nut_process').with_noop('true') }
-#    it { should contain_monitor__process('nut_process').with_noop('true') }
+    it { should contain_monitor__process('bacula_director_process').with_noop('true') }
+    it { should contain_monitor__process('bacula_director_process').with_noop('true') }
   end
 end

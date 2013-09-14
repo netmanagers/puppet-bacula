@@ -77,7 +77,7 @@ class bacula::director {
       }
     }
     if $bacula::director_service != '' {
-      monitor::process { 'bacula_process':
+      monitor::process { 'bacula_director_process':
         process  => $bacula::director_process,
         service  => $bacula::director_service,
         pidfile  => $bacula::director_pid_file,
