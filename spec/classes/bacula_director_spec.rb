@@ -121,7 +121,7 @@ Console {
   end
 
   describe 'Test decommissioning - disableboot' do
-    let(:facts) { {:bacula_disableboot => true} }
+    let(:facts) { {:bacula_disableboot => true, :monitor => true} }
     it { should contain_package('bacula-director-mysql').with_ensure('present') }
     it { should_not contain_service('bacula-dir').with_ensure('present') }
     it { should_not contain_service('bacula-dir').with_ensure('absent') }
@@ -132,7 +132,13 @@ Console {
   end
 
   describe 'Test noops mode' do
-    let(:facts) { {:bacula_noops => true, :monitor => true} }
+    let(:facts) do
+      { 
+        :bacula_noops => true,
+        :bacula_monitor_target => '10.42.42.42',
+        :monitor => true
+      }
+    end
     it { should contain_package('bacula-director-mysql').with_noop('true') }
     it { should contain_service('bacula-dir').with_noop('true') }
     it { should contain_monitor__process('bacula_director_process').with_noop('true') }

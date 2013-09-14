@@ -109,6 +109,7 @@ Messages {
     let(:facts) do
       {
         :monitor               => 'true',
+        :bacula_monitor_target => '10.42.42.42',
         :firewall              => 'true',
         :bacula_protocol       => 'tcp',
         :bacula_client_service => 'bacula-fd',

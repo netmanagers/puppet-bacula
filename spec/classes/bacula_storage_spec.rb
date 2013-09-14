@@ -131,7 +131,13 @@ Messages {
   end
 
   describe 'Test decommissioning - disableboot' do
-    let(:facts) { {:bacula_disableboot => true, :monitor => true } }
+    let(:facts) do
+      { 
+        :bacula_disableboot => true,
+        :bacula_monitor_target => '10.42.42.42',
+        :monitor => true 
+      }
+    end
     it { should contain_package('bacula-storage-mysql').with_ensure('present') }
     it { should_not contain_service('bacula-sd').with_ensure('present') }
     it { should_not contain_service('bacula-sd').with_ensure('absent') }
@@ -140,12 +146,16 @@ Messages {
   end
 
   describe 'Test noops mode' do
-    let(:facts) { {:bacula_noops => true, :monitor => true} }
+    let(:facts) do
+      { 
+        :bacula_noops => true,
+        :bacula_monitor_target => '10.42.42.42',
+        :monitor => true 
+      }
+    end
     it { should contain_package('bacula-storage-mysql').with_noop('true') }
     it { should contain_service('bacula-sd').with_noop('true') }
     it { should contain_monitor__process('bacula_storage_process').with_noop('true') }
     it { should contain_monitor__process('bacula_storage_process').with_noop('true') }
   end
-
-
 end
