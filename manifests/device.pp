@@ -8,7 +8,8 @@ define bacula::device (
   $ramdon_access = '',
   $automatic_mount = '',
   $removable_media = '' ,
-  $always_open = '' {
+  $always_open = '',
+  $manage_file_content = ''{
 
   include bacula
 
