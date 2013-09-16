@@ -1,4 +1,4 @@
-define bacula::pool (
+define bacula::director::pool (
   $pool_name = '',
   $pool_type = '',
   $maximum_volume_jobs = '',

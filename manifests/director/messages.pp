@@ -1,4 +1,4 @@
-define bacula::messages (
+define bacula::director::messages (
   $messages_name = '',
   $mail_command = '' ,
   $mail_host = '',

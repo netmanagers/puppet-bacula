@@ -1,4 +1,4 @@
-define bacula::schedule (
+define bacula::director::schedule (
   $schedule_name = '',
   $backup_level = '',
   $manage_file_content = '' {

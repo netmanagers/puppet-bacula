@@ -1,4 +1,4 @@
-define bacula::filesets (
+define bacula::director::fileset (
   $filesets_name = '',
   $filesets_signature = '',
   $filesets_compression = '',

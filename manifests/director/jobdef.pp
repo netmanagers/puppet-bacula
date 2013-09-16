@@ -1,4 +1,4 @@
-define bacula::jobdefs (
+define bacula::director::jobdef (
   $jobdefs_name = '',
   $jobdefs_type = '',
   $jobdefs_client = '',

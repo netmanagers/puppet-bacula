@@ -1,6 +1,6 @@
 # This define APPENDS a line entry to a device file
 #
-define bacula::device (
+define bacula::storage::device (
   $device_name = '',
   $mediaType = '',
   $archive_device = '',

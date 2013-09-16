@@ -1,4 +1,4 @@
-define bacula::director::storages (
+define bacula::director::storage (
   $name = '',
   $device = '' ,
   $media_type = '',

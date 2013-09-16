@@ -1,4 +1,4 @@
-define bacula::catalog (
+define bacula::director::catalog (
   $catalog_name = '',
   $db_driver = '',
   $db_address = '',
