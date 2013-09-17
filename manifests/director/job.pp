@@ -7,7 +7,7 @@ define bacula::director::job (
   $pool = '',
   $prefer_mounted_volumes = '',
   $write_bootstrap = '',
-  $schedule = '',
+  $job_schedule = '',
   $priority = '',
   $messages = '',
   $where = '',
@@ -26,14 +26,9 @@ define bacula::director::job (
     default   => $jobdefs_storage,
   }
 
-   if $type == "Restore" {
-     $jobdefs_mode = 'Job',
-   if $type == "Backup" {
-     $jobdefs_mode = 'JobDefs',
-
-   $job_name =  $use_as_def  ==  true ? {
-      true =>  "jobdef-${name}.conf",
-      false => "job-${client}-${name}.conf"
+  $job_name =  $use_as_def  ==  true ? {
+    true =>  "jobdef-${name}.conf",
+    false => "job-${client}-${name}.conf"
    }
 
   file { 'job-${name}.conf':
