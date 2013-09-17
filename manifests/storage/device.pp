@@ -8,9 +8,9 @@ define bacula::storage::device (
   $random_access = 'yes',
   $automatic_mount = 'yes',
   $removable_media = 'no' ,
-  $always_open = 'false',
+  $always_open = false,
   $template = 'templates/device.conf.erb'
-) { 
+) {
 
   include bacula
 
