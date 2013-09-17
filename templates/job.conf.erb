@@ -10,16 +10,33 @@ Job {
    JobDefs = "<%= @jobdef -%>
 <% end -%>
 <% end -%>
+<% if @type != '' -%>
    Type = <%= @type %>
+<% end -%>
+<% if @fileset != '' -%>
    FileSet = <%= @fileset %>
+<% end -%>
    Storage  = <%= @array_jobdefs_storage * ',' %>
+<% if @pool != '' -%>
    Pool = <%= @pool %>
+<% end -%>
+<% if @prefer_mounted_volumes != '' -%>
    Prefer Mounted Volumes = <%= @prefer_mounted_volumes %>
+<% end -%>
+<% if @write_bootstrap != '' -%>
    Write Bootstrap = "<%= @write_bootstrap %>"
+<% end -%>
+<% if @jschedule != '' -%>
    Schedule = <%= @jschedule %>
+<% end -%>
+<% if @priority != '' -%>
    Priority = <%= @priority %>
+<% end -%>
+<% if @messages != '' -%>
    Messages = <%= @messages %>
+<% end -%>
+<% if @where != '' -%>
    Where = <%= @where %>
-
+<% end -%>
 }
 
