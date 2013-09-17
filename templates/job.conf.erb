@@ -1,0 +1,25 @@
+<% if @use_as_def == true %>
+JobDef {
+<% else %>
+Job {
+   Name = <%= @name %>
+<% end %>
+<% if @use_as_def != true -%>
+   Client = <%= @client -%>
+<% if @jobdef != '' -%>
+   JobDefs = "<%= @jobdef -%>
+<% end -%>
+<% end -%>
+   Type = <%= @type %>
+   FileSet = <%= @fileset %>
+   Storage  = <%= @array_jobdefs_storage * ',' %>
+   Pool = <%= @pool %>
+   Prefer Mounted Volumes = <%= @prefer_mounted_volumes %>
+   Write Bootstrap = "<%= @write_bootstrap %>"
+   Schedule = <%= @jschedule %>
+   Priority = <%= @priority %>
+   Messages = <%= @messages %>
+   Where = <%= @where %>
+
+}
+
