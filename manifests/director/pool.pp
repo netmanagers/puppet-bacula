@@ -1,28 +1,28 @@
 define bacula::director::pool (
-  $pool_name = '',
-  $pool_type = '',
-  $maximum_volume_jobs = '',
-  $maximum_volume_bytes = '',
-  $use_volume_once  = '',
-  $recycle = '',
-  $action_on_purge = '' ,
-  $auto_prune = '',
-  $volume_retention = '',
-  $label_format = '' ,
-  $manage_file_content = '' {
+  $name = $title,
+  $type = 'Backup',
+  $maximum_volume_jobs = '1',
+  $maximum_volume_bytes = '1G',
+  $use_volume_once  = true,
+  $recycle = true,
+  $action_on_purge = 'truncate' ,
+  $auto_prune = true,
+  $volume_retention = '1 month',
+  $label_format = 'Volume-' ,
+  $template = 'bacula/pool.conf.erb'
+) {
 
   include bacula
 
-  file { 'pool.conf':
+  file { 'pool-${name}.conf':
     ensure  => $bacula::manage_file,
-    path    => $bacula::config_file,
+    path    => "${storage_configs_dir}/device-${name}.conf",
     mode    => $bacula::config_file_mode,
     owner   => $bacula::config_file_owner,
     group   => $bacula::config_file_group,
-    require => Package['bacula'],
+    require => Package[$bacula::director_package],
     notify  => $bacula::manage_service_autorestart,
-    source  => $bacula::manage_file_source,
-    content => $bacula::manage_file_content,
+    content => $template,
     replace => $bacula::manage_file_replace,
     audit   => $bacula::manage_audit,
   }
