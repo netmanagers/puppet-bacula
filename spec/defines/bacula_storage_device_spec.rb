@@ -12,9 +12,15 @@ describe 'bacula::storage::device' do
   end
 
   describe 'Test device.conf is created with no options' do
+    let(:params) do
+      {
+        :name => 'sample1',
+      }
+    end
     let(:expected) do
 "Device {
 Name = sample1
+Device {
 Media Type = ""
 Archive Device = ""
 Label Media = yes
@@ -31,10 +37,10 @@ Always Open = false
     let(:params) do
       {
         :name => 'sample2',
-        :mediaType => 'File01',
+        :media_type => 'File01',
         :archive_device => '/backups/bacula_storage',
         :label_media => 'yes',
-        :ramdon_access => 'yes',
+        :random_access => 'yes',
         :automatic_mount => 'yes',
         :removable_media => 'no' ,
         :always_open => false,
@@ -53,6 +59,7 @@ Always Open = false
 }
 "
     end
+    it { should contain_file('device.conf').with_content(expected) }
   end
 
 end
