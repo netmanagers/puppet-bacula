@@ -12,39 +12,55 @@ describe 'bacula::storage::device' do
   end
 
   describe 'Test device.conf is created with no options' do
+    let(:params) do
+      {
+        :name => 'sample1',
+      }
+    end
     let(:expected) do
-"ACL bacula::device 127.0.0.1/8
-ACCEPT bacula::device
+"Device {
+Name = sample1
+Device {
+Media Type = ""
+Archive Device = ""
+Label Media = yes
+Random Access = yes
+Automatic Mount = yes
+Removable Media = no
+Always Open = false
 "
     end
+#    it { should contain_file('device-sample1.conf').with_path('/etc/bacula/storage.d/device-sample1.conf').with_content(expected) }
+    it { should contain_file('device-sample1.conf').with_path('/device-sample1.conf').with_content(expected) }
   end
 
   describe 'Test device.conf is created with all main options' do
     let(:params) do
       {
-        :device_name => 'sample1',
-        :mediaType => 'File01',
+        :name => 'sample2',
+        :media_type => 'File01',
         :archive_device => '/backups/bacula_storage',
         :label_media => 'yes',
-        :ramdon_access => 'yes',
+        :random_access => 'yes',
         :automatic_mount => 'yes',
         :removable_media => 'no' ,
-        :always_open => 'no',
+        :always_open => false,
       }
     end
     let(:expected) do
 "Device {
-  Name = sample1
-  Media Type = File01
-  Archive Device = /backups/bacula_storage
-  Label Media = yes
-  Random Access = yes
-  Automatic Mount = yes
-  Removable Media = no
-  Always Open = no
+Name = sample2
+Media Type = File01
+Archive Device = /backups/bacula_storage
+Label Media = yes
+Random Access = yes
+Automatic Mount = yes
+Removable Media = no
+Always Open = false
 }
 "
     end
+    it { should contain_file('device-sample2.conf').with_path('/etc/bacula/storage.d/device-sample2.conf').with_content(expected) }
   end
 
 end

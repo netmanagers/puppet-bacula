@@ -1,7 +1,8 @@
 define bacula::director::schedule (
-  $schedule_name = '',
+  $name = $title,
   $backup_level = '',
-  $manage_file_content = '' {
+  $template = 'templates/schedule.conf.erb'
+) {
 
   include bacula
 
@@ -21,8 +22,7 @@ define bacula::director::schedule (
     group   => $bacula::config_file_group,
     require => Package['bacula'],
     notify  => $bacula::manage_service_autorestart,
-    source  => $bacula::manage_file_source,
-    content => $bacula::manage_file_content,
+    content => $template,
     replace => $bacula::manage_file_replace,
     audit   => $bacula::manage_audit,
   }

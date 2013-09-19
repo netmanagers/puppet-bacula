@@ -1,10 +1,10 @@
 FileSet {
-Name = <%= @filesets_name %>
+Name = <%= @name %>
   Include {
     Options {
-      signature = <%= @filesets_signature %>
-      compression = <%= @filesets_compression %>
-      onefs = <%= @filesets_onefs %>
+      signature = <%= @signature %>
+      compression = <%= @compression %>
+      onefs = <%= @onefs %>
     <% if scope.lookupvar('bacula::array_filesets_fstype') != [] -%>
     <% scope.lookupvar('bacula::array_filesets_fstype').each do |filesets_fstype| -%>
       fstype = <%=filesets_fstype  %> 
