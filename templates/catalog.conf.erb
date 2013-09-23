@@ -1,9 +1,15 @@
 # This file is managed by Puppet. DO NOT EDIT.
 
 Catalog {
-  Name = <%= @c_name %>
-  DBDriver = "<%= @db_driver %>"
+  Name = <%= @name %>
+  DBDriver = <%= @db_driver %>
   DBAddress = <%= @db_address %>
   DBPort = <%= @db_port %>
-  DBName = "<%= @db_name %>"; dbuser = "<%= @db_user %>"; dbpassword = "<%= @db_password %>";
+<% if scope.lookupvar('bacula::@db_name') != '' -%>
+<% if scope.lookupvar('bacula::@db_user') != '' -%>
+<% if scope.lookupvar('bacula::@db_password') != '' -%>
+  DBName = <%= @db_name %>; dbuser = <%= @db_user %>; dbpassword = <%= @db_password %>;
+<% end -%>
+<% end -%>
+<% end -%>
 }
