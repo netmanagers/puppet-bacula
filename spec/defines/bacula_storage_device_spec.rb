@@ -8,6 +8,7 @@ describe 'bacula::storage::device' do
     {
       :ipaddress       => '10.42.42.42',
       :operatingsystem => 'Debian',
+      :storage_configs_dir => '/etc/bacula/storage.d',
     }
   end
 
@@ -18,20 +19,22 @@ describe 'bacula::storage::device' do
       }
     end
     let(:expected) do
-"Device {
-Name = sample1
+'# This file is managed by Puppet. DO NOT EDIT.
+
 Device {
-Media Type = ""
-Archive Device = ""
-Label Media = yes
-Random Access = yes
-Automatic Mount = yes
-Removable Media = no
-Always Open = false
-"
+  Name = sample1
+  MediaType = 
+  ArchiveDevice = 
+  LabelMedia = yes
+  RandomAccess = yes
+  AutomaticMount = yes
+  RemovableMedia = no
+  AlwaysOpen = false
+}
+'
     end
-#    it { should contain_file('device-sample1.conf').with_path('/etc/bacula/storage.d/device-sample1.conf').with_content(expected) }
-    it { should contain_file('device-sample1.conf').with_path('/device-sample1.conf').with_content(expected) }
+    it { should contain_file('device-sample1.conf').with_path('/etc/bacula/storage.d/device-sample1.conf').with_content(expected) }
+#    it { should contain_file('device-sample1.conf').with_path('/device-sample1.conf').with_content(expected) }
   end
 
   describe 'Test device.conf is created with all main options' do
@@ -48,17 +51,19 @@ Always Open = false
       }
     end
     let(:expected) do
-"Device {
-Name = sample2
-Media Type = File01
-Archive Device = /backups/bacula_storage
-Label Media = yes
-Random Access = yes
-Automatic Mount = yes
-Removable Media = no
-Always Open = false
+'# This file is managed by Puppet. DO NOT EDIT.
+
+Device {
+  Name = sample2
+  MediaType = File01
+  ArchiveDevice = /backups/bacula_storage
+  LabelMedia = yes
+  RandomAccess = yes
+  AutomaticMount = yes
+  RemovableMedia = no
+  AlwaysOpen = false
 }
-"
+'
     end
     it { should contain_file('device-sample2.conf').with_path('/etc/bacula/storage.d/device-sample2.conf').with_content(expected) }
   end

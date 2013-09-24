@@ -9,7 +9,7 @@ define bacula::storage::device (
   $automatic_mount = 'yes',
   $removable_media = 'no' ,
   $always_open = false,
-  $template = 'templates/device.conf.erb'
+  $template = 'bacula/device.conf.erb'
 ) {
 
   include bacula
@@ -22,7 +22,7 @@ define bacula::storage::device (
     group   => $bacula::config_file_group,
     require => Package[$bacula::storage_package],
     notify  => $bacula::manage_service_autorestart,
-    content => $template,
+    content => template($template),
     replace => $bacula::manage_file_replace,
     audit   => $bacula::manage_audit,
   }
