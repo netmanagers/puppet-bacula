@@ -1,5 +1,4 @@
 define bacula::director::catalog (
-  $name = $title,
   $db_driver = 'dbi:mysql',
   $db_address = 'localhost',
   $db_port = '',

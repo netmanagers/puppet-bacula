@@ -1,5 +1,4 @@
 define bacula::director::job (
-  $name = $title,
   $type = '',
   $client = '',
   $fileset = '',

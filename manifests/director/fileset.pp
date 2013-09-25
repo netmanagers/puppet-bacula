@@ -1,5 +1,4 @@
 define bacula::director::fileset (
-  $name = $title,
   $signature = '',
   $compression = '',
   $onefs = '',

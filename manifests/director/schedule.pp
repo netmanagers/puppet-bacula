@@ -1,5 +1,4 @@
 define bacula::director::schedule (
-  $name = $title,
   $backup_level = '',
   $template = 'templates/schedule.conf.erb'
 ) {

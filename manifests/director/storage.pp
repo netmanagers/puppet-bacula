@@ -1,5 +1,4 @@
 define bacula::director::storage (
-  $name = '',
   $device = '' ,
   $media_type = '',
   $address = '',

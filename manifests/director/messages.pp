@@ -1,5 +1,4 @@
 define bacula::director::messages (
-  $name = $title,
   $mail_command = '' ,
   $mail_host = '',
   $mail_from= '',

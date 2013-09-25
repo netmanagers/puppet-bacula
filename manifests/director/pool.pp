@@ -1,5 +1,4 @@
 define bacula::director::pool (
-  $name = $title,
   $type = 'Backup',
   $maximum_volume_jobs = '1',
   $maximum_volume_bytes = '1G',
