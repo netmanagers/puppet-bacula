@@ -307,17 +307,6 @@ class bacula (
     false => $bacula::version,
   }
 
-  $manage_service_autorestart = $bacula::bool_disableboot ? {
-    true    => false,
-    default => $bacula::bool_disable ? {
-      true    => false,
-      default => $bacula::bool_absent ? {
-        true  => false,
-        false => true,
-      },
-    },
-  }
-
   $manage_service_enable = $bacula::bool_disableboot ? {
     true    => false,
     default => $bacula::bool_disable ? {
