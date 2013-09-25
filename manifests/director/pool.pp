@@ -13,9 +13,9 @@ define bacula::director::pool (
 
   include bacula
 
-  file { 'pool-${name}.conf':
+  file { "pool-${name}.conf":
     ensure  => $bacula::manage_file,
-    path    => "${storage_configs_dir}/device-${name}.conf",
+    path    => "${bacula::director_configs_dir}/pool-${name}.conf",
     mode    => $bacula::config_file_mode,
     owner   => $bacula::config_file_owner,
     group   => $bacula::config_file_group,

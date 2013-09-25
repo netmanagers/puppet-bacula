@@ -12,7 +12,7 @@ define bacula::director::catalog (
 
   file { "catalog-${name}.conf":
     ensure  => $bacula::manage_file,
-    path    => "${director_configs_dir}/catalog-${name}.conf",
+    path    => "${bacula::director_configs_dir}/catalog-${name}.conf",
     mode    => $bacula::config_file_mode,
     owner   => $bacula::config_file_owner,
     group   => $bacula::config_file_group,

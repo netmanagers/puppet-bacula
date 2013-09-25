@@ -5,7 +5,7 @@ define bacula::director::fileset (
   $fstype = '',
   $include = '',
   $exclude = '',
-  $template = 'templates/fileset.conf.erb'
+  $template = 'bacula/fileset.conf.erb'
 ) {
 
   include bacula
@@ -36,11 +36,11 @@ define bacula::director::fileset (
 
   file { "fileset-${name}.conf":
     ensure  => $bacula::manage_file,
-    path    => $bacula::config_file,
+    path    => "${bacula::director_configs_dir}/fileset-${name}.conf",
     mode    => $bacula::config_file_mode,
     owner   => $bacula::config_file_owner,
     group   => $bacula::config_file_group,
-    require => Package['bacula::director_package'],
+    require => Package[$bacula::director_package],
     notify  => $bacula::manage_service_autorestart,
     content => $template,
     replace => $bacula::manage_file_replace,

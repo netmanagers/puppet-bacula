@@ -16,13 +16,14 @@ define bacula::director::storage (
     default => template($template),
   }
 
-  file { 'storages.conf':
+  file { "storage-${name}.conf":
     ensure  => $bacula::manage_file,
+    path    => "${bacula::director_configs_dir}/storage-${name}.conf",
     path    => $bacula::config_file,
     mode    => $bacula::config_file_mode,
     owner   => $bacula::config_file_owner,
     group   => $bacula::config_file_group,
-    require => Package['bacula'],
+    require => Package[$bacula::director_package],
     notify  => $bacula::manage_service_autorestart,
     source  => $manage_file_source,
     content => $manage_file_content,
