@@ -85,6 +85,7 @@ class bacula::params {
   $director_source = ''
 
   $director_service = $::operatingsystem ? {
+    /(?i:Debian|Ubuntu|Mint)/ => 'bacula-director',
     default => 'bacula-dir',
   }
 

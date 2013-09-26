@@ -29,6 +29,11 @@ define bacula::director::job (
     default   => $jobdefs_storage,
   }
 
+  $manage_job_file_content = $template ? {
+    ''      => undef,
+    default => template($template),
+  }
+
   $job_name =  $use_as_def  ==  true ? {
     true =>  "jobdef-${name}.conf",
     false => "job-${client}-${name}.conf"
@@ -42,7 +47,7 @@ define bacula::director::job (
     group   => $bacula::config_file_group,
     require => Package[$bacula::director_package],
     notify  => $bacula::manage_service_autorestart,
-    content => $template,
+    content => $manage_job_file_content,
     replace => $bacula::manage_file_replace,
     audit   => $bacula::manage_audit,
   }
