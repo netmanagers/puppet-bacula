@@ -1,13 +1,14 @@
 # This file is managed by Puppet. DO NOT EDIT.
-  
 <% if @use_as_def == true %>
 JobDef {
 <% else %>
 Job {
-   Name = <%= @name %>
+  Name = <%= @name %>
 <% end %>
 <% if @use_as_def != true -%>
+<% if @client != '' -%>
    Client = <%= @client -%>
+<% end -%>
 <% if @jobdef != '' -%>
    JobDefs = "<%= @jobdef -%>
 <% end -%>
@@ -18,7 +19,9 @@ Job {
 <% if @fileset != '' -%>
    FileSet = <%= @fileset %>
 <% end -%>
+<% if @jobdefs_storage != '' -%>
    Storage  = <%= @array_jobdefs_storage * ',' %>
+<% end -%>
 <% if @pool != '' -%>
    Pool = <%= @pool %>
 <% end -%>
@@ -41,4 +44,3 @@ Job {
    Where = <%= @where %>
 <% end -%>
 }
-
