@@ -2,7 +2,7 @@
   
 Messages {
   Name = <%= @name %>
-  mailcommand = "<%= @mail_command %> -h <%= @mail_host %> -f \"<%= @mail_from= %>" -s \"Bacula: %t %e of %c %l\" %r"
+  mailcommand = "<%= @mail_command %> -h <%= @mail_host %> -f \"<%= @mail_from= %>\" -s \"Bacula: %t %e of %c %l\" %r"
   operatorcommand = "/usr/bin/bsmtp -h localhost -f \"Bacula CMP <noreply@mail_from=>\" -s \"Bacula: Intervention needed for %j\" %r"
   mail = <%= @mail_to %> = all, !skipped            
   operator = system-notifications@cm-pueyrredon.com.ar = mount
