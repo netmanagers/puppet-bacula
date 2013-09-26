@@ -1,3 +1,6 @@
+
+# This file is managed by Puppet. DO NOT EDIT.
+
 FileSet {
 Name = <%= @name %>
   Include {
@@ -5,21 +8,23 @@ Name = <%= @name %>
       signature = <%= @signature %>
       compression = <%= @compression %>
       onefs = <%= @onefs %>
-    <% if scope.lookupvar('bacula::array_filesets_fstype') != [] -%>
-    <% scope.lookupvar('bacula::array_filesets_fstype').each do |filesets_fstype| -%>
-      fstype = <%=filesets_fstype  %> 
-    <% end -%>
+<% if @array_filesets_fstype  != [] -%>
+      <% @array_filesets_fstype.each do |filesets_fstype| -%>
+        fstype = <%=filesets_fstype  %>
+<% end -%>
+<% end -%>
     }
-    <% if scope.lookupvar('bacula::array_filesets_include') != [] -%>
-    <% scope.lookupvar('bacula::array_filesets_include').each do |filesets_include| -%>
-      File = <%=filesets_include  %>
-    <% end -%>
+<% if @array_filesets_include != [] -%>
+<% @array_filesets_include.each do |filesets_include| -%>
+        File = <%=filesets_include  %>
+<% end -%>
+<% end -%>
   }
   Exclude {
-    <% if scope.lookupvar('bacula::array_filesets_exclude') != [] -%>
-    <% scope.lookupvar('bacula::array_filesets_exclude').each do |filesets_exclude| -%>
-      File = <%=filesets_exclude  %>
-    <% end -%>
+<% if @array_filesets_exclude != [] -%>
+<% @array_filesets_exclude.each do |filesets_exclude| -%>
+        File = <%=filesets_exclude  %>
+<% end -%>
+<% end -%>
   }
 }
-
