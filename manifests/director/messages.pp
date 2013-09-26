@@ -1,7 +1,7 @@
 # Define bacula::director::messages
-# 
+#
 # Used to create messages resources
-# 
+#
 define bacula::director::messages (
   $mail_command = '' ,
   $mail_host = '',

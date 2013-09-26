@@ -1,7 +1,7 @@
 # Define bacula::director::fileset
-# 
+#
 # Used to create filesets resources
-# 
+#
 define bacula::director::fileset (
   $signature = '',
   $compression = '',

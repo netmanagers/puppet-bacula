@@ -1,7 +1,7 @@
 # Define bacula::director::schedule
-# 
+#
 # Used to create schedules
-# 
+#
 define bacula::director::schedule (
   $backup_level = '',
   $template = 'bacula/schedule.conf.erb'

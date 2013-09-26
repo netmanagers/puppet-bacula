@@ -1,7 +1,7 @@
 # Define bacula::director::pool
-# 
+#
 # Used to create pool resources
-# 
+#
 define bacula::director::pool (
   $type = 'Backup',
   $maximum_volume_jobs = '1',

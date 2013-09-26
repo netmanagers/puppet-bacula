@@ -24,8 +24,8 @@ class bacula::director {
   $manage_director_service_autorestart = $bacula::bool_service_autorestart ? {
     true    => Service[$bacula::director_service],
     default => undef,
-  }         
-              
+  }
+
 
   ### Managed resources
   package { $bacula::director_package:

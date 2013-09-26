@@ -1,7 +1,7 @@
 # Define bacula::director::job
-# 
+#
 # Used to create job resources
-# 
+#
 define bacula::director::job (
   $type = '',
   $client = '',

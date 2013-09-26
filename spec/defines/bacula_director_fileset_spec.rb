@@ -19,8 +19,7 @@ describe 'bacula::director::fileset' do
       }
     end
     let(:expected) do
-'
-# This file is managed by Puppet. DO NOT EDIT.
+'# This file is managed by Puppet. DO NOT EDIT.
 
 FileSet {
 Name = sample1
