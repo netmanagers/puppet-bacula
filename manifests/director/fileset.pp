@@ -38,6 +38,11 @@ define bacula::director::fileset (
     default   => $exclude,
   }
 
+  $manage_fileset_file_content = $template ? {
+    ''      => undef,
+    default => template($template),
+  }
+
   file { "fileset-${name}.conf":
     ensure  => $bacula::manage_file,
     path    => "${bacula::director_configs_dir}/fileset-${name}.conf",
@@ -46,7 +51,7 @@ define bacula::director::fileset (
     group   => $bacula::config_file_group,
     require => Package[$bacula::director_package],
     notify  => $bacula::manage_service_autorestart,
-    content => template($template),
+    content => $manage_fileset_file_content,
     replace => $bacula::manage_file_replace,
     audit   => $bacula::manage_audit,
   }

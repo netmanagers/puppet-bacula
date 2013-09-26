@@ -17,6 +17,11 @@ define bacula::director::schedule (
     default   => $backup_level,
   }
 
+  $manage_schedule_file_content = $template ? {
+    ''      => undef,
+    default => template($template),
+  }
+
   file { "schedule-${name}.conf":
     ensure  => $bacula::manage_file,
     path    => "${bacula::director_configs_dir}/schedule-${name}.conf",
@@ -25,7 +30,7 @@ define bacula::director::schedule (
     group   => $bacula::config_file_group,
     require => Package[$bacula::director_package],
     notify  => $bacula::manage_service_autorestart,
-    content => $template,
+    content => $manage_schedule_file_content,
     replace => $bacula::manage_file_replace,
     audit   => $bacula::manage_audit,
   }
