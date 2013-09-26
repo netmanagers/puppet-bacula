@@ -38,32 +38,46 @@ Name = sample1
     it { should contain_file('fileset-sample1.conf').with_path('/etc/bacula/director.d/fileset-sample1.conf').with_content(expected) }
   end
 
-#  describe 'Test fileset.conf is created with all main options' do
-#    let(:params) do
-#      {
-#        :name => 'sample2',
-#      }
-#    end
+  describe 'Test fileset.conf is created with all main options' do
+    let(:params) do
+      {
+        :name => 'sample2',
+        :signature => 'MD5',
+        :compression => 'GZIP',
+        :onefs => 'no',
+        :fstype => ['ext2','ext3','ext4'],
+        :include => ['/home/sebastian','/etc'],
+        :exclude => ['/proc','/sys','/temp'],
+      }
+    end
 
-#    let(:expected) do
-#'# This file is managed by Puppet. DO NOT EDIT.
+    let(:expected) do
+'# This file is managed by Puppet. DO NOT EDIT.
 
-#FileSet {
-#  Name = sample2
-#    Include {
-#      Options {
-#        signature =       
-#        compression =       
-#        onefs =
-#      }
-#    }
-#    Exclude {
-#   }
-#}
-#'
-#    end
-#    it { should contain_file('fileset-sample2.conf').with_path('/etc/bacula/director.d/fileset-sample2.conf').with_content(expected) }
-#  end
+FileSet {
+Name = sample2
+  Include {
+    Options {
+      signature = MD5
+      compression = GZIP
+      onefs = no
+      fstype = ext2
+      fstype = ext3
+      fstype = ext4
+    }
+    File = /home/sebastian
+    File = /etc
+  }
+  Exclude {
+    File = /proc
+    File = /sys
+    File = /tmp
+  }
+}
+'
+    end
+    it { should contain_file('fileset-sample2.conf').with_path('/etc/bacula/director.d/fileset-sample2.conf').with_content(expected) }
+  end
 
 end
 

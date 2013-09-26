@@ -8,21 +8,21 @@ Name = <%= @name %>
       compression = <%= @compression %>
       onefs = <%= @onefs %>
 <% if @array_filesets_fstype  != [] -%>
-      <% @array_filesets_fstype.each do |filesets_fstype| -%>
-        fstype = <%=filesets_fstype  %>
+<% @array_filesets_fstype.each do |filesets_fstype| -%>
+      fstype = <%=filesets_fstype  %>
 <% end -%>
 <% end -%>
     }
 <% if @array_filesets_include != [] -%>
 <% @array_filesets_include.each do |filesets_include| -%>
-        File = <%=filesets_include  %>
+    File = <%=filesets_include  %>
 <% end -%>
 <% end -%>
   }
   Exclude {
 <% if @array_filesets_exclude != [] -%>
 <% @array_filesets_exclude.each do |filesets_exclude| -%>
-        File = <%=filesets_exclude  %>
+    File = <%=filesets_exclude  %>
 <% end -%>
 <% end -%>
   }
