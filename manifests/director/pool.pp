@@ -17,6 +17,11 @@ define bacula::director::pool (
 
   include bacula
 
+  $manage_pool_file_content = $template ? {
+    ''      => undef,
+    default => template($template),
+  }
+
   file { "pool-${name}.conf":
     ensure  => $bacula::manage_file,
     path    => "${bacula::director_configs_dir}/pool-${name}.conf",
@@ -25,7 +30,7 @@ define bacula::director::pool (
     group   => $bacula::config_file_group,
     require => Package[$bacula::director_package],
     notify  => $bacula::manage_service_autorestart,
-    content => $template,
+    content => $manage_pool_file_content,
     replace => $bacula::manage_file_replace,
     audit   => $bacula::manage_audit,
   }
