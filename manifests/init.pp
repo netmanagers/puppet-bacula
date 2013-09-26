@@ -222,7 +222,7 @@ class bacula (
   $storage_port                   = params_lookup( 'storage_port' ),
   $storage_pid_directory          = params_lookup( 'storage_pid_directory' ),
   $storage_max_concurrent         = params_lookup( 'storage_max_concurrent' ),
-  $storage_config_dir             = params_lookup( 'storage_config_dir' ),
+  $storage_configs_dir            = params_lookup( 'storage_configs_dir' ),
   $director_package               = params_lookup( 'director_package' ),
   $director_config_file           = params_lookup( 'director_config_file' ),
   $director_template              = params_lookup( 'director_template' ),
