@@ -30,46 +30,39 @@ Job {
     it { should contain_file('job-sample1.conf').with_path('/etc/bacula/director.d/job-sample1.conf').with_content(expected) }
   end
 
-#  describe 'Test job.conf is created with all main options' do
-#    let(:params) do
-#      {
-#        :name => 'sample2',
-#        :signature => 'MD5',
-#        :compression => 'GZIP',
-#        :onefs => 'no',
-#        :fstype => ['ext2','ext3','ext4'],
-#        :include => ['/home/sebastian','/etc'],
-#        :exclude => ['/proc','/sys','/temp'],
-#      }
-#    end
+  describe 'Test job.conf is created with all main options' do
+    let(:params) do
+      {
+        :name => 'sample2',
+        :client => 'bacula',
+        :type => 'restore',
+        :fileset => 'standardLinuxFileSet',
+        :jobdefs_storage => 'restoreStorage',
+        :pool => 'FullPool',
+        :priority => '1',
+        :messages => 'standard',
+        :where => '/tmp',
+      }
+    end
 
-#    let(:expected) do
+    let(:expected) do
 '# This file is managed by Puppet. DO NOT EDIT.
 
-#FileSet {
-#Name = sample2
-#  Include {
-#    Options {
-#      signature = MD5
-#      compression = GZIP
-#      onefs = no
-#      fstype = ext2
-#      fstype = ext3
-#      fstype = ext4
-#    }
-#    File = /home/sebastian
-#    File = /etc
-#  }
-#  Exclude {
-#    File = /proc
-#    File = /sys
-#    File = /tmp
-#  }
-#}
-#'
-#    end
-#    it { should contain_file('fileset-sample2.conf').with_path('/etc/bacula/director.d/fileset-sample2.conf').with_content(expected) }
-#  end
+Job {
+  Name = sample2
+  Client = bacula
+  Type = restore
+  FileSet = standardLinuxFileSet
+  Storage = restoreStorage
+  Pool = FullPool
+  Priority = 1
+  Messages = standard
+  Where = /tmp
+}
+'
+    end
+    it { should contain_file('job-sample2.conf').with_path('/etc/bacula/director.d/job-sample2.conf').with_content(expected) }
+  end
 
 end
 
