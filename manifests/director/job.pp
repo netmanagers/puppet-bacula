@@ -1,5 +1,4 @@
 define bacula::director::job (
-  $name = $title,
   $type = '',
   $client = '',
   $fileset = '',
@@ -13,7 +12,7 @@ define bacula::director::job (
   $where = '',
   $use_as_def = false,
   $jobdef = '',
-  $template = 'templates/jobdef.conf.erb'
+  $template = 'bacula/job.conf.erb'
 ) {
 
   include bacula
@@ -31,13 +30,13 @@ define bacula::director::job (
     false => "job-${client}-${name}.conf"
    }
 
-  file { 'job-${name}.conf':
+  file { "job-${name}.conf":
     ensure  => $bacula::manage_file,
-    path    => $bacula::config_file,
+    path    => "${bacula::director_configs_dir}/job-${name}.conf",
     mode    => $bacula::config_file_mode,
     owner   => $bacula::config_file_owner,
     group   => $bacula::config_file_group,
-    require => Package['bacula::director_package'],
+    require => Package[$bacula::director_package],
     notify  => $bacula::manage_service_autorestart,
     content => $template,
     replace => $bacula::manage_file_replace,
