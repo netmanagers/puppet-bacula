@@ -42,7 +42,7 @@ define bacula::director::job (
     group   => $bacula::config_file_group,
     require => Package[$bacula::director_package],
     notify  => $bacula::manage_service_autorestart,
-    content => $template,
+    content => template($template),
     replace => $bacula::manage_file_replace,
     audit   => $bacula::manage_audit,
   }
