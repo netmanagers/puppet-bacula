@@ -47,7 +47,7 @@ Name = sample1
         :onefs => 'no',
         :fstype => ['ext2','ext3','ext4'],
         :include => ['/home/sebastian','/etc'],
-        :exclude => ['/proc','/sys','/temp'],
+        :exclude => ['/proc','/sys','/tmp'],
       }
     end
 
