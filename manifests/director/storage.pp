@@ -1,3 +1,7 @@
+# Define bacula::director::storage
+# 
+# Used to create storage resources
+# 
 define bacula::director::storage (
   $device = '' ,
   $media_type = '',

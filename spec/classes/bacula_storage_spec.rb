@@ -7,7 +7,8 @@ describe 'bacula::storage' do
   let(:facts) do
     {
       :install_storage => 'true',
-      :ipaddress => '10.42.42.42'
+      :ipaddress => '10.42.42.42',
+      :service_autorestart => true
     }
   end
   describe 'Test standard Centos installation' do

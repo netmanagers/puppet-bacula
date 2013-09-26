@@ -1,3 +1,7 @@
+# Define bacula::director::catalog
+#
+# Used to create catalog resources
+#
 define bacula::director::catalog (
   $db_driver = 'dbi:mysql',
   $db_address = 'localhost',
@@ -5,7 +9,7 @@ define bacula::director::catalog (
   $db_name = '',
   $db_user = '',
   $db_password = '',
-  $template = "bacula/catalog.conf.erb"
+  $template = 'bacula/catalog.conf.erb'
 ) {
 
   include bacula

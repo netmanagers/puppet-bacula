@@ -21,6 +21,11 @@ class bacula::client {
     default   => $bacula::client_source,
   }
 
+  $manage_client_service_autorestart = $bacula::bool_service_autorestart ? {
+    true    => Service[$bacula::client_service],
+    default => undef,
+  }
+
   ### Managed resources
   package { $bacula::client_package:
     ensure  => $bacula::manage_package,
@@ -34,7 +39,7 @@ class bacula::client {
     owner   => $bacula::config_file_owner,
     group   => $bacula::config_file_group,
     require => Package[$bacula::client_package],
-    notify  => $bacula::manage_service_autorestart,
+    notify  => $manage_client_service_autorestart,
     source  => $manage_client_file_source,
     content => $manage_client_file_content,
     replace => $bacula::manage_file_replace,

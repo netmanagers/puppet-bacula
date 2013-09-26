@@ -21,6 +21,12 @@ class bacula::director {
     default   => $bacula::director_source,
   }
 
+  $manage_director_service_autorestart = $bacula::bool_service_autorestart ? {
+    true    => Service[$bacula::director_service],
+    default => undef,
+  }         
+              
+
   ### Managed resources
   package { $bacula::director_package:
     ensure  => $bacula::manage_package,
@@ -34,7 +40,7 @@ class bacula::director {
     owner   => $bacula::config_file_owner,
     group   => $bacula::config_file_group,
     require => Package[$bacula::director_package],
-    notify  => $bacula::manage_service_autorestart,
+    notify  => $manage_director_service_autorestart,
     source  => $manage_director_file_source,
     content => $manage_director_file_content,
     replace => $bacula::manage_file_replace,
@@ -42,16 +48,15 @@ class bacula::director {
     noop    => $bacula::noops,
   }
 
- service { $bacula::director_service:
-      ensure     => $bacula::manage_service_ensure,
-      name       => $bacula::director_service,
-      enable     => $bacula::manage_service_enable,
-      hasstatus  => $bacula::service_status,
-      pattern    => $bacula::director_process,
-      require    => Package[$bacula::director_package],
-      noop       => $bacula::noops,
-    }
-
+  service { $bacula::director_service:
+    ensure     => $bacula::manage_service_ensure,
+    name       => $bacula::director_service,
+    enable     => $bacula::manage_service_enable,
+    hasstatus  => $bacula::service_status,
+    pattern    => $bacula::director_process,
+    require    => Package[$bacula::director_package],
+    noop       => $bacula::noops,
+  }
 
   ### Provide puppi data, if enabled ( puppi => true )
   if $bacula::bool_puppi == true {

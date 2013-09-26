@@ -1,3 +1,7 @@
+# Define bacula::director::job
+# 
+# Used to create job resources
+# 
 define bacula::director::job (
   $type = '',
   $client = '',
@@ -28,7 +32,7 @@ define bacula::director::job (
   $job_name =  $use_as_def  ==  true ? {
     true =>  "jobdef-${name}.conf",
     false => "job-${client}-${name}.conf"
-   }
+  }
 
   file { "job-${name}.conf":
     ensure  => $bacula::manage_file,

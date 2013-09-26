@@ -1,5 +1,7 @@
-# This define APPENDS a line entry to a device file
-#
+# Define bacula::storage::device
+# 
+# Used to create devices in the storage manager
+# 
 define bacula::storage::device (
   $media_type = '',
   $archive_device = '',

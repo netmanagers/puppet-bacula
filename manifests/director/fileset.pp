@@ -1,3 +1,7 @@
+# Define bacula::director::fileset
+# 
+# Used to create filesets resources
+# 
 define bacula::director::fileset (
   $signature = '',
   $compression = '',
@@ -11,27 +15,27 @@ define bacula::director::fileset (
   include bacula
 
   $array_filesets_fstype = is_array($fstype) ? {
-    false     => $filesets_fstype ? {
+    false     => $fstype ? {
       ''      => [],
-      default => [$filesets_fstype],
+      default => [$fstype],
     },
-    default   => $filesets_fstype,
+    default   => $fstype,
   }
 
   $array_filesets_include = is_array($include) ? {
-    false     => $filesets_include ? {
+    false     => $include ? {
       ''      => [],
-      default => [$filesets_include],
+      default => [$include],
     },
-    default   => $filesets_include,
+    default   => $include,
   }
 
   $array_filesets_exclude = is_array($exclude) ? {
-    false     => $filesets_exclude ? {
+    false     => $exclude ? {
       ''      => [],
-      default => [$filesets_exclude],
+      default => [$exclude],
     },
-    default   => $filesets_exclude,
+    default   => $exclude,
   }
 
   file { "fileset-${name}.conf":

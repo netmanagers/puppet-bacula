@@ -21,6 +21,11 @@ class bacula::storage {
     default   => $bacula::storage_source,
   }
 
+  $manage_storage_service_autorestart = $bacula::bool_service_autorestart ? {
+    true    => Service[$bacula::storage_service],
+    default => undef,
+  }
+
   ### Managed resources
   package { $bacula::storage_package:
     ensure  => $bacula::manage_package,
@@ -34,7 +39,7 @@ class bacula::storage {
     owner   => $bacula::config_file_owner,
     group   => $bacula::config_file_group,
     require => Package[$bacula::storage_package],
-    notify  => $bacula::manage_service_autorestart,
+    notify  => $manage_storage_service_autorestart,
     source  => $manage_storage_file_source,
     content => $manage_storage_file_content,
     replace => $bacula::manage_file_replace,
@@ -42,15 +47,15 @@ class bacula::storage {
     noop    => $bacula::noops,
   }
 
- service { $bacula::storage_service:
-      ensure     => $bacula::manage_service_ensure,
-      name       => $bacula::storage_service,
-      enable     => $bacula::manage_service_enable,
-      hasstatus  => $bacula::service_status,
-      pattern    => $bacula::storage_process,
-      require    => Package[$bacula::storage_package],
-      noop       => $bacula::noops,
-    }
+  service { $bacula::storage_service:
+    ensure     => $bacula::manage_service_ensure,
+    name       => $bacula::storage_service,
+    enable     => $bacula::manage_service_enable,
+    hasstatus  => $bacula::service_status,
+    pattern    => $bacula::storage_process,
+    require    => Package[$bacula::storage_package],
+    noop       => $bacula::noops,
+  }
 
   ### Provide puppi data, if enabled ( puppi => true )
   if $bacula::bool_puppi == true {
