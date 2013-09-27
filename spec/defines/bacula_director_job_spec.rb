@@ -23,7 +23,6 @@ describe 'bacula::director::job' do
 
 Job {
   Name = "sample1"
-
 }
 '
     end

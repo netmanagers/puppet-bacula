@@ -22,7 +22,7 @@ describe 'bacula::director::fileset' do
 '# This file is managed by Puppet. DO NOT EDIT.
 
 FileSet {
-Name = "sample1"
+  Name = "sample1"
   Include {
     Options {
       signature = 
@@ -55,7 +55,7 @@ Name = "sample1"
 '# This file is managed by Puppet. DO NOT EDIT.
 
 FileSet {
-Name = "sample2"
+  Name = "sample2"
   Include {
     Options {
       signature = MD5

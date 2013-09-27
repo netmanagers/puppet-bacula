@@ -11,4 +11,7 @@ Pool {
   AutoPrune = <%= @auto_prune %>
   VolumeRetention = <%= @volume_retention %>
   LabelFormat = "<%= @label_format %>"
+<% if @storage != '' -%>
+  Storage = <%= @storage %>
+<% end -%>
 }
