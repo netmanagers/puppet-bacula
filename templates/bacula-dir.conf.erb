@@ -2,7 +2,7 @@
 
 # Define the Director name, password used for authenticating the Console program.
 Director {
-  Name = <%= scope.lookupvar('bacula::director_name') %>
+  Name = "<%= scope.lookupvar('bacula::director_name') %>"
   DirPort = <%= scope.lookupvar('bacula::director_port') %>
   QueryFile = <%= scope.lookupvar('bacula::config_dir') %>/scripts/query.sql
   WorkingDirectory = <%= scope.lookupvar('bacula::working_directory') %>
@@ -16,7 +16,7 @@ Director {
 
 # Restricted Console, used by tray-monitor for Director status.
 Console {
-  Name = <%= scope.lookupvar('bacula::traymon_name') %>
+  Name = "<%= scope.lookupvar('bacula::traymon_name') %>"
   Password = "<%= scope.lookupvar('bacula::traymon_password') %>"
   CommandACL = <%= scope.lookupvar('bacula::traymon_command') %>
 }
