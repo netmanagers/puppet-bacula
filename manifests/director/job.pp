@@ -16,7 +16,7 @@ define bacula::director::job (
   $where = '',
   $use_as_def = false,
   $jobdef = '',
-  $template = 'bacula/job.conf.erb'
+  $template = 'bacula/director/job.conf.erb'
 ) {
 
   include bacula

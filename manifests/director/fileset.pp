@@ -9,7 +9,7 @@ define bacula::director::fileset (
   $fstype = '',
   $include = '',
   $exclude = '',
-  $template = 'bacula/fileset.conf.erb'
+  $template = 'bacula/director/fileset.conf.erb'
 ) {
 
   include bacula

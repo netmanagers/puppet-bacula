@@ -4,7 +4,7 @@
 #
 define bacula::director::schedule (
   $backup_level = '',
-  $template = 'bacula/schedule.conf.erb'
+  $template = 'bacula/director/schedule.conf.erb'
 ) {
 
   include bacula

@@ -7,7 +7,7 @@ define bacula::director::messages (
   $mail_host = '',
   $mail_from= '',
   $mail_to = '',
-  $template = 'bacula/messages.conf.erb'
+  $template = 'bacula/director/messages.conf.erb'
 ) {
 
   include bacula
