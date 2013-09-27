@@ -6,4 +6,5 @@ Schedule {
 <% scope.lookupvar('bacula::array_backup_level').each do |backup_level| -%>
    Run = Level=<%=backup_level[0]  %> <%=backup_level[1]  %>  at <%=backup_level[2]  %> 
 <% end -%>
+<% end -%>
 }
