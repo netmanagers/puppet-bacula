@@ -8,11 +8,12 @@ define bacula::director::pool (
   $maximum_volume_bytes = '1G',
   $use_volume_once  = true,
   $recycle = true,
-  $action_on_purge = 'truncate' ,
+  $action_on_purge = 'truncate',
   $auto_prune = true,
   $volume_retention = '1 month',
-  $label_format = 'Volume-' ,
-  $template = 'bacula/pool.conf.erb'
+  $label_format = 'Volume-',
+  $template = 'bacula/pool.conf.erb',
+  $storage = ''
 ) {
 
   include bacula
