@@ -1,7 +1,7 @@
 # This file is managed by Puppet. DO NOT EDIT.
   
 Messages {
-  Name = <%= @name %>
+  Name = "<%= @name %>"
   mailcommand = "<%= @mail_command %> -h <%= @mail_host %> -f \"\(Bacula\) \<<%= @mail_from %>\>\" -s \"Bacula: %t %e of %c %l\" %r"
   operatorcommand = "<%= @mail_command %> -h <%= @mail_host %> -f \"\(Bacula\) \<<%= @mail_from %>\>\" -s \"Bacula: Intervention needed for %j\" %r"
   mail = <%= @mail_to %> = all, !skipped            

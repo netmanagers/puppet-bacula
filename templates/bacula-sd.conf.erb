@@ -2,7 +2,7 @@
 
 # Note: use external director address for clients to connect.
 Storage {
-  Name = <%= scope.lookupvar('bacula::storage_name') %>
+  Name = "<%= scope.lookupvar('bacula::storage_name') %>"
   SDAddress = <%= scope.lookupvar('bacula::storage_address') %>
   SDPort = <%= scope.lookupvar('bacula::storage_port') %>
   WorkingDirectory = <%= scope.lookupvar('bacula::working_directory') %>
@@ -13,7 +13,7 @@ Storage {
 
 # Director who is permitted to contact this Storage daemon.
 Director {
-  Name = <%= scope.lookupvar('bacula::director_name') %>
+  Name = "<%= scope.lookupvar('bacula::director_name') %>"
   Password = "<%= scope.lookupvar('bacula::director_password') %>"
 }
 
@@ -23,7 +23,7 @@ Director {
 
 # Restricted Director, used by tray-monitor for Storage daemon status.
 Director {
-  Name = <%= scope.lookupvar('bacula::traymon_name') %>
+  Name = "<%= scope.lookupvar('bacula::traymon_name') %>"
   Password = "<%= scope.lookupvar('bacula::traymon_password') %>"
   Monitor = Yes
 }
