@@ -4,7 +4,7 @@ Schedule {
    Name = "<%= @name %>"
 <% if @array_backup_level != [] -%>
 <% @array_backup_level.each do |backup_level| -%>
-   Run = Level=<%=backup_level[0]  %> <%=backup_level[1]  %>  at <%=backup_level[2]  %> 
+   Run = Level=<%=backup_level[0] %> <%=backup_level[1] %> at <%=backup_level[2] %>
 <% end -%>
 <% end -%>
 }
