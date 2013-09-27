@@ -53,7 +53,7 @@ describe 'bacula::storage' do
 
 # Note: use external director address for clients to connect.
 Storage {
-  Name = here_storage
+  Name = "here_storage"
   SDAddress = 10.42.42.42
   SDPort = 4242
   WorkingDirectory = /var/spool/bacula
@@ -64,7 +64,7 @@ Storage {
 
 # Director who is permitted to contact this Storage daemon.
 Director {
-  Name = rspec.example42.com-dir
+  Name = "rspec.example42.com-dir"
   Password = ""
 }
 
@@ -74,7 +74,7 @@ Director {
 
 # Restricted Director, used by tray-monitor for Storage daemon status.
 Director {
-  Name = rspec.example42.com-mon
+  Name = "rspec.example42.com-mon"
   Password = ""
   Monitor = Yes
 }

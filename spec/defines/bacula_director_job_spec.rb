@@ -22,7 +22,7 @@ describe 'bacula::director::job' do
 '# This file is managed by Puppet. DO NOT EDIT.
 
 Job {
-  Name = sample1
+  Name = "sample1"
 
 }
 '
@@ -49,7 +49,7 @@ Job {
 '# This file is managed by Puppet. DO NOT EDIT.
 
 Job {
-  Name = sample2
+  Name = "sample2"
   Client = bacula
   Type = restore
   FileSet = standardLinuxFileSet

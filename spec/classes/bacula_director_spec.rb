@@ -46,7 +46,7 @@ describe 'bacula::director' do
 
 # Define the Director name, password used for authenticating the Console program.
 Director {
-  Name = here_director
+  Name = "here_director"
   DirPort = 4242
   QueryFile = /etc/bacula/scripts/query.sql
   WorkingDirectory = /var/spool/bacula
@@ -60,7 +60,7 @@ Director {
 
 # Restricted Console, used by tray-monitor for Director status.
 Console {
-  Name = rspec.example42.com-mon
+  Name = "rspec.example42.com-mon"
   Password = ""
   CommandACL = status, .status
 }

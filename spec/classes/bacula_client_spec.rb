@@ -53,20 +53,20 @@ describe 'bacula::client' do
 
 # Directors who are permitted to contact this File daemon.
 Director {
-  Name = here_director
+  Name = "here_director"
   Password = "director_pass"
 }
 
 # Restricted Director, used by tray-monitor for File daemon status.
 Director {
-  Name = rspec.example42.com-mon
+  Name = "rspec.example42.com-mon"
   Password = ""
   Monitor = Yes
 }
 
 # "Global" File daemon configuration specifications.
 FileDaemon {
-  Name = this_client
+  Name = "this_client"
   FDport = 4242
   WorkingDirectory = /var/spool/bacula
   PidDirectory = /some/dir

@@ -22,7 +22,7 @@ describe 'bacula::director::catalog' do
 '# This file is managed by Puppet. DO NOT EDIT.
 
 Catalog {
-  Name = sample1
+  Name = "sample1"
   DBDriver = dbi:mysql
   DBAddress = localhost
   DBPort = 
@@ -49,7 +49,7 @@ Catalog {
 '# This file is managed by Puppet. DO NOT EDIT.
 
 Catalog {
-  Name = sample2
+  Name = "sample2"
   DBDriver = dbi:postgres
   DBAddress = 10.0.0.3
   DBPort = 3824
