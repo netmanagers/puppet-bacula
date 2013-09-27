@@ -22,7 +22,7 @@ describe 'bacula::storage::device' do
 '# This file is managed by Puppet. DO NOT EDIT.
 
 Device {
-  Name = sample1
+  Name = "sample1"
   MediaType = 
   ArchiveDevice = 
   LabelMedia = yes
@@ -54,7 +54,7 @@ Device {
 '# This file is managed by Puppet. DO NOT EDIT.
 
 Device {
-  Name = sample2
+  Name = "sample2"
   MediaType = File01
   ArchiveDevice = /backups/bacula_storage
   LabelMedia = yes
