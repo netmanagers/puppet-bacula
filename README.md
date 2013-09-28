@@ -2,29 +2,76 @@
 
 This is a Puppet module for bacula based on the second generation layout ("NextGen") of Example42 Puppet Modules.
 
-Made by Alessandro Franceschi / Lab42
+<table border='0'>
+  <tr>
+    <td>Made by</td>
+    <td>Sebastián Quaino</td>
+    <td>/ Netmanagers</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>Javier B&acutee;rtoli</td>
+    <td>/ Netmanagers</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>Dan Schaefer</td>
+    <td>/ Schaeferzone</td>
+  </tr>
+</table>
 
-Official site: http://www.example42.com
+Based on Example42 modules made by Alessandro Franceschi / Lab42
 
-Official git repository: http://github.com/example42/puppet-bacula
+Official site: http://www.netmanagers.com.ar
+
+Official git repository: http://github.com/netmanagers/puppet-bacula
 
 Released under the terms of Apache 2 License.
 
-This module requires functions provided by the Example42 Puppi module (you need it even if you don't use and install Puppi)
+This module requires functions provided by the Example42 Puppi module (you need it even if you don't
+use and install Puppi)
 
-For detailed info about the logic and usage patterns of Example42 modules check the DOCS directory on Example42 main modules set.
+For detailed info about the logic and usage patterns of Example42 modules check the DOCS directory
+on Example42 main modules set.
 
 
 ## USAGE - Basic management
 
-* Install bacula with default settings
+* Bacula consist on at least three different applications (a Director, a Storage manager, Clients and
+  a Console (CLI, GUI, etc.) to manage these resources. This module provides classes and defines to 
+  install and configure them all with a fair degree of customization. Some parameters can be specified
+  specifically for each one of these applications while others are common to all the classes and
+  defines, for consistency. Please check the *params.pp* and manifests for details.
+
+* Install bacula with default settings: this, by default, will install only the Client daemon
+  (bacula-fd) and, following Ex42 modules standard practice, will leave all the default configuration
+  as provided by your distribution.
 
         class { 'bacula': }
 
-* Install a specific version of bacula package
+  You can choose which part of bacula to install on a host
+
+        class {'bacula:
+          manage_client   => true,
+          manage_storage  => false,
+          manage_director => true,
+          manage_console  => false,
+        }
+
+* Install a specific version of bacula storage package
 
         class { 'bacula':
-          version => '1.0.1',
+          manage_storage  => true,
+          version         => '1.0.1',
+        }
+
+  Keep present that the client will **ALWAYS** be installed and managed, unless explicitelly said so
+  setting *manage_client* to false
+
+        class { 'bacula':
+          manage_client   => false,
+          manage_storage  => true,
+          version         => '1.0.1',
         }
 
 * Disable bacula service.
@@ -53,12 +100,9 @@ For detailed info about the logic and usage patterns of Example42 modules check 
 
 
 ## USAGE - Overrides and Customizations
-* Use custom sources for main config file 
 
-        class { 'bacula':
-          source => [ "puppet:///modules/example42/bacula/bacula.conf-${hostname}" , "puppet:///modules/example42/bacula/bacula.conf" ], 
-        }
-
+* For each of bacula applications managed you can override its configuration using \*_ source of
+  \*_template variables.
 
 * Use custom source directory for the whole configuration dir
 
@@ -66,6 +110,46 @@ For detailed info about the logic and usage patterns of Example42 modules check 
           source_dir       => 'puppet:///modules/example42/bacula/conf/',
           source_director_purge => false, # Set to true to purge any existing file not present in $source_dir
         }
+
+* Use custom sources for config file 
+
+        class { 'bacula':
+          manage_client   => false,
+          manage_director => true,
+          director_source => [ "puppet:///modules/netmanagers/bacula/bacula-dir.conf-${hostname}",
+                               "puppet:///modules/example42/bacula/bacula-dir.conf" ], 
+        }
+
+* Templating in this module is **strongly recommended**, but as it differs from other templatings
+  in the final result of bacula's configuration dir structure. As bacula permits you to split
+  configuration in different files to improve manageability, we make use of this as soon as you
+  specity the use of a template for any of the applications. We also provide templates for all of
+  bacula's daemons. Check the templates dir for more details. Remember that you can always provide
+  your own if none of these suits your particular case.
+
+  When using templates in this module, the resulting configuration directory ends up like this
+  (module's default values considered):
+
+        /etc/bacula/
+                bacula-dir.conf       <= Main director config file
+                director.d/           <= Director's stanzas
+                   catalog-*.conf          - Catalogs
+                   fileset-*.conf          - Filesets
+                   job-*.conf              - Jobs 
+                   jobdef-*.conf           - Jobs 
+                   messages-*.conf         - Messages
+                   pool-*.conf             - Pools
+                   schedule-*.conf         - Schedules
+                   storage-*.conf          - Storages
+                clients.d/            <= Each client DIRECTOR's entry
+                   client1.conf
+                   client2.conf
+                   clientN.conf
+                bacula-sd.conf        <= Main storage config file
+                storage.d/            <= Storage's stanzas
+                   device-*.conf           - Devices
+                bacula-fd.conf        <= Client config file
+                bconsole.conf         <= Console config file
 
 * Use custom template for main config file. Note that template and source arguments are alternative. 
 
