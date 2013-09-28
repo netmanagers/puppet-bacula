@@ -6,7 +6,7 @@ describe 'bacula::storage' do
   let(:node) { 'rspec.example42.com' }
   let(:facts) do
     {
-      :install_storage => 'true',
+      :manage_storage => 'true',
       :ipaddress => '10.42.42.42',
       :service_autorestart => true
     }

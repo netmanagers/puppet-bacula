@@ -194,11 +194,13 @@
 # See README for usage patterns.
 #
 class bacula (
-  $install_client                 = params_lookup( 'install_client' ),
-  $install_storage                = params_lookup( 'install_storage' ),
-  $install_director               = params_lookup( 'install_director' ),
-  $install_console                = params_lookup( 'install_console' ),
+  $manage_client                  = params_lookup( 'manage_client' ),
+  $manage_storage                 = params_lookup( 'manage_storage' ),
+  $manage_director                = params_lookup( 'manage_director' ),
+  $manage_console                 = params_lookup( 'manage_console' ),
   $working_directory              = params_lookup( 'working_directory' ),
+  $pid_directory                  = params_lookup( 'pid_directory' ),
+  $heartbeat_interval             = params_lookup( 'heartbeat_interval'),
   $client_package                 = params_lookup( 'client_package' ),
   $client_config_file             = params_lookup( 'client_config_file' ),
   $client_template                = params_lookup( 'client_template' ),
@@ -248,12 +250,10 @@ class bacula (
   $traymon_name                   = params_lookup( 'traymon_name'),
   $traymon_password               = params_lookup( 'traymon_password'),
   $service_status                 = params_lookup( 'service_status' ),
-  $heartbeat_interval             = params_lookup( 'heartbeat_interval'),
   $my_class                       = params_lookup( 'my_class' ),
   $log_dir                        = params_lookup( 'log_dir' ),
   $log_file                       = params_lookup( 'log_file' ),
   $protocol                       = params_lookup( 'protocol' ),
-  $pid_directory                  = params_lookup( 'pid_directory' ),
   $process_args                   = params_lookup( 'process_args' ),
   $process_user                   = params_lookup( 'process_user' ),
   $source                         = params_lookup( 'source' ),
@@ -296,10 +296,10 @@ class bacula (
   $bool_debug=any2bool($debug)
   $bool_audit_only=any2bool($audit_only)
 
-  $bool_install_client=any2bool($install_client)
-  $bool_install_storage=any2bool($install_storage)
-  $bool_install_director=any2bool($install_director)
-  $bool_install_console=any2bool($install_console)
+  $bool_manage_client=any2bool($manage_client)
+  $bool_manage_storage=any2bool($manage_storage)
+  $bool_manage_director=any2bool($manage_director)
+  $bool_manage_console=any2bool($manage_console)
 
   ### Definition of some variables used in the module
   $manage_package = $bacula::bool_absent ? {
@@ -371,22 +371,22 @@ class bacula (
   #### Include related classes
 
   ### Client configuration
-  if $bacula::bool_install_client == true {
+  if $bacula::bool_manage_client == true {
     include bacula::client
   }
 
   ### Storage configuration
-  if $bacula::bool_install_storage == true {
+  if $bacula::bool_manage_storage == true {
     include bacula::storage
   }
 
   ### Director configuration
-  if $bacula::bool_install_director == true {
+  if $bacula::bool_manage_director == true {
     include bacula::director
   }
 
   ### Console configuration
-  if $bacula::bool_install_console == true {
+  if $bacula::bool_manage_console == true {
     include bacula::console
   }
 

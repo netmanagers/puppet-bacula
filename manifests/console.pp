@@ -1,6 +1,6 @@
 # = Class: bacula::console
 #
-# This script installs the bacula-install_console
+# This script installs the bacula-manage_console
 #
 #
 # This class is not to be called directly. See init.pp for details.
