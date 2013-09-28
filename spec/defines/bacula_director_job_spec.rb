@@ -12,7 +12,7 @@ describe 'bacula::director::job' do
     }
   end
 
-  describe 'Test job.conf is created with no options' do
+  describe 'Test job.conf is created with no options. It becomes a jobdef if no client is given' do
     let(:params) do
       {
         :name => 'sample1',
@@ -21,26 +21,29 @@ describe 'bacula::director::job' do
     let(:expected) do
 '# This file is managed by Puppet. DO NOT EDIT.
 
-Job {
+JobDef {
   Name = "sample1"
+  Type = Backup
 }
 '
     end
-    it { should contain_file('job-sample1.conf').with_path('/etc/bacula/director.d/job-sample1.conf').with_content(expected) }
+    it 'should generate a JobDef file' do 
+      should contain_file('jobdef-sample1').with_path('/etc/bacula/director.d/jobdef-sample1.conf').with_content(expected)
+    end
   end
 
   describe 'Test job.conf is created with all main options' do
     let(:params) do
       {
-        :name => 'sample2',
-        :client => 'bacula',
-        :type => 'restore',
-        :fileset => 'standardLinuxFileSet',
-        :jobdefs_storage => 'restoreStorage',
-        :pool => 'FullPool',
+        :name     => 'sample2',
+        :client   => 'bacula',
+        :type     => 'restore',
+        :fileset  => 'standardLinuxFileSet',
+        :storage  => 'restoreStorage',
+        :pool     => 'FullPool',
         :priority => '1',
         :messages => 'standard',
-        :where => '/tmp',
+        :where    => '/tmp',
       }
     end
 
@@ -60,7 +63,9 @@ Job {
 }
 '
     end
-    it { should contain_file('job-sample2.conf').with_path('/etc/bacula/director.d/job-sample2.conf').with_content(expected) }
+    it 'should generate a Job file with custom options' do
+      should contain_file('job-bacula-sample2').with_path('/etc/bacula/director.d/job-bacula-sample2.conf').with_content(expected)
+    end
   end
 
 end

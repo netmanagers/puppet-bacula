@@ -1,16 +1,25 @@
 # Define bacula::director::job
 #
-# Used to create job resources
+# Used to create job/jobdef resources
 #
+# Valid parameters are:
+#
+# $client      - Name of the client where to run the job.
+#                REQUIRED if you want to set up a job.
+#                If not given, the definition sets up a JOBDEF
+# $use_as_def  - If true, creates a jobdef instead of a job.
+#                Default: false
+# $type        - One of Backup, Restore, Verify or Admin
+# $storage     - Where the job will be run. Can be an array
 define bacula::director::job (
-  $type = '',
   $client = '',
+  $type = 'Backup',
   $fileset = '',
-  $jobdefs_storage = '',
+  $storage = '',
   $pool = '',
   $prefer_mounted_volumes = '',
   $write_bootstrap = '',
-  $job_schedule = '',
+  $schedule = '',
   $priority = '',
   $messages = '',
   $where = '',
@@ -21,12 +30,19 @@ define bacula::director::job (
 
   include bacula
 
-  $array_jobdefs_storage = is_array($jobdefs_storage) ? {
-    false     => $jobdefs_storage ? {
+  if $use_as_def  ==  true or
+     $client == '' {
+    $job_name = "jobdef-${name}"
+  } else {
+    $job_name = "job-${client}-${name}"
+  }
+
+  $array_storages = is_array($storage) ? {
+    false     => $storage ? {
       ''      => [],
-      default => [$jobdefs_storage],
+      default => [$storage],
     },
-    default   => $jobdefs_storage,
+    default   => $storage,
   }
 
   $manage_job_file_content = $template ? {
@@ -34,14 +50,9 @@ define bacula::director::job (
     default => template($template),
   }
 
-  $job_name =  $use_as_def  ==  true ? {
-    true =>  "jobdef-${name}.conf",
-    false => "job-${client}-${name}.conf"
-  }
-
-  file { "job-${name}.conf":
+  file { "${job_name}":
     ensure  => $bacula::manage_file,
-    path    => "${bacula::director_configs_dir}/job-${name}.conf",
+    path    => "${bacula::director_configs_dir}/${job_name}.conf",
     mode    => $bacula::config_file_mode,
     owner   => $bacula::config_file_owner,
     group   => $bacula::config_file_group,
