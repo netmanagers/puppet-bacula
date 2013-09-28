@@ -1,10 +1,11 @@
 # This file is managed by Puppet. DO NOT EDIT.
-<% if @use_as_def == true %>
+
+<% if @use_as_def == true  or @client == '' -%>
 JobDef {
-<% else %>
+<% else -%>
 Job {
-  Name = "<%= @name %>"
 <% end -%>
+  Name = "<%= @name %>"
 <% if @use_as_def != true -%>
 <% if @client != '' -%>
   Client = <%= @client %>
@@ -19,8 +20,8 @@ Job {
 <% if @fileset != '' -%>
   FileSet = <%= @fileset %>
 <% end -%>
-<% if @jobdefs_storage != '' -%>
-  Storage = <%= @array_jobdefs_storage * ',' %>
+<% if @storage != '' -%>
+  Storage = <%= @array_storages * ',' %>
 <% end -%>
 <% if @pool != '' -%>
   Pool = <%= @pool %>
@@ -31,8 +32,8 @@ Job {
 <% if @write_bootstrap != '' -%>
   Write Bootstrap = "<%= @write_bootstrap %>"
 <% end -%>
-<% if @job_schedule != '' -%>
-  Schedule = <%= @job_schedule %>
+<% if @schedule != '' -%>
+  Schedule = <%= @schedule %>
 <% end -%>
 <% if @priority != '' -%>
   Priority = <%= @priority %>
