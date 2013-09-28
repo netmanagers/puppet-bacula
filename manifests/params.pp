@@ -16,10 +16,10 @@ class bacula::params {
 
   ### Application related parameters
 
-  $install_client   = true
-  $install_storage  = false
-  $install_director = false
-  $install_console  = false
+  $manage_client   = true
+  $manage_storage  = false
+  $manage_director = false
+  $manage_console  = false
 
   ## Common variables
   $config_dir = $::operatingsystem ? {
