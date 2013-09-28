@@ -2,7 +2,7 @@
 
 This is a Puppet module for bacula based on the second generation layout ("NextGen") of Example42 Puppet Modules.
 
-<table border='0'>
+<table>
   <tr>
     <td>Made by</td>
     <td>Sebastián Quaino</td>
@@ -47,56 +47,72 @@ on Example42 main modules set.
   (bacula-fd) and, following Ex42 modules standard practice, will leave all the default configuration
   as provided by your distribution.
 
+        ```puppet
         class { 'bacula': }
+        ```
 
   You can choose which part of bacula to install on a host
 
+        ```puppet
         class {'bacula:
           manage_client   => true,
           manage_storage  => false,
           manage_director => true,
           manage_console  => false,
         }
+        ```
 
 * Install a specific version of bacula storage package
 
+        ```puppet
         class { 'bacula':
           manage_storage  => true,
           version         => '1.0.1',
         }
+        ```
 
   Keep present that the client will **ALWAYS** be installed and managed, unless explicitelly said so
   setting *manage_client* to false
 
+        ```puppet
         class { 'bacula':
           manage_client   => false,
           manage_storage  => true,
           version         => '1.0.1',
         }
+        ```
 
 * Disable bacula service.
 
+        ```puppet
         class { 'bacula':
           disable => true
         }
+        ```
 
 * Remove bacula package
 
+        ```puppet
         class { 'bacula':
           absent => true
         }
+        ```
 
 * Enable auditing without without making changes on existing bacula configuration *files*
 
+        ```puppet
         class { 'bacula':
           audit_only => true
         }
+        ```
 
 * Module dry-run: Do not make any change on *all* the resources provided by the module
 
+        ```puppet
         class { 'bacula':
           noops => true
         }
+        ```
 
 
 ## USAGE - Overrides and Customizations
@@ -106,19 +122,23 @@ on Example42 main modules set.
 
 * Use custom source directory for the whole configuration dir
 
+        ```puppet
         class { 'bacula':
           source_dir       => 'puppet:///modules/example42/bacula/conf/',
           source_director_purge => false, # Set to true to purge any existing file not present in $source_dir
         }
+        ```
 
 * Use custom sources for config file 
 
+        ```puppet
         class { 'bacula':
           manage_client   => false,
           manage_director => true,
           director_source => [ "puppet:///modules/netmanagers/bacula/bacula-dir.conf-${hostname}",
                                "puppet:///modules/example42/bacula/bacula-dir.conf" ], 
         }
+        ```
 
 * Templating in this module is **strongly recommended**, but as it differs from other templatings
   in the final result of bacula's configuration dir structure. As bacula permits you to split
@@ -151,48 +171,64 @@ on Example42 main modules set.
                 bacula-fd.conf        <= Client config file
                 bconsole.conf         <= Console config file
 
-* Use custom template for main config file. Note that template and source arguments are alternative. 
+  For each possible stanza we provide a define to create them. Please check the manifests headers
+  to see the available parameters for each.
 
-        class { 'bacula':
-          template => 'example42/bacula/bacula.conf.erb',
+* Add a new device to the storage daemon, using the included template and default values:
+
+        ```puppet
+        bacula::storage::device { 'new_device':
+          media_type      => 'File',
+          archive_device  => '/some/backup/dir',
         }
+        ```
 
 * Automatically include a custom subclass
 
+        ```puppet
         class { 'bacula':
           my_class => 'example42::my_bacula',
         }
+        ```
 
 
 ## USAGE - Example42 extensions management 
 * Activate puppi (recommended, but disabled by default)
 
+        ```puppet
         class { 'bacula':
           puppi    => true,
         }
+        ```
 
 * Activate puppi and use a custom puppi_helper template (to be provided separately with a puppi::helper define ) to customize the output of puppi commands 
 
+        ```puppet
         class { 'bacula':
           puppi        => true,
           puppi_helper => 'myhelper', 
         }
+        ```
 
 * Activate automatic monitoring (recommended, but disabled by default). This option requires the usage of Example42 monitor and relevant monitor tools modules
 
+        ```puppet
         class { 'bacula':
           monitor      => true,
           monitor_tool => [ 'nagios' , 'monit' , 'munin' ],
         }
+        ```
 
 * Activate automatic firewalling. This option requires the usage of Example42 firewall and relevant firewall tools modules
 
+        ```puppet
         class { 'bacula':       
           firewall      => true,
           firewall_tool => 'iptables',
           firewall_src  => '10.42.0.0/24',
           firewall_dst  => $ipaddress_eth0,
         }
+        ```
 
 
 ## CONTINUOUS TESTING
