@@ -66,10 +66,10 @@ Console {
 }
 
 # Include split config files. Remember to bconsole "reload" after modifying a config file.
-@|"sh -c \'cat /etc/bacula/director.d/*.conf\'"
+@|"find /etc/bacula/director.d -name \'*.conf\' -type f -exec echo @{} \\;"
 
 # Read client directory for config files. Remember to bconsole "reload" after adding a client.
-@|"sh -c \'cat /etc/bacula/clients.d/*.conf\'"
+@|"find /etc/bacula/clients.d -name \'*.conf\' -type f -exec echo @{} \\;"
 '
     end
     it 'should create a valid config file' do
