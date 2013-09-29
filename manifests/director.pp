@@ -46,6 +46,19 @@ class bacula::director {
     }
   }
 
+  if $bacula::director_clients_dir != $bacula::config_dir and !defined(File['bacula-director_clients_dir']) {
+    file { 'bacula-director_clients_dir':
+      ensure  => directory,
+      path    => $bacula::director_clients_dir,
+      mode    => $bacula::config_file_mode,
+      owner   => $bacula::config_file_owner,
+      group   => $bacula::config_file_group,
+      require => Package[$bacula::director_package],
+      audit   => $bacula::manage_audit,
+      noop    => $bacula::noops,
+    }
+  }
+
   file { 'bacula-dir.conf':
     ensure  => $bacula::manage_file,
     path    => $bacula::director_config_file,
