@@ -35,56 +35,72 @@ on Example42 main modules set.
   (bacula-fd) and, following Ex42 modules standard practice, will leave all the default configuration
   as provided by your distribution.
 
-        class { 'bacula': }
+```puppet
+class { 'bacula': }
+```
 
   You can choose which part of bacula to install on a host
 
-        class {'bacula:
-          manage_client   => true,
-          manage_storage  => false,
-          manage_director => true,
-          manage_console  => false,
-        }
+```puppet
+class {'bacula:
+  manage_client   => true,
+  manage_storage  => false,
+  manage_director => true,
+  manage_console  => false,
+}
+```
 
 * Install a specific version of bacula storage package
 
-        class { 'bacula':
-          manage_storage  => true,
-          version         => '1.0.1',
-        }
+```puppet
+class { 'bacula':
+  manage_storage => true,
+  version        => '1.0.1',
+}
+```
 
   Keep present that the client will **ALWAYS** be installed and managed, unless explicitelly said so
   setting *manage_client* to false
 
-        class { 'bacula':
-          manage_client   => false,
-          manage_storage  => true,
-          version         => '1.0.1',
-        }
+```puppet
+class { 'bacula':
+  manage_client  => false,
+  manage_storage => true,
+  version        => '1.0.1',
+}
+```
 
 * Disable bacula service.
 
-        class { 'bacula':
-          disable => true
-        }
+```puppet
+class { 'bacula':
+  disable => true
+}
+```
 
 * Remove bacula package
 
-        class { 'bacula':
-          absent => true
-        }
+```puppet
+class { 'bacula':
+  absent => true
+}
+```
 
 * Enable auditing without without making changes on existing bacula configuration *files*
 
-        class { 'bacula':
-          audit_only => true
-        }
+```puppet
+class { 'bacula':
+  audit_only => true
+}
+```
 
 * Module dry-run: Do not make any change on *all* the resources provided by the module
 
-        class { 'bacula':
-          noops => true
-        }
+```puppet
+class { 'bacula':
+  noops => true
+}
+```
 
 
 ## USAGE - Overrides and Customizations
@@ -94,19 +110,23 @@ on Example42 main modules set.
 
 * Use custom source directory for the whole configuration dir
 
-        class { 'bacula':
-          source_dir       => 'puppet:///modules/example42/bacula/conf/',
-          source_director_purge => false, # Set to true to purge any existing file not present in $source_dir
-        }
+```puppet
+class { 'bacula':
+  source_dir            => 'puppet:///modules/example42/bacula/conf/',
+  source_director_purge => false, # Set to true to purge any existing file not present in $source_dir
+}
+```
 
 * Use custom sources for config file 
 
-        class { 'bacula':
-          manage_client   => false,
-          manage_director => true,
-          director_source => [ "puppet:///modules/netmanagers/bacula/bacula-dir.conf-${hostname}",
-                               "puppet:///modules/example42/bacula/bacula-dir.conf" ], 
-        }
+```puppet
+class { 'bacula':
+  manage_client   => false,
+  manage_director => true,
+  director_source => [ "puppet:///modules/netmanagers/bacula/bacula-dir.conf-${hostname}",
+                       "puppet:///modules/example42/bacula/bacula-dir.conf" ], 
+}
+```
 
 * Templating in this module is **strongly recommended**, but as it differs from other templatings
   in the final result of bacula's configuration dir structure. As bacula permits you to split
@@ -144,47 +164,59 @@ on Example42 main modules set.
 
 * Add a new device to the storage daemon, using the included template and default values:
 
-        bacula::storage::device { 'new_device':
-          media_type      => 'File',
-          archive_device  => '/some/backup/dir',
-        }
+```puppet
+bacula::storage::device { 'new_device':
+  media_type     => 'File',
+  archive_device => '/some/backup/dir',
+}
+```
 
 * Automatically include a custom subclass
 
-        class { 'bacula':
-          my_class => 'example42::my_bacula',
-        }
+```puppet
+class { 'bacula':
+  my_class => 'example42::my_bacula',
+}
+```
 
 
 ## USAGE - Example42 extensions management 
 * Activate puppi (recommended, but disabled by default)
 
-        class { 'bacula':
-          puppi    => true,
-        }
+```puppet
+class { 'bacula':
+  puppi => true,
+}
+```
 
 * Activate puppi and use a custom puppi_helper template (to be provided separately with a puppi::helper define ) to customize the output of puppi commands 
 
-        class { 'bacula':
-          puppi        => true,
-          puppi_helper => 'myhelper', 
-        }
+```puppet
+class { 'bacula':
+  puppi        => true,
+  puppi_helper => 'myhelper', 
+}
+```
 
 * Activate automatic monitoring (recommended, but disabled by default). This option requires the usage of Example42 monitor and relevant monitor tools modules
 
-        class { 'bacula':
-          monitor      => true,
-          monitor_tool => [ 'nagios' , 'monit' , 'munin' ],
-        }
+```puppet
+class { 'bacula':
+  monitor      => true,
+  monitor_tool => [ 'nagios' , 'monit' , 'munin' ],
+}
+```
 
 * Activate automatic firewalling. This option requires the usage of Example42 firewall and relevant firewall tools modules
 
-        class { 'bacula':       
-          firewall      => true,
-          firewall_tool => 'iptables',
-          firewall_src  => '10.42.0.0/24',
-          firewall_dst  => $ipaddress_eth0,
-        }
+```puppet
+class { 'bacula':       
+  firewall      => true,
+  firewall_tool => 'iptables',
+  firewall_src  => '10.42.0.0/24',
+  firewall_dst  => $ipaddress_eth0,
+}
+```
 
 
 ## CONTINUOUS TESTING
