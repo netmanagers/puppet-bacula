@@ -1,13 +1,27 @@
 # This file is managed by Puppet. DO NOT EDIT.
 
 Client {
-  Name = clientname
-  Address = hostname
-  FD Port = 9102
-  Password = "bacula"
-  Catalog = PrimaryCatalog
-  File Retention = 1 month
-  Job Retention =  1 month
-  AutoPrune = yes
-  Heartbeat Interval = 1 Minute
+  Name = "<%= @name %>"
+  Address = <%= @address %>
+<% if @port != '' -%>
+  FDPort = <%= @port %>
+<% end -%>
+<% if @password != '' -%>
+  Password = "<%= @password %>"
+<% end -%>
+<% if @catalog != '' -%>
+  Catalog = <%= @catalog %>
+<% end -%>
+<% if @file_retention != '' -%>
+  FileRetention = <%= @file_retention %>
+<% end -%>
+<% if @job_retention != '' -%>
+  JobRetention = <%= @job_retention %>
+<% end -%>
+<% if @auto_prune != '' -%>
+  AutoPrune = <%= @auto_prune %>
+<% end -%>
+<% if @max_concurrent != '' -%>
+  MaximumConcurrentJobs = <%= @max_concurrent %>
+<% end -%>
 }

@@ -27,10 +27,12 @@ class bacula::params {
   }
 
   $pid_directory = $::operatingsystem ? {
+    /(?i:Debian|Ubuntu|Mint)/ => '/var/run/bacula',
     default => '/var/run',
   }
   $heartbeat_interval = '1 minute'
   $working_directory  = $::operatingsystem ? {
+    /(?i:Debian|Ubuntu|Mint)/ => '/var/lib/bacula',
     default => '/var/spool/bacula'
   }
 
