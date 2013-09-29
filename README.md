@@ -42,7 +42,7 @@ class { 'bacula': }
   You can choose which part of bacula to install on a host
 
 ```puppet
-class {'bacula:
+class { 'bacula:
   manage_client   => true,
   manage_storage  => false,
   manage_director => true,
