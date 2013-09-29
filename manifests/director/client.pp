@@ -25,7 +25,7 @@ define bacula::director::client (
     fail("\$catalog parameter required for bacula::director::client define")
   }
 
-  $manage_fileset_client_content = $template ? {
+  $manage_client_file_content = $template ? {
     ''      => undef,
     default => template($template),
   }
