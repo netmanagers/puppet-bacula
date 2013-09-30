@@ -4,7 +4,9 @@ Pool {
   Name = "<%= @name %>"
   PoolType = <%= @type %>
   MaximumVolumeJobs = <%= @maximum_volume_jobs %>
+<% if @maximum_volume_bytes != '' -%>
   MaximumVolumeBytes = <%= @maximum_volume_bytes %>
+<% end -%>
   UseVolumeOnce = <%= @use_volume_once %>
   Recycle = <%= @recycle %>
   ActionOnPurge = <%= @action_on_purge %>
