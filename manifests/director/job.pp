@@ -52,7 +52,7 @@ define bacula::director::job (
     default => template($template),
   }
 
-  file { "${job_name}":
+  file { "${job_name}.conf":
     ensure  => $bacula::manage_file,
     path    => "${bacula::director_configs_dir}/${job_name}.conf",
     mode    => $bacula::config_file_mode,
