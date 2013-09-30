@@ -44,4 +44,10 @@ Job {
 <% if @where != '' -%>
   Where = <%= @where %>
 <% end -%>
+<% if @client_run_before_job != '' -%>
+  ClientRunBeforeJob = "<%= @client_run_before_job %>"
+<% end -%>
+<% if @run_before_job != '' -%>
+  RunBeforeJob = "<%= @run_before_job %>"
+<% end -%>
 }
