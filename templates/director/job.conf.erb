@@ -8,7 +8,7 @@ Job {
   Name = "<%= @name %>"
 <% if @use_as_def != true -%>
 <% if @client != '' -%>
-  Client = <%= @client %>
+  Client = "<%= @client %>"
 <% end -%>
 <% if @jobdef != '' -%>
   JobDefs = "<%= @jobdef %>"
@@ -18,13 +18,13 @@ Job {
   Type = <%= @type %>
 <% end -%>
 <% if @fileset != '' -%>
-  FileSet = <%= @fileset %>
+  FileSet = "<%= @fileset %>"
 <% end -%>
 <% if @storage != '' -%>
   Storage = <%= @array_storages * ',' %>
 <% end -%>
 <% if @pool != '' -%>
-  Pool = <%= @pool %>
+  Pool = "<%= @pool %>"
 <% end -%>
 <% if @prefer_mounted_volumes != '' -%>
   Prefer Mounted Volumes = <%= @prefer_mounted_volumes %>
@@ -33,13 +33,13 @@ Job {
   Write Bootstrap = "<%= @write_bootstrap %>"
 <% end -%>
 <% if @schedule != '' -%>
-  Schedule = <%= @schedule %>
+  Schedule = "<%= @schedule %>"
 <% end -%>
 <% if @priority != '' -%>
   Priority = <%= @priority %>
 <% end -%>
 <% if @messages != '' -%>
-  Messages = <%= @messages %>
+  Messages = "<%= @messages %>"
 <% end -%>
 <% if @where != '' -%>
   Where = <%= @where %>
