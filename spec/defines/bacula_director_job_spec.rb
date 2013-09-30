@@ -21,7 +21,7 @@ describe 'bacula::director::job' do
     let(:expected) do
 '# This file is managed by Puppet. DO NOT EDIT.
 
-JobDef {
+JobDefs {
   Name = "sample1"
   Type = Backup
 }
