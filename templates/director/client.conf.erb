@@ -24,4 +24,7 @@ Client {
 <% if @max_concurrent != '' -%>
   MaximumConcurrentJobs = <%= @max_concurrent %>
 <% end -%>
+<% if @heartbeat_interval != '' -%>
+  HeartbeatInterval = <%= @heartbeat_interval %>
+<% end -%>
 }
