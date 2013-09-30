@@ -21,7 +21,7 @@ Job {
   FileSet = "<%= @fileset %>"
 <% end -%>
 <% if @storage != '' -%>
-  Storage = "<%= @array_storages * ',' %>"
+  Storage = "<%= @array_storages * '","' %>"
 <% end -%>
 <% if @pool != '' -%>
   Pool = "<%= @pool %>"
