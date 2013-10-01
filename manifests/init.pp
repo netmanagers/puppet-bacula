@@ -256,6 +256,7 @@ class bacula (
   $director_configs_dir           = params_lookup( 'director_configs_dir' ),
   $director_clients_dir           = params_lookup( 'director_clients_dir' ),
   $console_package                = params_lookup( 'console_package' ),
+  $console_config_file            = params_lookup( 'console_config_file' ),
   $console_director_name          = params_lookup( 'console_director_name'),
   $console_password               = params_lookup( 'console_password'),
   $console_director_port          = params_lookup( 'console_director_port'),
@@ -361,17 +362,6 @@ class bacula (
   $manage_file = $bacula::bool_absent ? {
     true    => 'absent',
     default => 'present',
-  }
-
-  ### Bconsole specific checks
-  $manage_console_file_content = $bacula::console_template ? {
-    ''      => undef,
-    default => template($bacula::console_template),
-  }
-
-  $manage_console_file_source = $bacula::console_source ? {
-    ''        => undef,
-    default   => $bacula::console_source,
   }
 
   if $bacula::bool_absent == true
