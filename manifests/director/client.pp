@@ -17,11 +17,11 @@ define bacula::director::client (
   include bacula
 
   if $address == '' {
-    fail("\$address parameter required for bacula::director::client define")
+    fail('$address parameter required for bacula::director::client define')
   }
 
   if $catalog == '' {
-    fail("\$catalog parameter required for bacula::director::client define")
+    fail('$catalog parameter required for bacula::director::client define')
   }
 
   $real_password = $password ? {

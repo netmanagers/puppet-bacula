@@ -28,7 +28,7 @@ JobDefs {
 '
     end
     it 'should generate a JobDef file' do 
-      should contain_file('jobdef-sample1').with_path('/etc/bacula/director.d/jobdef-sample1.conf').with_content(expected)
+      should contain_file('jobdef-sample1.conf').with_path('/etc/bacula/director.d/jobdef-sample1.conf').with_content(expected)
     end
   end
 
@@ -64,7 +64,7 @@ Job {
 '
     end
     it 'should generate a Job file with custom options' do
-      should contain_file('job-bacula-sample2').with_path('/etc/bacula/director.d/job-bacula-sample2.conf').with_content(expected)
+      should contain_file('job-bacula-sample2.conf').with_path('/etc/bacula/director.d/job-bacula-sample2.conf').with_content(expected)
     end
   end
 

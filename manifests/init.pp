@@ -8,8 +8,8 @@
 # [*master_password*]
 #   Password to be useed everywhere where bacula requires a password, from the
 #   database to all the clients.
-#   Accepted values: 
-#     * Any string you want to use as a password. 
+#   Accepted values:
+#     * Any string you want to use as a password.
 #     * 'auto': a random password is generated and stored in
 #       $config_dir/master_password
 #     * empty: no master_password will be used.
@@ -320,7 +320,7 @@ class bacula (
 
   ### Set a default password if required
   if $master_password == 'auto' {
-    warning('FIXME! $master_password = auto still not implemented ') 
+    warning('FIXME! $master_password = auto still not implemented ')
     $real_master_password = 'auto'
   } else {
     $real_master_password = $bacula::master_password

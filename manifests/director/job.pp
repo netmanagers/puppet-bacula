@@ -19,7 +19,7 @@ define bacula::director::job (
   $pool = '',
   $prefer_mounted_volumes = '',
   $write_bootstrap = '',
-  $schedule = '',
+  $job_schedule = '',
   $priority = '',
   $messages = '',
   $where = '',
@@ -30,11 +30,10 @@ define bacula::director::job (
 
   include bacula
 
-  if $use_as_def  ==  true or
-     $client == '' {
-    $job_name = "jobdef-${name}"
+  if $use_as_def  ==  true or $client == '' {
+    $job_name = "jobdef-${name}.conf"
   } else {
-    $job_name = "job-${client}-${name}"
+    $job_name = "job-${client}-${name}.conf"
   }
 
   $array_storages = is_array($storage) ? {
@@ -50,9 +49,9 @@ define bacula::director::job (
     default => template($template),
   }
 
-  file { "${job_name}":
+  file { $job_name:
     ensure  => $bacula::manage_file,
-    path    => "${bacula::director_configs_dir}/${job_name}.conf",
+    path    => "${bacula::director_configs_dir}/${job_name}",
     mode    => $bacula::config_file_mode,
     owner   => $bacula::config_file_owner,
     group   => $bacula::config_file_group,
