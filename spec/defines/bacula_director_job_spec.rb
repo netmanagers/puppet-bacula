@@ -52,13 +52,13 @@ JobDefs {
 
 Job {
   Name = "sample2"
-  Client = bacula
+  Client = "bacula"
   Type = restore
-  FileSet = standardLinuxFileSet
-  Storage = restoreStorage
-  Pool = FullPool
+  FileSet = "standardLinuxFileSet"
+  Storage = "restoreStorage"
+  Pool = "FullPool"
   Priority = 1
-  Messages = standard
+  Messages = "standard"
   Where = /tmp
 }
 '

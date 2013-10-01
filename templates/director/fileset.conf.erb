@@ -2,6 +2,9 @@
 
 FileSet {
   Name = "<%= @name %>"
+<% if @ignore_fileset_changes != '' -%>
+  IgnoreFileSetChanges = <%= @ignore_fileset_changes %>
+<% end -%>
   Include {
     Options {
       signature = <%= @signature %>
