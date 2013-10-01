@@ -10,7 +10,7 @@ Client {
   Password = "<%= @real_password %>"
 <% end -%>
 <% if @catalog != '' -%>
-  Catalog = <%= @catalog %>
+  Catalog = "<%= @catalog %>"
 <% end -%>
 <% if @file_retention != '' -%>
   FileRetention = <%= @file_retention %>
@@ -23,5 +23,8 @@ Client {
 <% end -%>
 <% if @max_concurrent != '' -%>
   MaximumConcurrentJobs = <%= @max_concurrent %>
+<% end -%>
+<% if @heartbeat_interval != '' -%>
+  HeartbeatInterval = <%= @heartbeat_interval %>
 <% end -%>
 }

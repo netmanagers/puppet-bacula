@@ -25,15 +25,17 @@ define bacula::director::job (
   $where = '',
   $use_as_def = false,
   $jobdef = '',
+  $client_run_before_job = '',
+  $run_before_job = '',
   $template = 'bacula/director/job.conf.erb'
 ) {
 
   include bacula
 
   if $use_as_def  ==  true or $client == '' {
-    $job_name = "jobdef-${name}.conf"
+    $job_name = "jobdef-${name}"
   } else {
-    $job_name = "job-${client}-${name}.conf"
+    $job_name = "job-${client}-${name}"
   }
 
   $array_storages = is_array($storage) ? {
@@ -49,9 +51,9 @@ define bacula::director::job (
     default => template($template),
   }
 
-  file { $job_name:
+  file { "${job_name}.conf":
     ensure  => $bacula::manage_file,
-    path    => "${bacula::director_configs_dir}/${job_name}",
+    path    => "${bacula::director_configs_dir}/${job_name}.conf",
     mode    => $bacula::config_file_mode,
     owner   => $bacula::config_file_owner,
     group   => $bacula::config_file_group,
