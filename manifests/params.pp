@@ -138,6 +138,7 @@ class bacula::params {
 
   ## Bacula console variables
   $console_address            = ''
+  $console_director_port      = $director_port
 
   $console_package = $::operatingsystem ? {
     default => 'bacula-console',
