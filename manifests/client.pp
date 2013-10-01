@@ -11,6 +11,11 @@ class bacula::client {
   include bacula
 
   ### Client specific checks
+  $real_client_password = $bacula::client_password ? {
+    ''      => $bacula::real_master_password,
+    default => $bacula::client_password,
+  }
+
   $manage_client_file_content = $bacula::client_template ? {
     ''      => undef,
     default => template($bacula::client_template),

@@ -8,7 +8,7 @@ Director {
   WorkingDirectory = <%= scope.lookupvar('bacula::working_directory') %>
   PidDirectory = <%= scope.lookupvar('bacula::pid_directory') %>
   MaximumConcurrentJobs = <%= scope.lookupvar('bacula::director_max_concurrent') %>
-  Password = "<%= scope.lookupvar('bacula::director_password') %>"
+  Password = "<%= @real_director_password %>"
   Messages = Daemon
   DirAddress = <%= scope.lookupvar('bacula::director_address') %>
   HeartbeatInterval = <%= scope.lookupvar('bacula::heartbeat_interval') %>
@@ -17,7 +17,7 @@ Director {
 # Restricted Console, used by tray-monitor for Director status.
 Console {
   Name = "<%= scope.lookupvar('bacula::traymon_name') %>"
-  Password = "<%= scope.lookupvar('bacula::traymon_password') %>"
+  Password = "<%= scope.lookupvar('bacula::real_traymon_password') %>"
   CommandACL = <%= scope.lookupvar('bacula::traymon_command') %>
 }
 

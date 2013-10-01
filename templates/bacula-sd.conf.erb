@@ -14,7 +14,7 @@ Storage {
 # Director who is permitted to contact this Storage daemon.
 Director {
   Name = "<%= scope.lookupvar('bacula::director_name') %>"
-  Password = "<%= scope.lookupvar('bacula::director_password') %>"
+  Password = "<%= @real_storage_password %>"
 }
 
 # Storage devices.
@@ -24,7 +24,7 @@ Director {
 # Restricted Director, used by tray-monitor for Storage daemon status.
 Director {
   Name = "<%= scope.lookupvar('bacula::traymon_name') %>"
-  Password = "<%= scope.lookupvar('bacula::traymon_password') %>"
+  Password = "<%= scope.lookupvar('bacula::real_traymon_password') %>"
   Monitor = Yes
 }
 

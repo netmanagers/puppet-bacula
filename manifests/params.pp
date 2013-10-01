@@ -36,10 +36,13 @@ class bacula::params {
     default => '/var/spool/bacula'
   }
 
+  $master_password = 'auto'
+
   ## Bacula client variables
   $client_name     = "${::fqdn}-fd"
   $client_port     = '9102'
   $client_address  = $::ipaddress
+  $client_password = ''
   $client_max_concurrent = '10'
 
   $client_config_file = $::operatingsystem ? {

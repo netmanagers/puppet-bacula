@@ -11,6 +11,11 @@ class bacula::storage {
   include bacula
 
   ### Storage specific checks
+  $real_storage_password = $bacula::storage_password ? {
+    ''      => $bacula::real_master_password,
+    default => $bacula::storage_password,
+  }
+
   $manage_storage_file_content = $bacula::storage_template ? {
     ''      => undef,
     default => template($bacula::storage_template),

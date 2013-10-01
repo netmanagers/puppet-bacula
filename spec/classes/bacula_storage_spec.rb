@@ -37,10 +37,22 @@ describe 'bacula::storage' do
     it { should contain_file('bacula-sd.conf').with_source('puppet:///modules/bacula/bacula.source') }
   end
 
+  describe 'Test customizations - master_password' do
+    let(:facts) do
+      {
+        :bacula_storage_name => 'storage_master',
+        :bacula_master_password => 'master_pass',
+        :bacula_storage_template => 'bacula/bacula-sd.conf.erb'
+      }
+    end
+    it { should contain_file('bacula-sd.conf').with_content(/Password = "master_pass".*Password = "master_pass"/m) }
+  end
+
   describe 'Test customizations - provided template' do
     let(:facts) do
       {
         :bacula_storage_name => 'here_storage',
+        :bacula_master_password => 'stuvwxyz',
         :bacula_storage_password => 'storage_pass',
         :bacula_storage_port => '4242',
         :bacula_storage_address => '10.42.42.42',
@@ -65,7 +77,7 @@ Storage {
 # Director who is permitted to contact this Storage daemon.
 Director {
   Name = "rspec.example42.com-dir"
-  Password = ""
+  Password = "storage_pass"
 }
 
 # Storage devices.
@@ -75,7 +87,7 @@ Director {
 # Restricted Director, used by tray-monitor for Storage daemon status.
 Director {
   Name = "rspec.example42.com-mon"
-  Password = ""
+  Password = "stuvwxyz"
   Monitor = Yes
 }
 

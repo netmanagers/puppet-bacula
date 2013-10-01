@@ -35,11 +35,23 @@ describe 'bacula::client' do
     it { should contain_file('bacula-fd.conf').with_source('puppet:///modules/bacula/bacula.source') }
   end
 
+  describe 'Test customizations - master_password' do
+    let(:facts) do
+      {
+        :bacula_client_name => 'master_client',
+        :bacula_master_password => 'abcdefg',
+        :bacula_client_template => 'bacula/bacula-fd.conf.erb'
+      }
+    end
+    it { should contain_file('bacula-fd.conf').with_content(/Password = "abcdefg".*Password = "abcdefg"/m) }
+  end
+
   describe 'Test customizations - provided template' do
     let(:facts) do
       {
         :bacula_director_name => 'here_director',
-        :bacula_director_password => 'director_pass',
+        :bacula_master_password => 'testing',
+        :bacula_client_password => 'client_pass',
         :bacula_client_name => 'this_client',
         :bacula_client_port => '4242',
         :bacula_pid_directory => '/some/dir',
@@ -54,13 +66,13 @@ describe 'bacula::client' do
 # Directors who are permitted to contact this File daemon.
 Director {
   Name = "here_director"
-  Password = "director_pass"
+  Password = "client_pass"
 }
 
 # Restricted Director, used by tray-monitor for File daemon status.
 Director {
   Name = "rspec.example42.com-mon"
-  Password = ""
+  Password = "testing"
   Monitor = Yes
 }
 

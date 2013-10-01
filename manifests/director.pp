@@ -11,14 +11,10 @@ class bacula::director {
   include bacula
 
   ### Director specific checks
-  $manage_director_file_content = $bacula::director_template ? {
-    ''      => undef,
-    default => template($bacula::director_template),
-  }
 
-  $manage_director_file_source = $bacula::director_source ? {
-    ''        => undef,
-    default   => $bacula::director_source,
+  $real_director_password = $bacula::director_password ? {
+    ''      => $bacula::real_master_password,
+    default => $bacula::director_password,
   }
 
   $manage_director_service_autorestart = $bacula::bool_service_autorestart ? {
@@ -44,6 +40,16 @@ class bacula::director {
       audit   => $bacula::manage_audit,
       noop    => $bacula::noops,
     }
+  }
+
+  $manage_director_file_content = $bacula::director_template ? {
+    ''      => undef,
+    default => template($bacula::director_template),
+  }
+
+  $manage_director_file_source = $bacula::director_source ? {
+    ''        => undef,
+    default   => $bacula::director_source,
   }
 
   if $bacula::director_clients_dir != $bacula::config_dir and !defined(File['bacula-director_clients_dir']) {

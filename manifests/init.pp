@@ -5,6 +5,18 @@
 #
 # == Parameters
 #
+# [*master_password*]
+#   Password to be useed everywhere where bacula requires a password, from the
+#   database to all the clients.
+#   Accepted values: 
+#     * Any string you want to use as a password. 
+#     * 'auto': a random password is generated and stored in
+#       $config_dir/master_password
+#     * empty: no master_password will be used.
+#   If any of {director,console,traymon,client,storage}password is given,
+#   it will override this one for that particular password.
+#   Default: 'auto'
+#
 # Standard class parameters
 # Define the general class behaviour and customizations
 #
@@ -201,9 +213,11 @@ class bacula (
   $working_directory              = params_lookup( 'working_directory' ),
   $pid_directory                  = params_lookup( 'pid_directory' ),
   $heartbeat_interval             = params_lookup( 'heartbeat_interval'),
+  $master_password                = params_lookup( 'master_password' ),
   $client_package                 = params_lookup( 'client_package' ),
   $client_config_file             = params_lookup( 'client_config_file' ),
   $client_template                = params_lookup( 'client_template' ),
+  $client_password                = params_lookup( 'client_password' ),
   $client_source                  = params_lookup( 'client_source' ),
   $client_service                 = params_lookup( 'client_service' ),
   $client_process                 = params_lookup( 'client_process' ),
@@ -215,6 +229,7 @@ class bacula (
   $client_messages_name           = params_lookup( 'client_messages_name' ),
   $storage_package                = params_lookup( 'storage_package' ),
   $storage_config_file            = params_lookup( 'storage_config_file' ),
+  $storage_password               = params_lookup( 'storage_password' ),
   $storage_template               = params_lookup( 'storage_template' ),
   $storage_source                 = params_lookup( 'storage_source' ),
   $storage_service                = params_lookup( 'storage_service' ),
@@ -302,6 +317,23 @@ class bacula (
   $bool_manage_console=any2bool($manage_console)
 
   ### Definition of some variables used in the module
+
+  ### Set a default password if required
+  if $master_password == 'auto' {
+    warning('FIXME! $master_password = auto still not implemented ') 
+    $real_master_password = 'auto'
+  } else {
+    $real_master_password = $bacula::master_password
+  }
+
+  # $traymon_password is not set up anywhere else, so we get a default value
+  # for it
+
+  $real_traymon_password = $bacula::traymon_password ? {
+    ''      => $bacula::real_master_password,
+    default => $bacula::traymon_password,
+  }
+
   $manage_package = $bacula::bool_absent ? {
     true  => 'absent',
     false => $bacula::version,

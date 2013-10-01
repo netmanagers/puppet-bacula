@@ -24,6 +24,12 @@ define bacula::director::client (
     fail("\$catalog parameter required for bacula::director::client define")
   }
 
+  $real_password = $password ? {
+    ''      => $bacula::real_master_password,
+    default => $password,
+  }
+
+
   $manage_client_file_content = $template ? {
     ''      => undef,
     default => template($template),
