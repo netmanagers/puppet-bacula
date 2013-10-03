@@ -3,9 +3,9 @@
 # Used to create messages resources
 #
 define bacula::director::messages (
-  $mail_command = '' ,
+  $mail_command = '',
   $mail_host = '',
-  $mail_from= '',
+  $mail_from = '',
   $mail_to = '',
   $template = 'bacula/director/messages.conf.erb'
 ) {
