@@ -1,7 +1,7 @@
 # This file is managed by Puppet. DO NOT EDIT.
 
 Pool {
-  Name = "<%= @name %>"
+  Name = <%= @name %>
   PoolType = <%= @type %>
 <% if @maximum_volume_jobs != '' -%>
   MaximumVolumeJobs = <%= @maximum_volume_jobs %>
@@ -25,9 +25,9 @@ Pool {
   VolumeRetention = <%= @volume_retention %>
 <% end -%>
 <% if @label_format != '' -%>
-  LabelFormat = "<%= @label_format %>"
+  LabelFormat = <%= @label_format %>
 <% end -%>
 <% if @storage != '' -%>
-  Storage = "<%= @storage %>"
+  Storage = <%= @storage %>
 <% end -%>
 }
