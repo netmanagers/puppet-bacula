@@ -27,6 +27,7 @@ define bacula::director::job (
   $jobdef = '',
   $client_run_before_job = '',
   $run_before_job = '',
+  $options_hash = {},
   $template = 'bacula/director/job.conf.erb'
 ) {
 

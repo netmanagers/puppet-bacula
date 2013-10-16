@@ -12,6 +12,7 @@ define bacula::director::pool (
   $auto_prune = true,
   $volume_retention = '1 month',
   $label_format = 'Volume-',
+  $options_hash = {},
   $template = 'bacula/director/pool.conf.erb',
   $storage = ''
 ) {
