@@ -11,6 +11,7 @@ define bacula::storage::device (
   $removable_media = 'no' ,
   $always_open     = false,
   $source          = '',
+  $options_hash    = {},
   $template        = 'bacula/storage/device.conf.erb'
 ) {
 

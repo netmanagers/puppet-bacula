@@ -4,6 +4,7 @@
 #
 define bacula::director::schedule (
   $backup_level = '',
+  $options_hash = {},
   $template = 'bacula/director/schedule.conf.erb'
 ) {
 

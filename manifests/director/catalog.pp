@@ -9,6 +9,7 @@ define bacula::director::catalog (
   $db_name = '',
   $db_user = '',
   $db_password = '',
+  $options_hash = {},
   $template = 'bacula/director/catalog.conf.erb'
 ) {
 
