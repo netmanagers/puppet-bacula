@@ -10,6 +10,7 @@ define bacula::director::storage (
   $password = '',
   $max_concurrent = '',
   $source = '',
+  $options_hash = {},
   $template = ''
 ) {
 

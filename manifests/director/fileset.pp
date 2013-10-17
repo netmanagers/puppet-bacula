@@ -10,6 +10,7 @@ define bacula::director::fileset (
   $include = '',
   $exclude = '',
   $ignore_fileset_changes = '',
+  $options_hash = {},
   $template = 'bacula/director/fileset.conf.erb'
 ) {
 

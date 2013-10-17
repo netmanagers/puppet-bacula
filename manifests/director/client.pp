@@ -12,6 +12,7 @@ define bacula::director::client (
   $auto_prune = true,
   $max_concurrent = '',
   $heartbeat_interval = '',
+  $options_hash = {},
   $template = 'bacula/director/client.conf.erb'
 ) {
 
