@@ -4,6 +4,5 @@ fixtures:
     "monitor":  "git://github.com/example42/puppet-monitor.git"
     "firewall": "git://github.com/example42/puppet-firewall.git"
     "iptables": "git://github.com/example42/puppet-iptables.git"
-    "concat":   "https://github.com/ripienaar/puppet-concat.git"
   symlinks:
     "bacula": "#{source_dir}"
