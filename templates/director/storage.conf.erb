@@ -1,11 +1,21 @@
 # This file is managed by Puppet. DO NOT EDIT.
-  
+
 Storage {
-  Name = "<%= @name %>"
-  Device = "<%= @device %>"
+  Name = <%= @name %>
+<% if @device != '' -%>
+  Device = <%= @device %>
+<% end -%>
+<% if @media_type != '' -%>
   Media Type = <%= @media_type %>
+<% end -%>
+<% if @address != '' -%>
   Address = <%= @address %>
+<% end -%>
   SDPort = <%= @sd_port %>
-  Password = "<%= @real_password %>"
+<% if @real_password != '' -%>
+  Password = <%= @real_password %>
+<% end -%>
+<% if @max_concurrent != '' -%>
   Maximum Concurrent Jobs = <%= @max_concurrent %>
+<% end -%>
 }
