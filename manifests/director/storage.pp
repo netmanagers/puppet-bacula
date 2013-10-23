@@ -3,15 +3,15 @@
 # Used to create storage resources
 #
 define bacula::director::storage (
-  $device = '' ,
+  $device = '',
   $media_type = '',
   $address = '',
-  $sd_port = '' ,
+  $sd_port = '9103',
   $password = '',
   $max_concurrent = '',
   $source = '',
   $options_hash = {},
-  $template = ''
+  $template = 'bacula/director/storage.conf.erb'
 ) {
 
   include bacula
