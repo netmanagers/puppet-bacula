@@ -14,6 +14,7 @@
 define bacula::director::job (
   $client = '',
   $type = 'Backup',
+  $level = '',
   $fileset = '',
   $storage = '',
   $pool = '',
@@ -27,6 +28,8 @@ define bacula::director::job (
   $jobdef = '',
   $client_run_before_job = '',
   $run_before_job = '',
+  $client_run_after_job = '',
+  $run_after_job = '',
   $options_hash = {},
   $template = 'bacula/director/job.conf.erb'
 ) {

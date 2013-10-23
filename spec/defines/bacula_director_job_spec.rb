@@ -35,15 +35,18 @@ JobDefs {
   describe 'Test job.conf is created with all main options' do
     let(:params) do
       {
-        :name     => 'sample2',
-        :client   => 'bacula',
-        :type     => 'restore',
-        :fileset  => 'standardLinuxFileSet',
-        :storage  => 'restoreStorage',
-        :pool     => 'FullPool',
-        :priority => '1',
-        :messages => 'standard',
-        :where    => '/tmp',
+        :name                  => 'sample2',
+        :client                => 'bacula',
+        :level                 => 'Full',
+        :type                  => 'restore',
+        :fileset               => 'standardLinuxFileSet',
+        :storage               => 'restoreStorage',
+        :pool                  => 'FullPool',
+        :priority              => '1',
+        :messages              => 'standard',
+        :client_run_before_job => 'run this before in the client',
+        :run_after_job         => 'run this after',
+        :where                 => '/tmp',
       }
     end
 
@@ -53,6 +56,7 @@ JobDefs {
 Job {
   Name = "sample2"
   Client = "bacula"
+  Level = "Full"
   Type = restore
   FileSet = "standardLinuxFileSet"
   Storage = "restoreStorage"
@@ -60,6 +64,8 @@ Job {
   Priority = 1
   Messages = "standard"
   Where = /tmp
+  ClientRunBeforeJob = "run this before in the client"
+  RunAfterJob = "run this after"
 }
 '
     end

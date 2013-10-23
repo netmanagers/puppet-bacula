@@ -29,7 +29,9 @@ Messages {
 }
 '
     end
-    it { should contain_file('messages-sample1.conf').with_path('/etc/bacula/director.d/messages-sample1.conf').with_content(expected) }
+    it 'should generate a default messages section' do
+      should contain_file('messages-sample1.conf').with_path('/etc/bacula/director.d/messages-sample1.conf').with_content(expected)
+    end
   end
 
   describe 'Test messages.conf is created with all main options' do
@@ -59,7 +61,9 @@ Messages {
 }
 '
     end
-    it { should contain_file('messages-sample2.conf').with_path('/etc/bacula/director.d/messages-sample2.conf').with_content(expected) }
+    it 'should generate a messages section with multiple options set' do
+      should contain_file('messages-sample2.conf').with_path('/etc/bacula/director.d/messages-sample2.conf').with_content(expected)
+    end
   end
 
 end
