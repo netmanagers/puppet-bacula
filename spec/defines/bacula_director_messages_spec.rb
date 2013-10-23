@@ -8,7 +8,7 @@ describe 'bacula::director::messages' do
     {
       :ipaddress       => '10.42.42.42',
       :operatingsystem => 'Debian',
-      :messages_configs_dir => '/etc/bacula/director.d',
+      :bacula_log_file => '/var/log/bacula/bacula.log'
     }
   end
 
@@ -23,6 +23,9 @@ describe 'bacula::director::messages' do
 
 Messages {
   Name = sample1
+  console = all, !skipped, !saved
+  catalog = all, !skipped, !saved
+  append = "/var/log/bacula/bacula.log" = all, !skipped
 }
 '
     end
@@ -35,7 +38,7 @@ Messages {
         :name => 'sample2',
         :mail_command => '/usr/bin/bsmtp',
         :mail_host => 'localhost',
-        :mail_from => '<noreply@netmanagers.com.ar>',
+        :mail_from => 'noreply@netmanagers.com.ar',
         :mail_to => 'system-notifications@netmanagers.com.ar',
       }
     end
@@ -45,14 +48,14 @@ Messages {
 
 Messages {
   Name = sample2
-  mailcommand = /usr/bin/bsmtp -h localhost -f \"\(Bacula\) \<noreply@netmanagers.com.ar>\" -s \"Bacula: %t %e of %c %l\" %r"
+  mailcommand = "/usr/bin/bsmtp -h localhost -f \"Bacula <noreply@netmanagers.com.ar>\" -s \"Bacula: %t %e of %c %l\" %r"
   operatorcommand = "/usr/bin/bsmtp -h localhost -f \"Bacula <noreply@netmanagers.com.ar>\" -s \"Bacula: Intervention needed for %j\" %r"
   mail = system-notifications@netmanagers.com.ar = all, !skipped
   operator = system-notifications@netmanagers.com.ar = mount
+  mailonerror = system-notifications@netmanagers.com.ar = all
   console = all, !skipped, !saved
   catalog = all, !skipped, !saved
-  mailonerror = system-notifications@netmanagers.com.ar = all
-  append = "/var/log/bacula/log" = all, !skipped
+  append = "/var/log/bacula/bacula.log" = all, !skipped
 }
 '
     end

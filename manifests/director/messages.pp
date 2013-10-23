@@ -4,7 +4,7 @@
 #
 define bacula::director::messages (
   $mail_command = '',
-  $mail_host = '',
+  $mail_host = 'localhost',
   $mail_from = '',
   $mail_to = '',
   $options_hash = {},

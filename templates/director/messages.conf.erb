@@ -2,20 +2,17 @@
 
 Messages {
   Name = <%= @name %>
-<% if @mail_command != '' -%>
-<% if @mail_host != '' -%>
-<% if @mail_from != '' -%>
-<% if @mail_to != '' -%>
-  mailcommand = <%= @mail_command %> -h <%= @mail_host %> -f \"\(Bacula\) \<%= @mail_from %>\" -s \"Bacula: %t %e of %c %l\" %r"
-  operatorcommand = "<%= @mail_command %> -h <%= @mail_host %> -f \"Bacula <%= @mail_from %>\" -s \"Bacula: Intervention needed for %j\" %r"
+<% if @mail_command != '' and
+      @mail_host    != '' and
+      @mail_from    != '' and
+      @mail_to != '' -%>
+  mailcommand = "<%= @mail_command %> -h <%= @mail_host %> -f \"Bacula <<%= @mail_from %>>\" -s \"Bacula: %t %e of %c %l\" %r"
+  operatorcommand = "<%= @mail_command %> -h <%= @mail_host %> -f \"Bacula <<%= @mail_from %>>\" -s \"Bacula: Intervention needed for %j\" %r"
   mail = <%= @mail_to %> = all, !skipped
   operator = <%= @mail_to %> = mount
+  mailonerror = <%= @mail_to %> = all
+<% end -%>
   console = all, !skipped, !saved
   catalog = all, !skipped, !saved
-  mailonerror = <%= @mail_to %> = all
-  append = "/var/log/bacula/log" = all, !skipped
-<% end -%>
-<% end -%>
-<% end -%>
-<% end -%>
+  append = "<%= scope.lookupvar('bacula::log_file') %>" = all, !skipped
 }
