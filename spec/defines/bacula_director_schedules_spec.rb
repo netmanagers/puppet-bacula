@@ -33,7 +33,7 @@ Schedule {
     let(:params) do
       {
         :name => 'sample2',
-        :backup_level => [['Full','sun','22:00']],
+        :run_spec => [['Full','sun','22:00']],
       }
     end
 

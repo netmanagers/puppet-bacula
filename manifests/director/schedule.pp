@@ -3,19 +3,19 @@
 # Used to create schedules
 #
 define bacula::director::schedule (
-  $backup_level = '',
+  $run_spec = '',
   $options_hash = {},
   $template = 'bacula/director/schedule.conf.erb'
 ) {
 
   include bacula
 
-  $array_backup_level = is_array($backup_level) ? {
-    false     => $backup_level ? {
+  $array_run_spec = is_array($run_spec) ? {
+    false     => $run_spec ? {
       ''      => [],
-      default => [$backup_level],
+      default => [$run_spec],
     },
-    default   => $backup_level,
+    default   => $run_spec,
   }
 
   $manage_schedule_file_content = $template ? {
