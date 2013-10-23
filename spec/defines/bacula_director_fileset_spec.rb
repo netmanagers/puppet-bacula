@@ -25,9 +25,7 @@ FileSet {
   Name = "sample1"
   Include {
     Options {
-      signature = 
-      compression = 
-      onefs = 
+      signature = MD5
     }
   }
   Exclude {

@@ -3,7 +3,7 @@
 # Used to create filesets resources
 #
 define bacula::director::fileset (
-  $signature = '',
+  $signature = 'MD5',
   $compression = '',
   $onefs = '',
   $fstype = '',
