@@ -14,6 +14,9 @@ Job {
   JobDefs = "<%= @jobdef %>"
 <% end -%>
 <% end -%>
+<% if @level != '' -%>
+  Level = "<%= @level %>"
+<% end -%>
 <% if @type != '' -%>
   Type = <%= @type %>
 <% end -%>
@@ -49,5 +52,11 @@ Job {
 <% end -%>
 <% if @run_before_job != '' -%>
   RunBeforeJob = "<%= @run_before_job %>"
+<% end -%>
+<% if @client_run_after_job != '' -%>
+  ClientRunAfterJob = "<%= @client_run_after_job %>"
+<% end -%>
+<% if @run_after_job != '' -%>
+  RunAfterJob = "<%= @run_after_job %>"
 <% end -%>
 }
