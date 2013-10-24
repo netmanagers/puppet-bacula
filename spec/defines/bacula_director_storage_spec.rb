@@ -25,6 +25,7 @@ Storage {
   Name = "sample1"
   SDPort = 9103
   Password = auto
+  AllowCompression = Yes
 }
 '
     end
@@ -54,6 +55,7 @@ Storage {
   SDPort = 7321
   Password = bacula
   Maximum Concurrent Jobs = 10
+  AllowCompression = Yes
 }
 '
     end

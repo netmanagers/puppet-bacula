@@ -9,6 +9,7 @@ define bacula::director::storage (
   $sd_port = '9103',
   $password = '',
   $max_concurrent = '',
+  $allow_compression = 'Yes',
   $source = '',
   $options_hash = {},
   $template = 'bacula/director/storage.conf.erb'
