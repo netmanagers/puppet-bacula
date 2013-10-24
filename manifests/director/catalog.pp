@@ -6,14 +6,19 @@ define bacula::director::catalog (
   $db_driver = 'dbi:mysql',
   $db_address = 'localhost',
   $db_port = '',
-  $db_name = '',
-  $db_user = '',
+  $db_name = 'bacula',
+  $db_user = 'bacula',
   $db_password = '',
   $options_hash = {},
   $template = 'bacula/director/catalog.conf.erb'
 ) {
 
   include bacula
+
+  $real_password = $db_password ? {
+     ''      => $bacula::real_master_password,
+     default => $db_password,
+  }
 
   $manage_catalog_file_content = $template ? {
     ''      => undef,

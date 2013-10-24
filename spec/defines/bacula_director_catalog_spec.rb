@@ -8,7 +8,7 @@ describe 'bacula::director::catalog' do
     {
       :ipaddress       => '10.42.42.42',
       :operatingsystem => 'Debian',
-      :director_configs_dir => '/etc/bacula/director.d',
+      :bacula_master_password => 'bacula',
     }
   end
 
@@ -25,8 +25,7 @@ Catalog {
   Name = "sample1"
   DBDriver = dbi:mysql
   DBAddress = localhost
-  DBPort = 
-  DBName = ; dbuser = ; dbpassword = ;
+  DBName = "bacula"; dbuser = "bacula"; dbpassword = "bacula";
 }
 '
     end
@@ -53,7 +52,7 @@ Catalog {
   DBDriver = dbi:postgres
   DBAddress = 10.0.0.3
   DBPort = 3824
-  DBName = test; dbuser = netmanagers; dbpassword = password;
+  DBName = "test"; dbuser = "netmanagers"; dbpassword = "password";
 }
 '
     end

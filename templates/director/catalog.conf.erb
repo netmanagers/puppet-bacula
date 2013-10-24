@@ -2,14 +2,18 @@
 
 Catalog {
   Name = "<%= @name %>"
+<% if @db_driver != '' -%>
   DBDriver = <%= @db_driver %>
+<% end -%>
+<% if @db_address != '' -%>
   DBAddress = <%= @db_address %>
+<% end -%>
+<% if @db_port != '' -%>
   DBPort = <%= @db_port %>
-<% if scope.lookupvar('bacula::@db_name') != '' -%>
-<% if scope.lookupvar('bacula::@db_user') != '' -%>
-<% if scope.lookupvar('bacula::@db_password') != '' -%>
-  DBName = <%= @db_name %>; dbuser = <%= @db_user %>; dbpassword = <%= @db_password %>;
 <% end -%>
-<% end -%>
+<% if @db_name != '' and
+      @db_user != '' and
+      @real_password != '' -%>
+  DBName = "<%= @db_name %>"; dbuser = "<%= @db_user %>"; dbpassword = "<%= @real_password %>";
 <% end -%>
 }
