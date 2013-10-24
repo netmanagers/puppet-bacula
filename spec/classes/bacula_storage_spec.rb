@@ -93,7 +93,7 @@ Director {
 
 # Send all messages to the Director,
 Messages {
-  Name = Standard
+  Name = "Standard"
   Director = rspec.example42.com-dir = all, !skipped, !restored
 }
 '

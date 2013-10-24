@@ -22,7 +22,7 @@ describe 'bacula::director::schedule' do
 '# This file is managed by Puppet. DO NOT EDIT.
 
 Schedule {
-  Name = sample1
+  Name = "sample1"
 }
 '
     end
@@ -41,7 +41,7 @@ Schedule {
 '# This file is managed by Puppet. DO NOT EDIT.
 
 Schedule {
-  Name = sample2
+  Name = "sample2"
   Run = Level=Full sun at 22:00
 }
 '

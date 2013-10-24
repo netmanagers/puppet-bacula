@@ -1,7 +1,7 @@
 # This file is managed by Puppet. DO NOT EDIT.
 
 Pool {
-  Name = <%= @name %>
+  Name = "<%= @name %>"
   PoolType = <%= @type %>
 <% if @maximum_volume_jobs != '' -%>
   MaximumVolumeJobs = <%= @maximum_volume_jobs %>

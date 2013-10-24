@@ -22,7 +22,7 @@ describe 'bacula::director::pool' do
 '# This file is managed by Puppet. DO NOT EDIT.
 
 Pool {
-  Name = sample1
+  Name = "sample1"
   PoolType = Backup
   MaximumVolumeJobs = 1
   MaximumVolumeBytes = 1G
@@ -59,7 +59,7 @@ Pool {
 '# This file is managed by Puppet. DO NOT EDIT.
 
 Pool {
-  Name = sample2
+  Name = "sample2"
   PoolType = BackupFull
   MaximumVolumeJobs = 3
   MaximumVolumeBytes = 10G

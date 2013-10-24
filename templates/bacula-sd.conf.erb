@@ -30,6 +30,6 @@ Director {
 
 # Send all messages to the Director,
 Messages {
-  Name = Standard
+  Name = "Standard"
   Director = <%= scope.lookupvar('bacula::director_name') %> = all, !skipped, !restored
 }

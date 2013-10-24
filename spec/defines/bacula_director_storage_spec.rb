@@ -22,7 +22,7 @@ describe 'bacula::director::storage' do
 '# This file is managed by Puppet. DO NOT EDIT.
 
 Storage {
-  Name = sample1
+  Name = "sample1"
   SDPort = 9103
   Password = auto
 }
@@ -47,7 +47,7 @@ Storage {
 '# This file is managed by Puppet. DO NOT EDIT.
 
 Storage {
-  Name = sample2
+  Name = "sample2"
   Device = FileDevice01
   Media Type = File01
   Address = bacula

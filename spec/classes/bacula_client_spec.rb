@@ -89,7 +89,7 @@ FileDaemon {
 
 # Send all messages except skipped files back to Director.
 Messages {
-  Name = Standard
+  Name = "Standard"
   Director = here_director = all, !skipped, !restored
 }
 '
