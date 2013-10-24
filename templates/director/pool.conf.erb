@@ -21,11 +21,14 @@ Pool {
 <% if @auto_prune != '' -%>
   AutoPrune = <%= @auto_prune %>
 <% end -%>
+<% if @volume_use_duration != '' -%>
+  Volume Use Duration = <%= @volume_use_duration %>
+<% end -%>
 <% if @volume_retention != '' -%>
   VolumeRetention = <%= @volume_retention %>
 <% end -%>
 <% if @label_format != '' -%>
-  LabelFormat = <%= @label_format %>
+  LabelFormat = "<%= @label_format %>"
 <% end -%>
 <% if @storage != '' -%>
   Storage = <%= @storage %>

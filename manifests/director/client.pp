@@ -3,15 +3,14 @@
 # Used to create client resources
 #
 define bacula::director::client (
-  $address = '',
-  $port = '',
+  $address,
+  $catalog,
+  $port = '9102',
   $password = '',
-  $catalog = '',
   $file_retention = '',
   $job_retention = '',
   $auto_prune = true,
   $max_concurrent = '',
-  $heartbeat_interval = '',
   $options_hash = {},
   $template = 'bacula/director/client.conf.erb'
 ) {
@@ -30,7 +29,6 @@ define bacula::director::client (
     ''      => $bacula::real_master_password,
     default => $password,
   }
-
 
   $manage_client_file_content = $template ? {
     ''      => undef,

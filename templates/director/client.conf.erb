@@ -9,9 +9,7 @@ Client {
 <% if @real_password != '' -%>
   Password = "<%= @real_password %>"
 <% end -%>
-<% if @catalog != '' -%>
   Catalog = "<%= @catalog %>"
-<% end -%>
 <% if @file_retention != '' -%>
   FileRetention = <%= @file_retention %>
 <% end -%>
@@ -24,7 +22,7 @@ Client {
 <% if @max_concurrent != '' -%>
   MaximumConcurrentJobs = <%= @max_concurrent %>
 <% end -%>
-<% if @heartbeat_interval != '' -%>
-  HeartbeatInterval = <%= @heartbeat_interval %>
+<% if scope.lookupvar('bacula::heartbeat_interval') != '' -%>
+  HeartbeatInterval = <%= scope.lookupvar('bacula::heartbeat_interval') %>
 <% end -%>
 }

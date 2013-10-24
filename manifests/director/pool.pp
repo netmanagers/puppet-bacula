@@ -11,10 +11,11 @@ define bacula::director::pool (
   $action_on_purge = 'truncate',
   $auto_prune = true,
   $volume_retention = '1 month',
+  $volume_use_duration = '',
   $label_format = 'Volume-',
+  $storage = '',
   $options_hash = {},
-  $template = 'bacula/director/pool.conf.erb',
-  $storage = ''
+  $template = 'bacula/director/pool.conf.erb'
 ) {
 
   include bacula

@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), '..', 'spec_helper.rb')
 
 describe 'bacula::director::pool' do
 
-  let(:title) { 'bacula::pool' }
+  let(:title) { 'bacula::director::pool' }
   let(:node) { 'rspec.example42.com' }
   let(:facts) do
     {
@@ -31,11 +31,13 @@ Pool {
   ActionOnPurge = truncate
   AutoPrune = true
   VolumeRetention = 1 month
-  LabelFormat = Volume-
+  LabelFormat = "Volume-"
 }
 '
     end
-    it { should contain_file('pool-sample1.conf').with_path('/etc/bacula/director.d/pool-sample1.conf').with_content(expected) }
+    it 'should generate a valid pool configuration' do
+      should contain_file('pool-sample1.conf').with_path('/etc/bacula/director.d/pool-sample1.conf').with_content(expected)
+    end
   end
 
   describe 'Test pool.conf is created with all main options' do
@@ -50,6 +52,7 @@ Pool {
         :action_on_purge => 'delete',
         :auto_prune => false,
         :volume_retention => '2 month',
+        :volume_use_duration => '2 minutes',
         :label_format => 'Volume-Number-',
         :storage => 'SomeStorage',
       }
@@ -67,13 +70,16 @@ Pool {
   Recycle = false
   ActionOnPurge = delete
   AutoPrune = false
+  Volume Use Duration = 2 minutes
   VolumeRetention = 2 month
-  LabelFormat = Volume-Number-
+  LabelFormat = "Volume-Number-"
   Storage = SomeStorage
 }
 '
     end
-    it { should contain_file('pool-sample2.conf').with_path('/etc/bacula/director.d/pool-sample2.conf').with_content(expected) }
+    it 'should generate a pool config with most of its parameters set' do
+      should contain_file('pool-sample2.conf').with_path('/etc/bacula/director.d/pool-sample2.conf').with_content(expected)
+    end
   end
 
 end

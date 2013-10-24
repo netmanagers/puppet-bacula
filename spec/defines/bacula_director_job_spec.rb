@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), '..', 'spec_helper.rb')
 
 describe 'bacula::director::job' do
 
-  let(:title) { 'bacula::job' }
+  let(:title) { 'bacula::director::job' }
   let(:node) { 'rspec.example42.com' }
   let(:facts) do
     {
