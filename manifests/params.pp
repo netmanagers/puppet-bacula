@@ -207,7 +207,6 @@ class bacula::params {
 
   # General Settings
   $my_class = ''
-  $source = ''
   $source_dir = ''
   $source_director_purge = false
   $options = ''

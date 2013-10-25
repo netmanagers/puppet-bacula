@@ -280,7 +280,6 @@ class bacula (
   $protocol                = params_lookup( 'protocol' ),
   $process_args            = params_lookup( 'process_args' ),
   $process_user            = params_lookup( 'process_user' ),
-  $source                  = params_lookup( 'source' ),
   $source_dir              = params_lookup( 'source_dir' ),
   $source_director_purge   = params_lookup( 'source_director_purge' ),
   $service_autorestart     = params_lookup( 'service_autorestart' , 'global' ),
