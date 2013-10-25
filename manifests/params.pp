@@ -36,14 +36,22 @@ class bacula::params {
     default => '/var/spool/bacula'
   }
 
-  $master_password = 'auto'
+  $password_salt = ''
+  $default_password = 'auto'
+
+  # This values can be set in various resources. These defaults can be used to avoid repetition
+  $default_catalog = ''
+  $default_messages = 'standard'
+  $default_file_retention = ''
+  $default_job_retention  = ''
+  $default_jobdef = ''
 
   ## Bacula client variables
   $client_name     = "${::fqdn}-fd"
   $client_port     = '9102'
   $client_address  = $::ipaddress
   $client_password = ''
-  $client_max_concurrent = '10'
+  $client_max_concurrent = ''
 
   $client_config_file = $::operatingsystem ? {
     default => "${bacula::params::config_dir}/bacula-fd.conf",
@@ -99,13 +107,12 @@ class bacula::params {
   }
 
   ## Bacula storage variables
-  $storage_name                    = "${::fqdn}-sd"
-  $storage_address                 = $::ipaddress
-  $storage_port                    = '9103'
-  $storage_max_concurrent          = '30'
-  $storage_password                = ''
-  $storage_messages_name           = ''
-  $storage_configs_dir = "${bacula::params::config_dir}/storage.d"
+  $storage_name           = "${::fqdn}-sd"
+  $storage_address        = $::ipaddress
+  $storage_port           = '9103'
+  $storage_max_concurrent = '30'
+  $storage_password       = ''
+  $storage_configs_dir =  "${bacula::params::config_dir}/storage.d"
 
   $storage_config_file = $::operatingsystem ? {
     default => '/etc/bacula/bacula-sd.conf',

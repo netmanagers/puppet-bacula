@@ -12,7 +12,7 @@ class bacula::client {
 
   ### Client specific checks
   $real_client_password = $bacula::client_password ? {
-    ''      => $bacula::real_master_password,
+    ''      => $bacula::real_default_password,
     default => $bacula::client_password,
   }
 

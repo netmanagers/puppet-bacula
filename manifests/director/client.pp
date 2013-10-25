@@ -21,12 +21,32 @@ define bacula::director::client (
     fail('$address parameter required for bacula::director::client define')
   }
 
-  if $catalog == '' {
+  $real_catalog = $catalog ? {
+    ''      => $bacula::default_catalog,
+    default => $catalog,
+  }
+
+  if $real_catalog == '' {
     fail('$catalog parameter required for bacula::director::client define')
   }
 
+  $real_file_retention = $file_retention ? {
+    ''      => $bacula::default_file_retention,
+    default => $file_retention,
+  }
+
+  $real_job_retention = $job_retention ? {
+    ''      => $bacula::default_job_retention,
+    default => $job_retention,
+  }
+
+  $real_max_concurrent = $max_concurrent ? {
+    ''      => $bacula::client_max_concurrent,
+    default => $max_concurrent,
+  }
+
   $real_password = $password ? {
-    ''      => $bacula::real_master_password,
+    ''      => $bacula::real_default_password,
     default => $password,
   }
 

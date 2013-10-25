@@ -9,18 +9,18 @@ Client {
 <% if @real_password != '' -%>
   Password = "<%= @real_password %>"
 <% end -%>
-  Catalog = "<%= @catalog %>"
-<% if @file_retention != '' -%>
-  FileRetention = <%= @file_retention %>
+  Catalog = "<%= @real_catalog %>"
+<% if @real_file_retention != '' -%>
+  FileRetention = <%= @real_file_retention %>
 <% end -%>
-<% if @job_retention != '' -%>
-  JobRetention = <%= @job_retention %>
+<% if @real_job_retention != '' -%>
+  JobRetention = <%= @real_job_retention %>
 <% end -%>
 <% if @auto_prune != '' -%>
   AutoPrune = <%= @auto_prune %>
 <% end -%>
-<% if @max_concurrent != '' -%>
-  MaximumConcurrentJobs = <%= @max_concurrent %>
+<% if @real_max_concurrent != '' -%>
+  MaximumConcurrentJobs = <%= @real_max_concurrent %>
 <% end -%>
 <% if scope.lookupvar('bacula::heartbeat_interval') != '' -%>
   HeartbeatInterval = <%= scope.lookupvar('bacula::heartbeat_interval') %>

@@ -30,11 +30,11 @@ describe 'bacula::director' do
     it { should contain_file('bacula-dir.conf').with_source('puppet:///modules/bacula/bacula.source') }
   end
 
-  describe 'Test customizations - master_password' do
+  describe 'Test customizations - default_password' do
     let(:facts) do
       {
         :bacula_director_name => 'master_director',
-        :bacula_master_password => 'master_pass',
+        :bacula_default_password => 'master_pass',
         :bacula_director_template => 'bacula/bacula-dir.conf.erb'
       }
     end
@@ -45,6 +45,7 @@ describe 'bacula::director' do
     let(:facts) do
       {
         :bacula_director_name => 'here_director',
+        :bacula_default_password => 'default_pass',
         :bacula_director_password => 'director_pass',
         :bacula_director_port => '4242',
         :bacula_pid_directory => '/some/dir',
@@ -72,7 +73,7 @@ Director {
 # Restricted Console, used by tray-monitor for Director status.
 Console {
   Name = "rspec.example42.com-mon"
-  Password = "auto"
+  Password = "default_pass"
   CommandACL = status, .status
 }
 

@@ -8,6 +8,7 @@ describe 'bacula::director::storage' do
     {
       :ipaddress       => '10.42.42.42',
       :operatingsystem => 'Debian',
+      :bacula_default_password => 'master_pass',
       :director_configs_dir => '/etc/bacula/director.d',
     }
   end
@@ -24,7 +25,7 @@ describe 'bacula::director::storage' do
 Storage {
   Name = "sample1"
   SDPort = 9103
-  Password = auto
+  Password = "master_pass"
   AllowCompression = Yes
 }
 '
@@ -53,7 +54,7 @@ Storage {
   Media Type = File01
   Address = bacula
   SDPort = 7321
-  Password = bacula
+  Password = "bacula"
   Maximum Concurrent Jobs = 10
   AllowCompression = Yes
 }

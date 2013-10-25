@@ -5,14 +5,19 @@
 #
 # == Parameters
 #
-# [*master_password*]
+# [*password_salt*]
+#   Uses a salt with FQDN_RAND when generating the root password.
+#   If you do not use this, the password can be reverse engineered very easily.
+#   Example: $password_salt = 'smeg'
+#
+# [*default_password*]
 #   Password to be useed everywhere where bacula requires a password, from the
 #   database to all the clients.
 #   Accepted values:
 #     * Any string you want to use as a password.
 #     * 'auto': a random password is generated and stored in
-#       $config_dir/master_password
-#     * empty: no master_password will be used.
+#       $config_dir/default_password
+#     * empty: no default_password will be used.
 #   If any of {director,console,traymon,client,storage}password is given,
 #   it will override this one for that particular password.
 #   Default: 'auto'
@@ -206,99 +211,102 @@
 # See README for usage patterns.
 #
 class bacula (
-  $manage_client                  = params_lookup( 'manage_client' ),
-  $manage_storage                 = params_lookup( 'manage_storage' ),
-  $manage_director                = params_lookup( 'manage_director' ),
-  $manage_console                 = params_lookup( 'manage_console' ),
-  $working_directory              = params_lookup( 'working_directory' ),
-  $pid_directory                  = params_lookup( 'pid_directory' ),
-  $heartbeat_interval             = params_lookup( 'heartbeat_interval'),
-  $master_password                = params_lookup( 'master_password' ),
-  $client_package                 = params_lookup( 'client_package' ),
-  $client_config_file             = params_lookup( 'client_config_file' ),
-  $client_template                = params_lookup( 'client_template' ),
-  $client_password                = params_lookup( 'client_password' ),
-  $client_source                  = params_lookup( 'client_source' ),
-  $client_service                 = params_lookup( 'client_service' ),
-  $client_process                 = params_lookup( 'client_process' ),
-  $client_pid_file                = params_lookup( 'client_pid_file' ),
-  $client_name                    = params_lookup( 'client_name' ),
-  $client_port                    = params_lookup( 'client_port' ),
-  $client_max_concurrent          = params_lookup( 'client_max_concurrent' ),
-  $client_address                 = params_lookup( 'client_address' ),
-  $client_messages_name           = params_lookup( 'client_messages_name' ),
-  $storage_package                = params_lookup( 'storage_package' ),
-  $storage_config_file            = params_lookup( 'storage_config_file' ),
-  $storage_password               = params_lookup( 'storage_password' ),
-  $storage_template               = params_lookup( 'storage_template' ),
-  $storage_source                 = params_lookup( 'storage_source' ),
-  $storage_service                = params_lookup( 'storage_service' ),
-  $storage_process                = params_lookup( 'storage_process' ),
-  $storage_name                   = params_lookup( 'storage_name' ),
-  $storage_address                = params_lookup( 'storage_address' ),
-  $storage_port                   = params_lookup( 'storage_port' ),
-  $storage_pid_directory          = params_lookup( 'storage_pid_directory' ),
-  $storage_max_concurrent         = params_lookup( 'storage_max_concurrent' ),
-  $storage_configs_dir            = params_lookup( 'storage_configs_dir' ),
-  $director_package               = params_lookup( 'director_package' ),
-  $director_config_file           = params_lookup( 'director_config_file' ),
-  $director_template              = params_lookup( 'director_template' ),
-  $director_source                = params_lookup( 'director_source' ),
-  $director_service               = params_lookup( 'director_service' ),
-  $director_process               = params_lookup( 'director_process' ),
-  $director_name                  = params_lookup( 'director_name' ),
-  $director_address               = params_lookup( 'director_address' ),
-  $director_port                  = params_lookup( 'director_port' ),
-  $director_query_file            = params_lookup( 'director_query_file' ),
-  $director_max_concurrent        = params_lookup( 'director_max_concurrent' ),
-  $director_password              = params_lookup( 'director_password' ),
-  $director_messages              = params_lookup( 'director_messages' ),
-  $director_configs_dir           = params_lookup( 'director_configs_dir' ),
-  $director_clients_dir           = params_lookup( 'director_clients_dir' ),
-  $console_package                = params_lookup( 'console_package' ),
-  $console_config_file            = params_lookup( 'console_config_file' ),
-  $console_director_name          = params_lookup( 'console_director_name'),
-  $console_password               = params_lookup( 'console_password'),
-  $console_director_port          = params_lookup( 'console_director_port'),
-  $console_address                = params_lookup( 'console_address'),
-  $console_template               = params_lookup( 'console_template' ),
-  $console_source                 = params_lookup( 'console_source' ),
-  $traymon_name                   = params_lookup( 'traymon_name'),
-  $traymon_password               = params_lookup( 'traymon_password'),
-  $service_status                 = params_lookup( 'service_status' ),
-  $my_class                       = params_lookup( 'my_class' ),
-  $log_dir                        = params_lookup( 'log_dir' ),
-  $log_file                       = params_lookup( 'log_file' ),
-  $protocol                       = params_lookup( 'protocol' ),
-  $process_args                   = params_lookup( 'process_args' ),
-  $process_user                   = params_lookup( 'process_user' ),
-  $source                         = params_lookup( 'source' ),
-  $source_dir                     = params_lookup( 'source_dir' ),
-  $source_director_purge          = params_lookup( 'source_director_purge' ),
-  $service_autorestart            = params_lookup( 'service_autorestart' , 'global' ),
-  $config_dir                     = params_lookup( 'config_dir' ),
-  $config_file_mode               = params_lookup( 'config_file_mode' ),
-  $config_file_owner              = params_lookup( 'config_file_owner' ),
-  $config_file_group              = params_lookup( 'config_file_group' ),
-  $config_file_init               = params_lookup( 'config_file_init' ),
-  $data_dir                       = params_lookup( 'data_dir' ),
-  $options                        = params_lookup( 'options' ),
-  $version                        = params_lookup( 'version' ),
-  $absent                         = params_lookup( 'absent' ),
-  $disable                        = params_lookup( 'disable' ),
-  $disableboot                    = params_lookup( 'disableboot' ),
-  $monitor                        = params_lookup( 'monitor' , 'global' ),
-  $monitor_tool                   = params_lookup( 'monitor_tool' , 'global' ),
-  $monitor_target                 = params_lookup( 'monitor_target' , 'global' ),
-  $puppi                          = params_lookup( 'puppi' , 'global' ),
-  $puppi_helper                   = params_lookup( 'puppi_helper' , 'global' ),
-  $firewall                       = params_lookup( 'firewall' , 'global' ),
-  $firewall_tool                  = params_lookup( 'firewall_tool' , 'global' ),
-  $firewall_src                   = params_lookup( 'firewall_src' , 'global' ),
-  $firewall_dst                   = params_lookup( 'firewall_dst' , 'global' ),
-  $debug                          = params_lookup( 'debug' , 'global' ),
-  $audit_only                     = params_lookup( 'audit_only' , 'global' ),
-  $noops                          = params_lookup( 'noops' )
+  $manage_client           = params_lookup( 'manage_client' ),
+  $manage_storage          = params_lookup( 'manage_storage' ),
+  $manage_director         = params_lookup( 'manage_director' ),
+  $manage_console          = params_lookup( 'manage_console' ),
+  $working_directory       = params_lookup( 'working_directory' ),
+  $pid_directory           = params_lookup( 'pid_directory' ),
+  $heartbeat_interval      = params_lookup( 'heartbeat_interval'),
+  $password_salt           = params_lookup( 'password_salt' ),
+  $default_password        = params_lookup( 'default_password' ),
+  $default_file_retention  = params_lookup( 'default_file_retention' ),
+  $default_job_retention   = params_lookup( 'default_job_retention' ),
+  $default_jobdef          = params_lookup( 'default_jobdef' ),
+  $default_messages        = params_lookup( 'default_messages' ),
+  $client_package          = params_lookup( 'client_package' ),
+  $client_config_file      = params_lookup( 'client_config_file' ),
+  $client_template         = params_lookup( 'client_template' ),
+  $client_password         = params_lookup( 'client_password' ),
+  $client_source           = params_lookup( 'client_source' ),
+  $client_service          = params_lookup( 'client_service' ),
+  $client_process          = params_lookup( 'client_process' ),
+  $client_pid_file         = params_lookup( 'client_pid_file' ),
+  $client_name             = params_lookup( 'client_name' ),
+  $client_port             = params_lookup( 'client_port' ),
+  $client_max_concurrent   = params_lookup( 'client_max_concurrent' ),
+  $client_address          = params_lookup( 'client_address' ),
+  $storage_package         = params_lookup( 'storage_package' ),
+  $storage_config_file     = params_lookup( 'storage_config_file' ),
+  $storage_password        = params_lookup( 'storage_password' ),
+  $storage_template        = params_lookup( 'storage_template' ),
+  $storage_source          = params_lookup( 'storage_source' ),
+  $storage_service         = params_lookup( 'storage_service' ),
+  $storage_process         = params_lookup( 'storage_process' ),
+  $storage_name            = params_lookup( 'storage_name' ),
+  $storage_address         = params_lookup( 'storage_address' ),
+  $storage_port            = params_lookup( 'storage_port' ),
+  $storage_pid_directory   = params_lookup( 'storage_pid_directory' ),
+  $storage_max_concurrent  = params_lookup( 'storage_max_concurrent' ),
+  $storage_configs_dir     = params_lookup( 'storage_configs_dir' ),
+  $director_package        = params_lookup( 'director_package' ),
+  $director_config_file    = params_lookup( 'director_config_file' ),
+  $director_template       = params_lookup( 'director_template' ),
+  $director_source         = params_lookup( 'director_source' ),
+  $director_service        = params_lookup( 'director_service' ),
+  $director_process        = params_lookup( 'director_process' ),
+  $director_name           = params_lookup( 'director_name' ),
+  $director_address        = params_lookup( 'director_address' ),
+  $director_port           = params_lookup( 'director_port' ),
+  $director_query_file     = params_lookup( 'director_query_file' ),
+  $director_max_concurrent = params_lookup( 'director_max_concurrent' ),
+  $director_password       = params_lookup( 'director_password' ),
+  $director_configs_dir    = params_lookup( 'director_configs_dir' ),
+  $director_clients_dir    = params_lookup( 'director_clients_dir' ),
+  $console_package         = params_lookup( 'console_package' ),
+  $console_config_file     = params_lookup( 'console_config_file' ),
+  $console_director_name   = params_lookup( 'console_director_name'),
+  $console_password        = params_lookup( 'console_password'),
+  $console_director_port   = params_lookup( 'console_director_port'),
+  $console_address         = params_lookup( 'console_address'),
+  $console_template        = params_lookup( 'console_template' ),
+  $console_source          = params_lookup( 'console_source' ),
+  $traymon_name            = params_lookup( 'traymon_name'),
+  $traymon_password        = params_lookup( 'traymon_password'),
+  $service_status          = params_lookup( 'service_status' ),
+  $my_class                = params_lookup( 'my_class' ),
+  $log_dir                 = params_lookup( 'log_dir' ),
+  $log_file                = params_lookup( 'log_file' ),
+  $protocol                = params_lookup( 'protocol' ),
+  $process_args            = params_lookup( 'process_args' ),
+  $process_user            = params_lookup( 'process_user' ),
+  $source                  = params_lookup( 'source' ),
+  $source_dir              = params_lookup( 'source_dir' ),
+  $source_director_purge   = params_lookup( 'source_director_purge' ),
+  $service_autorestart     = params_lookup( 'service_autorestart' , 'global' ),
+  $config_dir              = params_lookup( 'config_dir' ),
+  $config_file_mode        = params_lookup( 'config_file_mode' ),
+  $config_file_owner       = params_lookup( 'config_file_owner' ),
+  $config_file_group       = params_lookup( 'config_file_group' ),
+  $config_file_init        = params_lookup( 'config_file_init' ),
+  $data_dir                = params_lookup( 'data_dir' ),
+  $options                 = params_lookup( 'options' ),
+  $version                 = params_lookup( 'version' ),
+  $absent                  = params_lookup( 'absent' ),
+  $disable                 = params_lookup( 'disable' ),
+  $disableboot             = params_lookup( 'disableboot' ),
+  $monitor                 = params_lookup( 'monitor' , 'global' ),
+  $monitor_tool            = params_lookup( 'monitor_tool' , 'global' ),
+  $monitor_target          = params_lookup( 'monitor_target' , 'global' ),
+  $puppi                   = params_lookup( 'puppi' , 'global' ),
+  $puppi_helper            = params_lookup( 'puppi_helper' , 'global' ),
+  $firewall                = params_lookup( 'firewall' , 'global' ),
+  $firewall_tool           = params_lookup( 'firewall_tool' , 'global' ),
+  $firewall_src            = params_lookup( 'firewall_src' , 'global' ),
+  $firewall_dst            = params_lookup( 'firewall_dst' , 'global' ),
+  $debug                   = params_lookup( 'debug' , 'global' ),
+  $audit_only              = params_lookup( 'audit_only' , 'global' ),
+  $noops                   = params_lookup( 'noops' )
   ) inherits bacula::params {
 
   $bool_source_director_purge=any2bool($source_director_purge)
@@ -320,18 +328,20 @@ class bacula (
   ### Definition of some variables used in the module
 
   ### Set a default password if required
-  if $master_password == 'auto' {
-    warning('FIXME! $master_password = auto still not implemented ')
-    $real_master_password = 'auto'
+  if $default_password == 'auto' {
+    $real_default_password = $bacula::password_salt ? {
+      ''      => fqdn_rand(100000000000),
+      default => fqdn_rand(100000000000,$bacula::password_salt),
+    }
   } else {
-    $real_master_password = $bacula::master_password
+    $real_default_password = $bacula::default_password
   }
 
   # $traymon_password is not set up anywhere else, so we get a default value
   # for it
 
   $real_traymon_password = $bacula::traymon_password ? {
-    ''      => $bacula::real_master_password,
+    ''      => $bacula::real_default_password,
     default => $bacula::traymon_password,
   }
 

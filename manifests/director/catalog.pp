@@ -16,8 +16,8 @@ define bacula::director::catalog (
   include bacula
 
   $real_password = $db_password ? {
-     ''      => $bacula::real_master_password,
-     default => $db_password,
+    ''      => $bacula::real_default_password,
+    default => $db_password,
   }
 
   $manage_catalog_file_content = $template ? {
