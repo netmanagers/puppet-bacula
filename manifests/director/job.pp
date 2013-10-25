@@ -42,6 +42,11 @@ define bacula::director::job (
     $job_name = "job-${client}-${name}"
   }
 
+  $real_jobdef = $jobdef ? {
+    ''      => $bacula::default_jobdef,
+    default => $jobdef,
+  }
+
   $real_messages = $messages ? {
     ''      => $bacula::default_messages,
     default => $messages,

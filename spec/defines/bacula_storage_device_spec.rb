@@ -34,7 +34,6 @@ Device {
 '
     end
     it { should contain_file('device-sample1.conf').with_path('/etc/bacula/storage.d/device-sample1.conf').with_content(expected) }
-#    it { should contain_file('device-sample1.conf').with_path('/device-sample1.conf').with_content(expected) }
   end
 
   describe 'Test device.conf is created with all main options' do

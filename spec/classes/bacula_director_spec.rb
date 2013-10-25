@@ -45,6 +45,7 @@ describe 'bacula::director' do
     let(:facts) do
       {
         :bacula_director_name => 'here_director',
+        :bacula_default_password => 'default_pass',
         :bacula_director_password => 'director_pass',
         :bacula_director_port => '4242',
         :bacula_pid_directory => '/some/dir',
@@ -72,7 +73,7 @@ Director {
 # Restricted Console, used by tray-monitor for Director status.
 Console {
   Name = "rspec.example42.com-mon"
-  Password = "auto"
+  Password = "default_pass"
   CommandACL = status, .status
 }
 
