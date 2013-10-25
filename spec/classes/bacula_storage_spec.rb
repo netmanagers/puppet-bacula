@@ -37,11 +37,11 @@ describe 'bacula::storage' do
     it { should contain_file('bacula-sd.conf').with_source('puppet:///modules/bacula/bacula.source') }
   end
 
-  describe 'Test customizations - master_password' do
+  describe 'Test customizations - default_password' do
     let(:facts) do
       {
         :bacula_storage_name => 'storage_master',
-        :bacula_master_password => 'master_pass',
+        :bacula_default_password => 'master_pass',
         :bacula_storage_template => 'bacula/bacula-sd.conf.erb'
       }
     end
@@ -52,7 +52,7 @@ describe 'bacula::storage' do
     let(:facts) do
       {
         :bacula_storage_name => 'here_storage',
-        :bacula_master_password => 'stuvwxyz',
+        :bacula_default_password => 'stuvwxyz',
         :bacula_storage_password => 'storage_pass',
         :bacula_storage_port => '4242',
         :bacula_storage_address => '10.42.42.42',
@@ -91,9 +91,8 @@ Director {
   Monitor = Yes
 }
 
-# Send all messages to the Director,
 Messages {
-  Name = "Standard"
+  Name = "standard"
   Director = rspec.example42.com-dir = all, !skipped, !restored
 }
 '

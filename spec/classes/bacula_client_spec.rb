@@ -39,7 +39,7 @@ describe 'bacula::client' do
     let(:facts) do
       {
         :bacula_client_name => 'master_client',
-        :bacula_master_password => 'abcdefg',
+        :bacula_default_password => 'abcdefg',
         :bacula_client_template => 'bacula/bacula-fd.conf.erb'
       }
     end
@@ -50,7 +50,7 @@ describe 'bacula::client' do
     let(:facts) do
       {
         :bacula_director_name => 'here_director',
-        :bacula_master_password => 'testing',
+        :bacula_default_password => 'testing',
         :bacula_client_password => 'client_pass',
         :bacula_client_name => 'this_client',
         :bacula_client_port => '4242',
@@ -82,14 +82,13 @@ FileDaemon {
   FDport = 4242
   WorkingDirectory = /var/spool/bacula
   PidDirectory = /some/dir
-  MaximumConcurrentJobs = 10
+
   FDAddress = 10.42.42.42
   Heartbeat Interval = 1 week
 }
 
-# Send all messages except skipped files back to Director.
 Messages {
-  Name = "Standard"
+  Name = "standard"
   Director = here_director = all, !skipped, !restored
 }
 '

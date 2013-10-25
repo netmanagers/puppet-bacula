@@ -12,7 +12,7 @@ class bacula::storage {
 
   ### Storage specific checks
   $real_storage_password = $bacula::storage_password ? {
-    ''      => $bacula::real_master_password,
+    ''      => $bacula::real_default_password,
     default => $bacula::storage_password,
   }
 

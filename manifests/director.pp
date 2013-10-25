@@ -13,7 +13,7 @@ class bacula::director {
   ### Director specific checks
 
   $real_director_password = $bacula::director_password ? {
-    ''      => $bacula::real_master_password,
+    ''      => $bacula::real_default_password,
     default => $bacula::director_password,
   }
 

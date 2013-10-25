@@ -42,6 +42,11 @@ define bacula::director::job (
     $job_name = "job-${client}-${name}"
   }
 
+  $real_messages = $messages ? {
+    ''      => $bacula::default_messages,
+    default => $messages,
+  }
+
   $array_storages = is_array($storage) ? {
     false     => $storage ? {
       ''      => [],

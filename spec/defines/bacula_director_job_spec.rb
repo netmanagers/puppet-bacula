@@ -24,6 +24,7 @@ describe 'bacula::director::job' do
 JobDefs {
   Name = "sample1"
   Type = Backup
+  Messages = "standard"
 }
 '
     end

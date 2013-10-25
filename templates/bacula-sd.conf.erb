@@ -28,8 +28,7 @@ Director {
   Monitor = Yes
 }
 
-# Send all messages to the Director,
 Messages {
-  Name = "Standard"
+  Name = "<%= scope.lookupvar('bacula::default_messages') %>"
   Director = <%= scope.lookupvar('bacula::director_name') %> = all, !skipped, !restored
 }

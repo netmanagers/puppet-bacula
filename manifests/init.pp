@@ -5,14 +5,14 @@
 #
 # == Parameters
 #
-# [*master_password*]
+# [*default_password*]
 #   Password to be useed everywhere where bacula requires a password, from the
 #   database to all the clients.
 #   Accepted values:
 #     * Any string you want to use as a password.
 #     * 'auto': a random password is generated and stored in
-#       $config_dir/master_password
-#     * empty: no master_password will be used.
+#       $config_dir/default_password
+#     * empty: no default_password will be used.
 #   If any of {director,console,traymon,client,storage}password is given,
 #   it will override this one for that particular password.
 #   Default: 'auto'
@@ -213,7 +213,10 @@ class bacula (
   $working_directory              = params_lookup( 'working_directory' ),
   $pid_directory                  = params_lookup( 'pid_directory' ),
   $heartbeat_interval             = params_lookup( 'heartbeat_interval'),
-  $master_password                = params_lookup( 'master_password' ),
+  $default_password               = params_lookup( 'default_password' ),
+  $default_file_retention         = params_lookup( 'default_file_retention' ),
+  $default_job_retention          = params_lookup( 'default_job_retention' ),
+  $default_messages               = params_lookup( 'default_messages' ),
   $client_package                 = params_lookup( 'client_package' ),
   $client_config_file             = params_lookup( 'client_config_file' ),
   $client_template                = params_lookup( 'client_template' ),
@@ -226,7 +229,6 @@ class bacula (
   $client_port                    = params_lookup( 'client_port' ),
   $client_max_concurrent          = params_lookup( 'client_max_concurrent' ),
   $client_address                 = params_lookup( 'client_address' ),
-  $client_messages_name           = params_lookup( 'client_messages_name' ),
   $storage_package                = params_lookup( 'storage_package' ),
   $storage_config_file            = params_lookup( 'storage_config_file' ),
   $storage_password               = params_lookup( 'storage_password' ),
@@ -252,7 +254,6 @@ class bacula (
   $director_query_file            = params_lookup( 'director_query_file' ),
   $director_max_concurrent        = params_lookup( 'director_max_concurrent' ),
   $director_password              = params_lookup( 'director_password' ),
-  $director_messages              = params_lookup( 'director_messages' ),
   $director_configs_dir           = params_lookup( 'director_configs_dir' ),
   $director_clients_dir           = params_lookup( 'director_clients_dir' ),
   $console_package                = params_lookup( 'console_package' ),
@@ -320,18 +321,18 @@ class bacula (
   ### Definition of some variables used in the module
 
   ### Set a default password if required
-  if $master_password == 'auto' {
-    warning('FIXME! $master_password = auto still not implemented ')
-    $real_master_password = 'auto'
+  if $default_password == 'auto' {
+    warning('FIXME! $default_password = auto still not implemented ')
+    $real_default_password = 'auto'
   } else {
-    $real_master_password = $bacula::master_password
+    $real_default_password = $bacula::default_password
   }
 
   # $traymon_password is not set up anywhere else, so we get a default value
   # for it
 
   $real_traymon_password = $bacula::traymon_password ? {
-    ''      => $bacula::real_master_password,
+    ''      => $bacula::real_default_password,
     default => $bacula::traymon_password,
   }
 

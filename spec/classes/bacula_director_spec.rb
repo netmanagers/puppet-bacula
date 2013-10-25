@@ -30,11 +30,11 @@ describe 'bacula::director' do
     it { should contain_file('bacula-dir.conf').with_source('puppet:///modules/bacula/bacula.source') }
   end
 
-  describe 'Test customizations - master_password' do
+  describe 'Test customizations - default_password' do
     let(:facts) do
       {
         :bacula_director_name => 'master_director',
-        :bacula_master_password => 'master_pass',
+        :bacula_default_password => 'master_pass',
         :bacula_director_template => 'bacula/bacula-dir.conf.erb'
       }
     end

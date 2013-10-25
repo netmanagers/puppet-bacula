@@ -18,7 +18,7 @@ define bacula::director::storage (
   include bacula
 
   $real_password = $password ? {
-    ''      => $bacula::real_master_password,
+    ''      => $bacula::real_default_password,
     default => $password,
   }
 

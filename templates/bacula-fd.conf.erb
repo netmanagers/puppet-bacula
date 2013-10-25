@@ -19,13 +19,14 @@ FileDaemon {
   FDport = <%= scope.lookupvar('bacula::client_port') %>
   WorkingDirectory = <%= scope.lookupvar('bacula::working_directory') %>
   PidDirectory = <%= scope.lookupvar('bacula::pid_directory') %>
+<% if scope.lookupvar('bacula::client_max_concurrent') != '' %>
   MaximumConcurrentJobs = <%= scope.lookupvar('bacula::client_max_concurrent') %>
+<% end %>
   FDAddress = <%= scope.lookupvar('bacula::client_address') %>
   Heartbeat Interval = <%= scope.lookupvar('bacula::heartbeat_interval') %>
 }
 
-# Send all messages except skipped files back to Director.
 Messages {
-  Name = "Standard"
+  Name = "<%= scope.lookupvar('bacula::default_messages') %>"
   Director = <%= scope.lookupvar('bacula::director_name') %> = all, !skipped, !restored
 }

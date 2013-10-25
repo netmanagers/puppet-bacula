@@ -8,7 +8,7 @@ describe 'bacula::director::catalog' do
     {
       :ipaddress       => '10.42.42.42',
       :operatingsystem => 'Debian',
-      :bacula_master_password => 'bacula',
+      :bacula_default_password => 'bacula',
     }
   end
 
