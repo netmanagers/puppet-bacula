@@ -10,6 +10,11 @@ class bacula::console {
 
   include bacula
 
+  $real_console_password = $bacula::console_password ? {
+    ''      => $bacula::real_default_password,
+    default => $bacula::console_password,
+  }
+
   $manage_console_file_content = $bacula::console_template ? {
     ''      => undef,
     default => template($bacula::console_template),

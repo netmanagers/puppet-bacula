@@ -134,21 +134,23 @@ class bacula::params {
     default => 'bacula-sd',
   }
 
-  $storage_process_user = $::operatingsystem ? {
-    default => 'bacula',
-  }
-
   ## Tray Monitor
   $traymon_name     = "${::fqdn}-mon"
   $traymon_password = ''
   $traymon_command = 'status, .status'
 
   ## Bacula console variables
-  $console_address            = ''
-  $console_director_port      = $director_port
+  $console_address = ''
+  $console_director_port = $director_port
+
+  $console_password = ''
 
   $console_package = $::operatingsystem ? {
     default => 'bacula-console',
+  }
+
+  $console_config_file = $::operatingsystem ? {
+    default => '/etc/bacula/bconsole.conf',
   }
 
   $console_template = ''
@@ -164,14 +166,6 @@ class bacula::params {
 
   $process_user = $::operatingsystem ? {
     default => 'bacula',
-  }
-
-  $director_process_user = $::operatingsystem ? {
-    default => 'bacula',
-  }
-
-  $console_config_file = $::operatingsystem ? {
-    default => '/etc/bacula/bconsole.conf',
   }
 
   $config_file_mode = $::operatingsystem ? {
