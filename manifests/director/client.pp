@@ -3,8 +3,8 @@
 # Used to create client resources
 #
 define bacula::director::client (
-  $address,
-  $catalog,
+  $address = '',
+  $catalog = '',
   $port = '9102',
   $password = '',
   $file_retention = '',
