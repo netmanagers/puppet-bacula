@@ -37,6 +37,20 @@ class bacula::storage {
     noop    => $bacula::noops,
   }
 
+  if  $bacula::storage_configs_dir != $bacula::config_dir and
+      !defined(File['bacula-storage_configs_dir']) {
+    file { 'bacula-storage_configs_dir':
+      ensure  => directory,
+      path    => $bacula::storage_configs_dir,
+      mode    => $bacula::config_file_mode,
+      owner   => $bacula::config_file_owner,
+      group   => $bacula::config_file_group,
+      require => Package[$bacula::storage_package],
+      audit   => $bacula::manage_audit,
+      noop    => $bacula::noops,
+    }
+  }
+
   file { 'bacula-sd.conf':
     ensure  => $bacula::manage_file,
     path    => $bacula::storage_config_file,
