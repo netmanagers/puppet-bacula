@@ -16,6 +16,7 @@ describe 'bacula::storage::device' do
     let(:params) do
       {
         :name => 'sample1',
+        :archive_device => '/backups/bacula_storage',
       }
     end
     let(:expected) do
@@ -23,8 +24,8 @@ describe 'bacula::storage::device' do
 
 Device {
   Name = "sample1"
-  MediaType = 
-  ArchiveDevice = 
+  DeviceType = File
+  ArchiveDevice = /backups/bacula_storage
   LabelMedia = yes
   RandomAccess = yes
   AutomaticMount = yes
@@ -54,6 +55,7 @@ Device {
 
 Device {
   Name = "sample2"
+  DeviceType = File
   MediaType = File01
   ArchiveDevice = /backups/bacula_storage
   LabelMedia = yes
