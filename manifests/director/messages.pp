@@ -13,6 +13,14 @@ define bacula::director::messages (
 
   include bacula
 
+  $array_mail_to = is_array($mail_to) ? {
+    false     => $mail_to ? {
+      ''      => [],
+      default => [$mail_to],
+    },
+    default   => $mail_to,
+  }
+
   $manage_messages_file_content = $template ? {
     ''      => undef,
     default => template($template),
