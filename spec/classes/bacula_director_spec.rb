@@ -65,7 +65,7 @@ Director {
   PidDirectory = /some/dir
   MaximumConcurrentJobs = 30
   Password = "director_pass"
-  Messages = Daemon
+  Messages = "standard"
   DirAddress = 10.42.42.42
   HeartbeatInterval = 1 minute
 }

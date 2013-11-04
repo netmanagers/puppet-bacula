@@ -9,7 +9,7 @@ Director {
   PidDirectory = <%= scope.lookupvar('bacula::pid_directory') %>
   MaximumConcurrentJobs = <%= scope.lookupvar('bacula::director_max_concurrent') %>
   Password = "<%= @real_director_password %>"
-  Messages = Daemon
+  Messages = "<%= scope.lookupvar('bacula::default_messages') %>"
   DirAddress = <%= scope.lookupvar('bacula::director_address') %>
   HeartbeatInterval = <%= scope.lookupvar('bacula::heartbeat_interval') %>
 }
