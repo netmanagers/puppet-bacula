@@ -224,6 +224,7 @@ class bacula (
   $default_jobdef          = params_lookup( 'default_jobdef' ),
   $default_messages        = params_lookup( 'default_messages' ),
   $default_catalog         = params_lookup( 'default_catalog' ),
+  $default_archive_device  = params_lookup( 'default_archive_device' ),
   $client_package          = params_lookup( 'client_package' ),
   $client_config_file      = params_lookup( 'client_config_file' ),
   $client_template         = params_lookup( 'client_template' ),

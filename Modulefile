@@ -1,5 +1,5 @@
 name 'netmanagers-bacula'
-version '0.0.7'
+version '0.0.8'
 
 author 'Sebastian Quaino'
 license 'Apache2'

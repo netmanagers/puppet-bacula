@@ -45,6 +45,7 @@ class bacula::params {
   $default_file_retention = ''
   $default_job_retention  = ''
   $default_jobdef = ''
+  $default_archive_device = ''
 
   ## Bacula client variables
   $client_name     = "${::fqdn}-fd"

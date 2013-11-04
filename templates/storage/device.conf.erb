@@ -2,8 +2,11 @@
 
 Device {
   Name = "<%= @name %>"
+  DeviceType = <%= @device_type %>
+<% if @media_type != '' -%>
   MediaType = <%= @media_type %>
-  ArchiveDevice = <%= @archive_device %>
+<% end -%>
+  ArchiveDevice = <%= @real_archive_device %>
   LabelMedia = <%= @label_media %>
   RandomAccess = <%= @random_access %>
   AutomaticMount = <%= @automatic_mount %>
