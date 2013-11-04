@@ -29,6 +29,12 @@ define bacula::storage::device (
 
   if $device_type == 'File' and
      !defined(File[$real_archive_device]) {
+    # Puppet lacks recursive dir creation, and we might use subdirs as storage
+    exec { 'mkdir_archive_dir':
+      path    => [ '/bin', '/usr/bin' ],
+      command => "mkdir -p ${real_archive_device}",
+      unless  => "test -d ${real_archive_device}",
+    } ->
     file { $real_archive_device:
       ensure => directory,
       mode    => '0750',
