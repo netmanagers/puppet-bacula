@@ -215,7 +215,6 @@ class bacula (
   $manage_storage          = params_lookup( 'manage_storage' ),
   $manage_director         = params_lookup( 'manage_director' ),
   $manage_console          = params_lookup( 'manage_console' ),
-  $working_directory       = params_lookup( 'working_directory' ),
   $pid_directory           = params_lookup( 'pid_directory' ),
   $heartbeat_interval      = params_lookup( 'heartbeat_interval'),
   $password_salt           = params_lookup( 'password_salt' ),
@@ -279,6 +278,7 @@ class bacula (
   $protocol                = params_lookup( 'protocol' ),
   $process_args            = params_lookup( 'process_args' ),
   $process_user            = params_lookup( 'process_user' ),
+  $process_group           = params_lookup( 'process_group' ),
   $source_dir              = params_lookup( 'source_dir' ),
   $source_director_purge   = params_lookup( 'source_director_purge' ),
   $service_autorestart     = params_lookup( 'service_autorestart' , 'global' ),
@@ -395,6 +395,42 @@ class bacula (
   $manage_file_replace = $bacula::bool_audit_only ? {
     true  => false,
     false => true,
+  }
+
+  ### Resources common to all components
+
+  group { $bacula::process_group:
+    ensure => present,
+  } ->
+  user { $bacula::process_owner:
+    ensure => present,
+    gid    => 'bacula',
+  }
+
+  file { '/var/spool/bacula':
+    ensure  => directory,
+    owner   => $bacula::process_owner,
+    group   => $bacula::process_group,
+    require => User[$bacula::process_owner],
+  } ->
+  file { '/var/lib/bacula':
+    ensure => link,
+    target => '/var/spool/bacula',
+  }
+
+  file { $bacula::log_dir:
+    ensure  => directory,
+    recurse => true,
+    owner   => $bacula::process_owner,
+    group   => $bacula::process_group,
+    require => User[$bacula::process_owner],
+  }
+
+  file { '/var/run/bacula':
+    ensure  => directory,
+    owner   => $bacula::process_owner,
+    group   => $bacula::process_group,
+    require => User[$bacula::process_owner],
   }
 
   ### Managed resources
