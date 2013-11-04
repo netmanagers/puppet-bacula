@@ -168,6 +168,10 @@ class bacula::params {
     default => 'bacula',
   }
 
+  $process_group = $::operatingsystem ? {
+    default => 'bacula',
+  }
+
   $config_file_mode = $::operatingsystem ? {
     default => '0644',
   }
