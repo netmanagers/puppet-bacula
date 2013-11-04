@@ -2,8 +2,8 @@
 
 # Bacula User Agent "Console" (bconsole).
 Director {
-  Name = "<%= scope.lookupvar('bacula::console_director_name') %>"
-  DIRPort = <%= scope.lookupvar('bacula::console_director_port') %> 
-  Address = <%= scope.lookupvar('bacula::console_address') %> 
-  Password = "<%= scope.lookupvar('bacula::console_password') %>"
+  Name = "<%= scope.lookupvar('bacula::director_name') %>"
+  DIRPort = <%= scope.lookupvar('bacula::director_port') %>
+  Address = <%= scope.lookupvar('bacula::director_address') %>
+  Password = "<%= @real_console_password %>"
 }

@@ -264,8 +264,6 @@ class bacula (
   $console_package         = params_lookup( 'console_package' ),
   $console_config_file     = params_lookup( 'console_config_file' ),
   $console_password        = params_lookup( 'console_password'),
-  $console_director_port   = params_lookup( 'console_director_port'),
-  $console_address         = params_lookup( 'console_address'),
   $console_template        = params_lookup( 'console_template' ),
   $console_source          = params_lookup( 'console_source' ),
   $traymon_name            = params_lookup( 'traymon_name'),
