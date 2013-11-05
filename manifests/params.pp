@@ -20,6 +20,11 @@ class bacula::params {
   $manage_storage  = false
   $manage_director = false
   $manage_console  = false
+  $manage_database = true
+
+  # Database type
+  # One of 'mysql', 'postgresql', 'sqlite'
+  $database_backend = 'mysql'
 
   ## Common variables
   $config_dir = $::operatingsystem ? {
@@ -88,7 +93,7 @@ class bacula::params {
   $director_clients_dir = "${bacula::params::config_dir}/clients.d"
 
   $director_package = $::operatingsystem ? {
-    default                   => 'bacula-director-mysql',
+    default                   => "bacula-director-${bacula::params::database_backend}",
   }
 
   $director_config_file = $::operatingsystem ? {
@@ -120,8 +125,8 @@ class bacula::params {
   }
 
   $storage_package = $::operatingsystem ? {
-    /(?i:Debian|Ubuntu|Mint)/ => 'bacula-sd-mysql',
-    default                   => 'bacula-storage-mysql',
+    /(?i:Debian|Ubuntu|Mint)/ => "bacula-sd-${bacula::params::database_backend}",
+    default                   => "bacula-storage-${bacula::params::database_backend}",
   }
 
   $storage_template = ''
@@ -156,6 +161,13 @@ class bacula::params {
 
   $console_template = ''
   $console_source = ''
+
+  ## Bacula database variables
+  $database_host              = 'localhost'
+  $database_port              = ''
+  $database_name              = 'bacula'
+  $database_user              = 'bacula'
+  $database_password          = ''
 
   $service_status = $::operatingsystem ? {
     default => true,
