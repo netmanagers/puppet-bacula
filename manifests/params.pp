@@ -145,9 +145,6 @@ class bacula::params {
   $traymon_command = 'status, .status'
 
   ## Bacula console variables
-  $console_address = ''
-  $console_director_port = $director_port
-
   $console_password = ''
 
   $console_package = $::operatingsystem ? {
@@ -218,7 +215,7 @@ class bacula::params {
   # General Settings
   $my_class = ''
   $source_dir = ''
-  $source_director_purge = false
+  $source_dir_purge = false
   $options = ''
   $service_autorestart = true
   $version = 'present'

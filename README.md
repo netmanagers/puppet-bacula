@@ -10,7 +10,7 @@ Made by
 
 Based on Example42 modules made by Alessandro Franceschi / Lab42
 
-Official site: http://www.netmanagers.com.ar
+Official site: http://github.com/netmanagers/puppet-bacula
 
 Official git repository: http://github.com/netmanagers/puppet-bacula
 
@@ -29,7 +29,11 @@ on Example42 main modules set.
   a Console (CLI, GUI, etc.) to manage these resources. This module provides classes and defines to 
   install and configure them all with a fair degree of customization. Some parameters can be specified
   specifically for each one of these applications while others are common to all the classes and
-  defines, for consistency. Please check the *params.pp* and manifests for details.
+  defines, for consistency.
+  
+  Please check the **docs** directory for the available parameters on each class and define.
+  
+  Als check *params.pp*, *init.pp* and the manifests for details.
 
 * Install bacula with default settings: this, by default, will install only the Client daemon
   (bacula-fd) and, following Ex42 modules standard practice, will leave all the default configuration

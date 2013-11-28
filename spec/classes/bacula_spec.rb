@@ -6,6 +6,12 @@ describe 'bacula' do
   let(:node) { 'rspec.example42.com' }
   let(:facts) { { :ipaddress => '10.42.42.42' } }
 
+  describe 'Test customizations - source_dir' do
+    let(:params) { {:source_dir => "puppet:///modules/monit/dir/spec" , :source_dir_purge => true } }
+    it { should contain_file('bacula.dir').with_purge('true') }
+    it { should contain_file('bacula.dir').with_force('true') }
+  end
+
   describe 'Test include bacula::client' do
     let(:params) { {:manage_client => true } }
     it { should include_class('bacula::client') }
