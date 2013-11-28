@@ -145,9 +145,6 @@ class bacula::params {
   $traymon_command = 'status, .status'
 
   ## Bacula console variables
-  $console_address = ''
-  $console_director_port = $director_port
-
   $console_password = ''
 
   $console_package = $::operatingsystem ? {
