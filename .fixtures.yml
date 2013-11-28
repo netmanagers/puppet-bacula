@@ -5,5 +5,6 @@ fixtures:
     "firewall": "git://github.com/example42/puppet-firewall.git"
     "iptables": "git://github.com/example42/puppet-iptables.git"
     "mysql": "git://github.com/example42/puppet-mysql.git"
+    "stdlib":   "https://github.com/puppetlabs/puppetlabs-stdlib.git"
   symlinks:
     "bacula": "#{source_dir}"
