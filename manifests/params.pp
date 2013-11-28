@@ -20,7 +20,7 @@ class bacula::params {
   $manage_storage  = false
   $manage_director = false
   $manage_console  = false
-  $manage_database = true
+  $manage_database = false
 
   # Database type
   # One of 'mysql', 'postgresql', 'sqlite'
@@ -37,7 +37,6 @@ class bacula::params {
   }
   $heartbeat_interval = '1 minute'
   $working_directory  = $::operatingsystem ? {
-    /(?i:Debian|Ubuntu|Mint)/ => '/var/lib/bacula',
     default => '/var/spool/bacula'
   }
 

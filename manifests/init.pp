@@ -414,7 +414,7 @@ class bacula (
     gid    => 'bacula',
   }
 
-  file { '/var/spool/bacula':
+  file { $bacula::working_directory:
     ensure  => directory,
     owner   => $bacula::process_owner,
     group   => $bacula::process_group,
@@ -422,7 +422,7 @@ class bacula (
   } ->
   file { '/var/lib/bacula':
     ensure => link,
-    target => '/var/spool/bacula',
+    target => $bacula::working_directory,
   }
 
   file { $bacula::log_dir:
