@@ -46,18 +46,22 @@ class bacula::database {
             ${bacula::database_password};
           flush privileges;"
 
+        $notify_create_db = $bacula::manage_database ? {
+          true  => Exec['create_db_and_tables'],
+          false => undef,
+        }
+
+        $require_classes = defined(Class['mysql::client']) ? {
+          true  => Class['mysql::client'],
+          false => undef,
+        }
+
         mysql::query { 'grant_bacula_user_privileges':
           mysql_query => $grant_query,
           mysql_db    => undef,
           mysql_host  => $bacula::database_host,
-          notify      => $bacula::manage_database ? {
-            true  => Exec['create_db_and_tables'],
-            false => undef,
-          },
-          require  => defined(Class['mysql::client']) ? {
-            true  => Class['mysql::client'],
-            false => undef,
-          },
+          notify      => $notify_create_db,
+          require     => $require_classes,
         }
       }
       'sqlite': {
