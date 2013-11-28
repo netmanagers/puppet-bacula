@@ -215,7 +215,7 @@ class bacula::params {
   # General Settings
   $my_class = ''
   $source_dir = ''
-  $source_director_purge = false
+  $source_dir_purge = false
   $options = ''
   $service_autorestart = true
   $version = 'present'
