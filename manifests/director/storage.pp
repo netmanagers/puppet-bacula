@@ -17,6 +17,11 @@ define bacula::director::storage (
 
   include bacula
 
+  $manage_director_service_autorestart = $bacula::service_autorestart ? {
+    true    => Service[$bacula::director_service],
+    default => undef,
+  }
+
   $real_password = $password ? {
     ''      => $bacula::real_default_password,
     default => $password,
@@ -32,11 +37,6 @@ define bacula::director::storage (
     default   => $source,
   }
 
-  $manage_storage_service_autorestart = $bacula::bool_service_autorestart ? {
-    true    => Service[$bacula::storage_service],
-    default => undef,
-  }
-
   file { "storage-${name}.conf":
     ensure  => $bacula::manage_file,
     path    => "${bacula::director_configs_dir}/storage-${name}.conf",
@@ -44,7 +44,7 @@ define bacula::director::storage (
     owner   => $bacula::config_file_owner,
     group   => $bacula::config_file_group,
     require => Package[$bacula::director_package],
-    notify  => $manage_storage_service_autorestart,
+    notify  => $manage_director_service_autorestart,
     source  => $manage_storage_file_source,
     content => $manage_storage_file_content,
     replace => $bacula::manage_file_replace,

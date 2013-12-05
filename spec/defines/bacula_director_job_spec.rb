@@ -8,6 +8,8 @@ describe 'bacula::director::job' do
     {
       :ipaddress       => '10.42.42.42',
       :operatingsystem => 'Debian',
+      :service_autorestart => true,
+      :bacula_director_service => 'Service[bacula-dir]',
       :director_configs_dir => '/etc/bacula/director.d',
     }
   end
@@ -72,6 +74,10 @@ Job {
     end
     it 'should generate a Job file with custom options' do
       should contain_file('job-bacula-sample2.conf').with_path('/etc/bacula/director.d/job-bacula-sample2.conf').with_content(expected)
+    end
+
+    it 'should automatically restart the service, by default' do
+      should contain_file('job-bacula-sample2.conf').with_notify('Service[bacula-dir]')
     end
   end
 

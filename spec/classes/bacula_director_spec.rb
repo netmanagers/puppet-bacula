@@ -20,6 +20,12 @@ describe 'bacula::director' do
     it { should contain_service('bacula-dir').with_enable('true') }
   end
 
+  describe 'Test service autorestart' do
+    it 'should automatically restart the service, by default' do
+      should contain_file('bacula-dir.conf').with_notify('Service[bacula-dir]')
+    end
+  end
+
   describe 'Test customizations - provide source' do
     let(:facts) do
       {

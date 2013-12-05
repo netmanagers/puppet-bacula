@@ -13,6 +13,11 @@ define bacula::director::messages (
 
   include bacula
 
+  $manage_director_service_autorestart = $bacula::service_autorestart ? {
+    true    => Service[$bacula::director_service],
+    default => undef,
+  }
+
   $array_mail_to = is_array($mail_to) ? {
     false     => $mail_to ? {
       ''      => [],
@@ -33,7 +38,7 @@ define bacula::director::messages (
     owner   => $bacula::config_file_owner,
     group   => $bacula::config_file_group,
     require => Package[$bacula::director_package],
-    notify  => $bacula::manage_service_autorestart,
+    notify  => $manage_director_service_autorestart,
     content => $manage_messages_file_content,
     replace => $bacula::manage_file_replace,
     audit   => $bacula::manage_audit,

@@ -10,6 +10,11 @@ define bacula::director::schedule (
 
   include bacula
 
+  $manage_director_service_autorestart = $bacula::service_autorestart ? {
+    true    => Service[$bacula::director_service],
+    default => undef,
+  }
+
   $array_run_spec = is_array($run_spec) ? {
     false     => $run_spec ? {
       ''      => [],
@@ -30,7 +35,7 @@ define bacula::director::schedule (
     owner   => $bacula::config_file_owner,
     group   => $bacula::config_file_group,
     require => Package[$bacula::director_package],
-    notify  => $bacula::manage_service_autorestart,
+    notify  => $manage_director_service_autorestart,
     content => $manage_schedule_file_content,
     replace => $bacula::manage_file_replace,
     audit   => $bacula::manage_audit,

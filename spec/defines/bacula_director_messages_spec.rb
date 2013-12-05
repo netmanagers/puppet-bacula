@@ -8,6 +8,8 @@ describe 'bacula::director::messages' do
     {
       :ipaddress       => '10.42.42.42',
       :operatingsystem => 'Debian',
+      :service_autorestart => true,
+      :bacula_director_service => 'Service[bacula-dir]',
       :bacula_log_file => '/var/log/bacula/bacula.log'
     }
   end
@@ -63,6 +65,10 @@ Messages {
     end
     it 'should generate a messages section with multiple options set' do
       should contain_file('messages-sample2.conf').with_path('/etc/bacula/director.d/messages-sample2.conf').with_content(expected)
+    end
+
+    it 'should automatically restart the service, by default' do
+      should contain_file('messages-sample2.conf').with_notify('Service[bacula-dir]')
     end
   end
 

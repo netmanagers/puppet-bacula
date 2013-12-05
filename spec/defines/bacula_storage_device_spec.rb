@@ -8,6 +8,8 @@ describe 'bacula::storage::device' do
     {
       :ipaddress       => '10.42.42.42',
       :operatingsystem => 'Debian',
+      :service_autorestart => true,
+      :bacula_storage_service => 'Service[bacula-sd]',
       :storage_configs_dir => '/etc/bacula/storage.d',
     }
   end
@@ -67,6 +69,10 @@ Device {
 '
     end
     it { should contain_file('device-sample2.conf').with_path('/etc/bacula/storage.d/device-sample2.conf').with_content(expected) }
+
+    it 'should automatically restart the service, by default' do
+      should contain_file('device-sample2.conf').with_notify('Service[bacula-sd]')
+    end
   end
 
 end

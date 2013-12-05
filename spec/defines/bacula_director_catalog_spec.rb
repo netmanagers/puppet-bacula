@@ -8,6 +8,8 @@ describe 'bacula::director::catalog' do
     {
       :ipaddress       => '10.42.42.42',
       :operatingsystem => 'Debian',
+      :service_autorestart => true,
+      :bacula_director_service => 'Service[bacula-dir]',
       :bacula_default_password => 'bacula',
     }
   end
@@ -57,6 +59,10 @@ Catalog {
 '
     end
     it { should contain_file('catalog-sample2.conf').with_path('/etc/bacula/director.d/catalog-sample2.conf').with_content(expected) }
+
+    it 'should automatically restart the director service' do
+      should contain_file('catalog-sample2.conf').with_notify('Service[bacula-dir]')
+    end
   end
 
 end
