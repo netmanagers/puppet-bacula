@@ -8,6 +8,8 @@ describe 'bacula::director::fileset' do
     {
       :ipaddress       => '10.42.42.42',
       :operatingsystem => 'Debian',
+      :service_autorestart => true,
+      :bacula_director_service => 'Service[bacula-dir]',
       :director_configs_dir => '/etc/bacula/director.d',
     }
   end
@@ -75,6 +77,10 @@ FileSet {
 '
     end
     it { should contain_file('fileset-sample2.conf').with_path('/etc/bacula/director.d/fileset-sample2.conf').with_content(expected) }
+
+    it 'should automatically restart the service, by default' do
+      should contain_file('fileset-sample2.conf').with_notify('Service[bacula-dir]')
+    end
   end
 
 end

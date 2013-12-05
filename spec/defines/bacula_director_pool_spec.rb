@@ -8,6 +8,8 @@ describe 'bacula::director::pool' do
     {
       :ipaddress       => '10.42.42.42',
       :operatingsystem => 'Debian',
+      :service_autorestart => true,
+      :bacula_director_service => 'Service[bacula-dir]',
       :pool_configs_dir => '/etc/bacula/director.d',
     }
   end
@@ -79,6 +81,10 @@ Pool {
     end
     it 'should generate a pool config with most of its parameters set' do
       should contain_file('pool-sample2.conf').with_path('/etc/bacula/director.d/pool-sample2.conf').with_content(expected)
+    end
+
+    it 'should automatically restart the service, by default' do
+      should contain_file('pool-sample2.conf').with_notify('Service[bacula-dir]')
     end
   end
 

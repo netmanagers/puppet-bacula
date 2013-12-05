@@ -8,6 +8,8 @@ describe 'bacula::director::client' do
     {
       :ipaddress       => '10.42.42.42',
       :operatingsystem => 'Debian',
+      :service_autorestart => true,
+      :bacula_director_service => 'Service[bacula-dir]',
       :bacula_default_password => 'bacula'
     }
   end
@@ -73,6 +75,10 @@ Client {
     end
     it 'should generate a client config with most of its parameters set' do
       should contain_file('client-sample2.conf').with_path('/etc/bacula/clients.d/sample2.conf').with_content(expected)
+    end
+
+    it 'should automatically restart the service, by default' do
+      should contain_file('client-sample2.conf').with_notify('Service[bacula-dir]')
     end
   end
 

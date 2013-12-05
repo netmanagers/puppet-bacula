@@ -15,6 +15,11 @@ define bacula::director::catalog (
 
   include bacula
 
+  $manage_director_service_autorestart = $bacula::service_autorestart ? {
+    true    => Service[$bacula::director_service],
+    default => undef,
+  }
+
   $real_password = $db_password ? {
     ''      => $bacula::real_default_password,
     default => $db_password,
@@ -32,7 +37,7 @@ define bacula::director::catalog (
     owner   => $bacula::config_file_owner,
     group   => $bacula::config_file_group,
     require => Package[$bacula::director_package],
-    notify  => $bacula::manage_service_autorestart,
+    notify  => $manage_director_service_autorestart,
     content => $manage_catalog_file_content,
     replace => $bacula::manage_file_replace,
     audit   => $bacula::manage_audit,

@@ -4,7 +4,7 @@ describe 'bacula::client' do
 
   let(:title) { 'bacula::client' }
   let(:node) { 'rspec.example42.com' }
-  let(:facts) { { :ipaddress => '10.42.42.42' } }
+  let(:facts) { { :ipaddress => '10.42.42.42', :service_autorestart => true } }
 
   describe 'Test standard Centos installation' do
     let(:facts) { { :operatingsystem => 'Centos' } }
@@ -23,6 +23,12 @@ describe 'bacula::client' do
     it { should contain_file('bacula-fd.conf').without_source }
     it { should contain_service('bacula-fd').with_ensure('running') }
     it { should contain_service('bacula-fd').with_enable('true') }
+  end
+
+  describe 'Test service autorestart' do
+    it 'should automatically restart the service, by default' do
+      should contain_file('bacula-fd.conf').with_notify('Service[bacula-fd]')
+    end
   end
 
   describe 'Test customizations - provide source' do

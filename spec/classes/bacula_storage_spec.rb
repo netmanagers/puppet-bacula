@@ -27,6 +27,12 @@ describe 'bacula::storage' do
     it { should contain_package('bacula-sd-mysql').with_ensure('present') }
   end
 
+  describe 'Test service autorestart' do
+    it 'should automatically restart the service, by default' do
+      should contain_file('bacula-sd.conf').with_notify('Service[bacula-sd]')
+    end
+  end
+
   describe 'Test customizations - provide source' do
     let(:facts) do
       {

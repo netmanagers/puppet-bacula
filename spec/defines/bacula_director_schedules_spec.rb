@@ -8,6 +8,8 @@ describe 'bacula::director::schedule' do
     {
       :ipaddress       => '10.42.42.42',
       :operatingsystem => 'Debian',
+      :service_autorestart => true,
+      :bacula_director_service => 'Service[bacula-dir]',
       :schedules_configs_dir => '/etc/bacula/director.d',
     }
   end
@@ -47,6 +49,10 @@ Schedule {
 '
     end
     it { should contain_file('schedule-sample2.conf').with_path('/etc/bacula/director.d/schedule-sample2.conf').with_content(expected) }
+
+    it 'should automatically restart the service, by default' do
+      should contain_file('schedule-sample2.conf').with_notify('Service[bacula-dir]')
+    end
   end
 
 end

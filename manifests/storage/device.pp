@@ -18,6 +18,12 @@ define bacula::storage::device (
 
   include bacula
 
+  $manage_storage_service_autorestart = $bacula::service_autorestart ? {
+    true    => Service[$bacula::storage_service],
+    default => undef,
+  }
+
+
   $real_archive_device = $archive_device ? {
     ''      => $bacula::default_archive_device,
     default => $archive_device,
@@ -55,11 +61,6 @@ define bacula::storage::device (
   $manage_device_file_source = $source ? {
     ''        => undef,
     default   => $source,
-  }
-
-  $manage_storage_service_autorestart = $bacula::bool_service_autorestart ? {
-    true    => Service[$bacula::storage_service],
-    default => undef,
   }
 
   file { "device-${name}.conf":
