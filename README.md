@@ -25,11 +25,11 @@ on Example42 main modules set.
 
 ## USAGE - Basic management
 
-* Bacula consist on at least three different applications (a Director, a Storage manager, Clients and
-  a Console (CLI, GUI, etc.) to manage these resources. This module provides classes and defines to 
-  install and configure them all with a fair degree of customization. Some parameters can be specified
-  specifically for each one of these applications while others are common to all the classes and
-  defines, for consistency.
+* Bacula consists of at least three different applications (a Director, a Storage manager, Clients)
+  and a Console (CLI, GUI, etc.) to manage these resources. This module provides classes and defines
+  to install and configure them all, with a fair degree of customization. Some parameters can be
+  given specifically for each of these applications while others are common to all the
+  classes and defines, for consistency.
   
   Please check the **docs** directory for the available parameters on each class and define.
   
@@ -90,7 +90,7 @@ class { 'bacula':
 }
 ```
 
-* Enable auditing without without making changes on existing bacula configuration *files*
+* Enable auditing without making changes on existing bacula configuration *files*
 
 ```puppet
 class { 'bacula':
@@ -132,10 +132,10 @@ class { 'bacula':
 }
 ```
 
-* Templating in this module is **strongly recommended**, but as it differs from other templatings
+* Templating in this module is **strongly recommended**, but differs from other templatings
   in the final result of bacula's configuration dir structure. As bacula permits you to split
   configuration in different files to improve manageability, we make use of this as soon as you
-  specity the use of a template for any of the applications. We also provide templates for all of
+  choose to use templates for any of the applications. We also provide templates for all of
   bacula's daemons. Check the templates dir for more details. Remember that you can always provide
   your own if none of these suits your particular case.
 
