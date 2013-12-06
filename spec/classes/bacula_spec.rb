@@ -14,42 +14,42 @@ describe 'bacula' do
 
   describe 'Test include bacula::client' do
     let(:params) { {:manage_client => true } }
-    it { should include_class('bacula::client') }
+    it { should contain_class('bacula::client') }
   end
 
   describe 'Test include bacula::storage' do
     let(:params) { {:manage_storage => true } }
-    it { should include_class('bacula::storage') }
+    it { should contain_class('bacula::storage') }
   end
 
   describe 'Test include bacula::director' do
     let(:params) { {:manage_director => true } }
-    it { should include_class('bacula::director') }
+    it { should contain_class('bacula::director') }
   end
 
   describe 'Test include bacula::console' do
     let(:params) { {:manage_console => true } }
-    it { should include_class('bacula::console') }
+    it { should contain_class('bacula::console') }
   end
 
   describe 'Test not include bacula::client' do
     let(:params) { {:manage_client => 'false' } }
-    it { should_not include_class('bacula::client') }
+    it { should_not contain_class('bacula::client') }
   end
 
   describe 'Test not include bacula::storage' do
     let(:params) { {:manage_storage => 'false' } }
-    it { should_not include_class('bacula::storage') }
+    it { should_not contain_class('bacula::storage') }
   end
 
   describe 'Test not include bacula::director' do
     let(:params) { {:manage_director => 'false' } }
-    it { should_not include_class('bacula::director') }
+    it { should_not contain_class('bacula::director') }
   end
 
   describe 'Test not include bacula::console' do
     let(:params) { {:manage_console => 'false' } }
-    it { should_not include_class('bacula::console') }
+    it { should_not contain_class('bacula::console') }
   end
 end
 
