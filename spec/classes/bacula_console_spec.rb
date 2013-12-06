@@ -69,12 +69,10 @@ Director {
     end
     it { should contain_file('bconsole.conf').without_source }
     it 'should generate a valid template' do
-      content = catalogue.resource('file', 'bconsole.conf').send(:parameters)[:content]
-      content.should match "fqdn: rspec.example42.com"
+      should contain_file('bconsole.conf').with_content(/fqdn: rspec.example42.com/)
     end
     it 'should generate a template that uses custom options' do
-      content = catalogue.resource('file', 'bconsole.conf').send(:parameters)[:content]
-      content.should match "value_a"
+      should contain_file('bconsole.conf').with_content(/value_a/)
     end
   end
 

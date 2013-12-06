@@ -117,12 +117,10 @@ Messages {
     end
     it { should contain_file('bacula-sd.conf').without_source }
     it 'should generate a valid template' do
-      content = catalogue.resource('file', 'bacula-sd.conf').send(:parameters)[:content]
-      content.should match "fqdn: rspec.example42.com"
+      should contain_file('bacula-sd.conf').with_content(/fqdn: rspec.example42.com/)
     end
     it 'should generate a template that uses custom options' do
-      content = catalogue.resource('file', 'bacula-sd.conf').send(:parameters)[:content]
-      content.should match "value_a"
+      should contain_file('bacula-sd.conf').with_content(/value_a/)
     end
   end
 
