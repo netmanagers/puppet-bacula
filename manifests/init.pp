@@ -49,6 +49,8 @@ class bacula (
   $storage_source          = params_lookup( 'storage_source' ),
   $storage_service         = params_lookup( 'storage_service' ),
   $storage_process         = params_lookup( 'storage_process' ),
+  $storage_device_owner    = params_lookup( 'storage_device_owner' ),
+  $storage_device_group    = params_lookup( 'storage_device_group' ),
   $storage_name            = params_lookup( 'storage_name' ),
   $storage_address         = params_lookup( 'storage_address' ),
   $storage_port            = params_lookup( 'storage_port' ),
