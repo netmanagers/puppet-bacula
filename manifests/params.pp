@@ -139,6 +139,15 @@ class bacula::params {
     default => 'bacula-sd',
   }
 
+  $storage_device_owner = $::operatingsystem ? {
+    default => 'bacula',
+  }
+
+  $storage_device_group = $::operatingsystem ? {
+    /(?i:Debian|Ubuntu|Mint)/ => 'tape',
+    default                   => 'disk',
+  }
+
   ## Tray Monitor
   $traymon_name     = "${::fqdn}-mon"
   $traymon_password = ''
