@@ -44,8 +44,8 @@ define bacula::storage::device (
     file { $real_archive_device:
       ensure  => directory,
       mode    => '0750',
-      owner   => $bacula::config_file_owner,
-      group   => $bacula::config_file_group,
+      owner   => $bacula::storage_device_owner,
+      group   => $bacula::storage_device_group,
       require => Package[$bacula::storage_package],
       notify  => $manage_storage_service_autorestart,
       audit   => $bacula::manage_audit,
