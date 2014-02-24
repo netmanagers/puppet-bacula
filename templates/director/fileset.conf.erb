@@ -14,6 +14,9 @@ FileSet {
 <% if @onefs != '' -%>
       onefs = <%= @onefs %>
 <% end -%>
+<% if @options_hash['mtimeonly'] != '' -%>
+      mtimeonly = <%= @options_hash['mtimeonly'] %>
+<% end -%>
 <% if @array_filesets_fstype  != [] -%>
 <% @array_filesets_fstype.each do |filesets_fstype| -%>
       fstype = <%=filesets_fstype  %>
