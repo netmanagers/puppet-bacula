@@ -19,9 +19,9 @@ FileDaemon {
   FDport = <%= scope.lookupvar('bacula::client_port') %>
   WorkingDirectory = <%= scope.lookupvar('bacula::working_directory') %>
   PidDirectory = <%= scope.lookupvar('bacula::pid_directory') %>
-<% if scope.lookupvar('bacula::client_max_concurrent') != '' %>
+<% if scope.lookupvar('bacula::client_max_concurrent') != '' -%>
   MaximumConcurrentJobs = <%= scope.lookupvar('bacula::client_max_concurrent') %>
-<% end %>
+<% end -%>
   FDAddress = <%= scope.lookupvar('bacula::client_address') %>
   Heartbeat Interval = <%= scope.lookupvar('bacula::heartbeat_interval') %>
 }
