@@ -220,10 +220,13 @@ class bacula (
     owner   => $bacula::process_owner,
     group   => $bacula::process_group,
     require => User[$bacula::process_owner],
-  } ->
-  file { '/var/lib/bacula':
-    ensure => link,
-    target => $bacula::working_directory,
+  }
+  if $bacula::working_directory != '/var/lib/bacula' {
+    file { '/var/lib/bacula':
+      ensure  => link,
+      target  => $bacula::working_directory,
+      require => File[$bacula::working_directory],
+    }
   }
 
   file { 'bacula.dir':
