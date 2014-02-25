@@ -68,7 +68,7 @@ class bacula::database {
         sqlite::db { $bacula::database_name:
           ensure   => present,
           location => "/var/lib/bacula/${bacula::database_name}.db",
-          owner    => $bacula::process_owner,
+          owner    => $bacula::process_user,
           group    => $bacula::process_group,
           require  => File['/var/lib/bacula'],
         }
