@@ -210,16 +210,16 @@ class bacula (
   group { $bacula::process_group:
     ensure => present,
   } ->
-  user { $bacula::process_owner:
+  user { $bacula::process_user:
     ensure => present,
     gid    => 'bacula',
   }
 
   file { $bacula::working_directory:
     ensure  => directory,
-    owner   => $bacula::process_owner,
+    owner   => $bacula::process_user,
     group   => $bacula::process_group,
-    require => User[$bacula::process_owner],
+    require => User[$bacula::process_user],
   }
   if $bacula::working_directory != '/var/lib/bacula' {
     file { '/var/lib/bacula':
@@ -233,28 +233,28 @@ class bacula (
     ensure  => directory,
     path    => $bacula::config_dir,
     recurse => true,
-    owner   => $bacula::process_owner,
+    owner   => $bacula::process_user,
     group   => $bacula::process_group,
     purge   => $bacula::bool_source_dir_purge,
     force   => $bacula::bool_source_dir_purge,
     replace => $bacula::manage_file_replace,
     audit   => $bacula::manage_audit,
-    require => User[$bacula::process_owner],
+    require => User[$bacula::process_user],
   }
 
   file { $bacula::log_dir:
     ensure  => directory,
     recurse => true,
-    owner   => $bacula::process_owner,
+    owner   => $bacula::process_user,
     group   => $bacula::process_group,
-    require => User[$bacula::process_owner],
+    require => User[$bacula::process_user],
   }
 
   file { '/var/run/bacula':
     ensure  => directory,
-    owner   => $bacula::process_owner,
+    owner   => $bacula::process_user,
     group   => $bacula::process_group,
-    require => User[$bacula::process_owner],
+    require => User[$bacula::process_user],
   }
 
   ### Managed resources
