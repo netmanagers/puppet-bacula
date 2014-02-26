@@ -88,7 +88,6 @@ FileDaemon {
   FDport = 4242
   WorkingDirectory = /var/spool/bacula
   PidDirectory = /some/dir
-
   FDAddress = 10.42.42.42
   Heartbeat Interval = 1 week
 }
