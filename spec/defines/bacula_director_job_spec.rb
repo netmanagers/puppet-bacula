@@ -62,7 +62,7 @@ Job {
   Level = "Full"
   Type = restore
   FileSet = "standardLinuxFileSet"
-  Storage = restoreStorage
+  Storage = "restoreStorage"
   Pool = "FullPool"
   Priority = 1
   Messages = "standard"

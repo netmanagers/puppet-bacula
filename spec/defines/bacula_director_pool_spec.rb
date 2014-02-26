@@ -75,7 +75,7 @@ Pool {
   Volume Use Duration = 2 minutes
   VolumeRetention = 2 month
   LabelFormat = "Volume-Number-"
-  Storage = SomeStorage
+  Storage = "SomeStorage"
 }
 '
     end
