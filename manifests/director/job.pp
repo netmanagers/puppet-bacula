@@ -57,14 +57,6 @@ define bacula::director::job (
     default => $messages,
   }
 
-  $array_storages = is_array($storage) ? {
-    false     => $storage ? {
-      ''      => [],
-      default => [$storage],
-    },
-    default   => $storage,
-  }
-
   $manage_job_file_content = $template ? {
     ''      => undef,
     default => template($template),
