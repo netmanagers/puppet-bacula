@@ -93,7 +93,7 @@ FileSet {
         :fstype => ['ext2','ext3','ext4'],
         :include => ['/home/sebastian','/etc'],
         :exclude => ['/proc','/sys','/tmp'],
-        :options_hash => {'mtimeonly'=>'yes','ignore_case'=>'yes'},
+        :options_hash => {'mtimeonly'=>true,'ignore_case'=>false,'recurse'=>'yes'},
       }
     end
 
@@ -107,8 +107,9 @@ FileSet {
       signature = MD5
       compression = GZIP
       onefs = no
+      ignore case = no
       mtimeonly = yes
-      ignore case = yes
+      recurse = yes
       fstype = ext2
       fstype = ext3
       fstype = ext4

@@ -16,29 +16,18 @@ FileSet {
 <% if @onefs != '' -%>
       onefs = <%= @onefs %>
 <% end -%>
-<% if @options_hash['recurse'] != nil and @options_hash['recurse'] != '' -%>
-      recurse = <%= @options_hash['recurse'] %>
-<% end -%>
-<% if @options_hash['sparse'] != nil and @options_hash['sparse'] != '' -%>
-      sparse = <%= @options_hash['sparse'] %>
-<% end -%>
-<% if @options_hash['noatime'] != nil and @options_hash['noatime'] != '' -%>
-      noatime = <%= @options_hash['noatime'] %>
-<% end -%>
-<% if @options_hash['mtimeonly'] != nil and @options_hash['mtimeonly'] != '' -%>
-      mtimeonly = <%= @options_hash['mtimeonly'] %>
-<% end -%>
-<% if @options_hash['keepatime'] != nil and @options_hash['keepatime'] != '' -%>
-      keepatime = <%= @options_hash['keepatime'] %>
-<% end -%>
-<% if @options_hash['checkfilechanges'] != nil and @options_hash['checkfilechanges'] != '' -%>
-      checkfilechanges = <%= @options_hash['checkfilechanges'] %>
-<% end -%>
-<% if @options_hash['hardlinks'] != nil and @options_hash['hardlinks'] != '' -%>
-      hardlinks = <%= @options_hash['hardlinks'] %>
-<% end -%>
-<% if @options_hash['ignore_case'] != nil and @options_hash['ignore_case'] != '' -%>
-      ignore case = <%= @options_hash['ignore_case'] %>
+<% @options_hash.sort_by {|k, v| k}.each do |opt_key, opt_val| -%>
+<%
+  case opt_val
+    when true:
+      opt_val = 'yes'
+    when false:
+      opt_val = 'no'
+    else
+      #Do nothing
+  end
+-%>
+      <%= opt_key %> = <%= opt_val %>
 <% end -%>
 <% if @array_filesets_fstype != [] -%>
 <% @array_filesets_fstype.each do |filesets_fstype| -%>
