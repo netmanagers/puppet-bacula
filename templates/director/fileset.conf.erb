@@ -16,18 +16,29 @@ FileSet {
 <% if @onefs != '' -%>
       onefs = <%= @onefs %>
 <% end -%>
-<% @options_hash.sort_by {|k, v| k}.each do |opt_key, opt_val| -%>
-<%
-  case opt_val
-    when true:
-      opt_val = 'yes'
-    when false:
-      opt_val = 'no'
-    else
-      #Do nothing
-  end
--%>
-      <%= opt_key %> = <%= opt_val %>
+<% if @recurse != '' -%>
+      recurse = <%= @recurse %>
+<% end -%>
+<% if @sparse != '' -%>
+      sparse = <%= @sparse %>
+<% end -%>
+<% if @noatime != '' -%>
+      noatime = <%= @noatime %>
+<% end -%>
+<% if @mtimeonly != '' -%>
+      mtimeonly = <%= @mtimeonly %>
+<% end -%>
+<% if @keepatime != '' -%>
+      keepatime = <%= @keepatime %>
+<% end -%>
+<% if @checkfilechanges != '' -%>
+      checkfilechanges = <%= @checkfilechanges %>
+<% end -%>
+<% if @hardlinks != '' -%>
+     hardlinks  = <%= @hardlinks %>
+<% end -%>
+<% if @ignorecase != '' -%>
+     ignorecase  = <%= @ignorecase %>
 <% end -%>
 <% if @array_filesets_fstype != [] -%>
 <% @array_filesets_fstype.each do |filesets_fstype| -%>

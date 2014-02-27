@@ -45,6 +45,14 @@ FileSet {
         :signature => 'MD5',
         :compression => 'GZIP',
         :onefs => 'no',
+        :recurse => 'yes',
+        :sparse => 'no',
+        :noatime => 'no',
+        :mtimeonly => 'no',
+        :keepatime => 'no',
+        :checkfilechanges => 'yes',
+        :hardlinks => 'yes',
+        :ignorecase => 'no',
         :fstype => ['ext2','ext3','ext4'],
         :include => ['/home/sebastian','/etc'],
         :exclude => ['/proc','/sys','/tmp'],
@@ -61,6 +69,14 @@ FileSet {
       signature = MD5
       compression = GZIP
       onefs = no
+      recurse = yes
+      sparse = no
+      noatime = no
+      mtimeonly = no
+      keepatime = no
+      checkfilechanges = yes
+      hardlinks = yes
+      ignorecase = no
       fstype = ext2
       fstype = ext3
       fstype = ext4
@@ -80,55 +96,6 @@ FileSet {
 
     it 'should automatically restart the service, by default' do
       should contain_file('fileset-sample2.conf').with_notify('Service[bacula-dir]')
-    end
-  end
-
-  describe 'Test fileset.conf is created with all main options and some additional options' do
-    let(:params) do
-      {
-        :name => 'sample3',
-        :signature => 'MD5',
-        :compression => 'GZIP',
-        :onefs => 'no',
-        :fstype => ['ext2','ext3','ext4'],
-        :include => ['/home/sebastian','/etc'],
-        :exclude => ['/proc','/sys','/tmp'],
-        :options_hash => {'mtimeonly'=>true,'ignore_case'=>false,'recurse'=>'yes'},
-      }
-    end
-
-    let(:expected) do
-'# This file is managed by Puppet. DO NOT EDIT.
-
-FileSet {
-  Name = "sample3"
-  Include {
-    Options {
-      signature = MD5
-      compression = GZIP
-      onefs = no
-      ignore case = no
-      mtimeonly = yes
-      recurse = yes
-      fstype = ext2
-      fstype = ext3
-      fstype = ext4
-    }
-    File = /home/sebastian
-    File = /etc
-  }
-  Exclude {
-    File = /proc
-    File = /sys
-    File = /tmp
-  }
-}
-'
-    end
-    it { should contain_file('fileset-sample3.conf').with_path('/etc/bacula/director.d/fileset-sample3.conf').with_content(expected) }
-
-    it 'should automatically restart the service, by default' do
-      should contain_file('fileset-sample3.conf').with_notify('Service[bacula-dir]')
     end
   end
 
