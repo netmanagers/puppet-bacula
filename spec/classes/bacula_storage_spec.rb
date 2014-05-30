@@ -88,7 +88,7 @@ Director {
 
 # Storage devices.
 # Read storage directory for config files. Remember to bconsole "reload" after adding a client.
-@|"sh -c \'cat /etc/bacula/storage.d/*.conf\'"
+@|"find /etc/bacula/storage.d -name \'*.conf\' -type f -exec echo @{} \;"
 
 # Restricted Director, used by tray-monitor for Storage daemon status.
 Director {

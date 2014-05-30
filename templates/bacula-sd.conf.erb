@@ -19,7 +19,7 @@ Director {
 
 # Storage devices.
 # Read storage directory for config files. Remember to bconsole "reload" after adding a client.
-@|"sh -c 'cat <%= scope.lookupvar('bacula::storage_configs_dir') %>/*.conf'"
+@|"find <%= scope.lookupvar('bacula::storage_configs_dir') %> -name '*.conf' -type f -exec echo @{} \;"
 
 # Restricted Director, used by tray-monitor for Storage daemon status.
 Director {
