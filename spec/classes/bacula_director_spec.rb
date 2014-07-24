@@ -59,8 +59,8 @@ describe 'bacula::director' do
         :bacula_director_template => 'bacula/bacula-dir.conf.erb'
       }
     end
-    let(:expected) do
-'# This file is managed by Puppet. DO NOT EDIT.
+    let(:expected) do <<eos
+# This file is managed by Puppet. DO NOT EDIT.
 
 # Define the Director name, password used for authenticating the Console program.
 Director {
@@ -84,11 +84,11 @@ Console {
 }
 
 # Include split config files. Remember to bconsole "reload" after modifying a config file.
-@|"sh -c \'find /etc/bacula/director.d -name \"*.conf\" -type f -print0 | sort -z | xargs -0 -I {} echo @\\\"{}\\\"\'"
+@|"sh -c 'find /etc/bacula/director.d -name \"*.conf\" -type f -print0 | sort -z | xargs -0 -I {} echo @\\\"{}\\\"'"
 
 # Read client directory for config files. Remember to bconsole "reload" after adding a client.
-@|"sh -c \'find /etc/bacula/clients.d -name \"*.conf\" -type f -print0 | sort -z | xargs -0 -I {} echo @\\\"{}\\\"\'"
-'
+@|"sh -c 'find /etc/bacula/clients.d -name \"*.conf\" -type f -print0 | sort -z | xargs -0 -I {} echo @\\\"{}\\\"'"
+eos
     end
     it 'should create a valid config file' do
       should contain_file('bacula-dir.conf').with_content(expected)
