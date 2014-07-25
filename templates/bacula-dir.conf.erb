@@ -22,7 +22,7 @@ Console {
 }
 
 # Include split config files. Remember to bconsole "reload" after modifying a config file.
-@|"find <%= scope.lookupvar('bacula::director_configs_dir') %> -name '*.conf' -type f -exec echo @{} \;"
+@|"sh -c 'find <%= scope.lookupvar('bacula::director_configs_dir') %> -name \"*.conf\" -type f -print0 | sort -z | xargs -0 -I {} echo @\\\"{}\\\"'"
 
 # Read client directory for config files. Remember to bconsole "reload" after adding a client.
-@|"find <%= scope.lookupvar('bacula::director_clients_dir') %> -name '*.conf' -type f -exec echo @{} \;"
+@|"sh -c 'find <%= scope.lookupvar('bacula::director_clients_dir') %> -name \"*.conf\" -type f -print0 | sort -z | xargs -0 -I {} echo @\\\"{}\\\"'"
