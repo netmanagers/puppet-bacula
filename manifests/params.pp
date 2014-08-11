@@ -37,7 +37,8 @@ class bacula::params {
   }
   $heartbeat_interval = '1 minute'
   $working_directory  = $::operatingsystem ? {
-    default => '/var/spool/bacula'
+    /(?i:Debian|Ubuntu|Mint)/ => '/var/lib/bacula',
+    default                   => '/var/spool/bacula',
   }
 
   $password_salt = ''
