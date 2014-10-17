@@ -19,6 +19,7 @@ define bacula::director::job (
   $storage = '',
   $pool = '',
   $prefer_mounted_volumes = '',
+  $spool_attribute = '',
   $write_bootstrap = '',
   $job_schedule = '',
   $priority = '',
