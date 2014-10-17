@@ -32,6 +32,9 @@ Job {
 <% if @prefer_mounted_volumes != '' -%>
   Prefer Mounted Volumes = <%= @prefer_mounted_volumes %>
 <% end -%>
+<% if @spool_attribute != '' -%>
+  Spool Attribute = "<%= @spool_attribute %>"
+<% end -%>
 <% if @write_bootstrap != '' -%>
   Write Bootstrap = "<%= @write_bootstrap %>"
 <% end -%>
