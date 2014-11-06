@@ -21,7 +21,7 @@ define bacula::director::catalog (
   }
 
   $real_password = $db_password ? {
-    ''      => $bacula::real_default_password,
+    ''      => $bacula::database_password,
     default => $db_password,
   }
 
